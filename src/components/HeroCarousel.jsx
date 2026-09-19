@@ -20,13 +20,17 @@ const SLIDES = [
 // School colours only — no logos or marks. UFCU really does offer collegiate
 // card designs; the actual artwork is licensed, so these are our own shapes in
 // the schools' palettes.
+// `image` is optional: drop real card art at these paths and it replaces the
+// drawn face, the same way the slide photos work.
 const CARDS = [
-  { id: 'ut', bg: '#BF5700', accent: '#FFFFFF', chip: '#F6C177', label: 'UT AUSTIN' },
-  { id: 'txst', bg: '#501214', accent: '#B2A169', chip: '#D8C48A', label: 'TXST' },
-  { id: 'acc', bg: '#14566B', accent: '#7FC6A4', chip: '#A7D8C2', label: 'ACC' },
+  { id: 'ut', bg: '#BF5700', accent: '#FFFFFF', chip: '#F6C177', label: 'UT AUSTIN', image: '/slides/card-ut.png' },
+  { id: 'txst', bg: '#501214', accent: '#B2A169', chip: '#D8C48A', label: 'TXST', image: '/slides/card-txst.png' },
+  { id: 'acc', bg: '#14566B', accent: '#7FC6A4', chip: '#A7D8C2', label: 'ACC', image: '/slides/card-acc.png' },
 ]
 
 function CardFan() {
+  const [missing, setMissing] = useState({})
+
   return (
     <div className="flex h-full items-center justify-center" aria-hidden="true">
       {CARDS.map((c, i) => (
@@ -43,15 +47,26 @@ function CardFan() {
             zIndex: i === 1 ? 2 : 1,
           }}
         >
-          <div className="absolute inset-x-0 top-0 h-1.5" style={{ background: c.accent }} />
-          <div className="absolute left-3 top-5 h-5 w-7 rounded" style={{ background: c.chip }} />
-          <div className="absolute bottom-8 left-3 right-3 h-1.5 rounded bg-white/25" />
-          <div className="absolute bottom-3 left-3 text-[0.55rem] font-extrabold tracking-wider text-white/85">
-            {c.label}
-          </div>
-          <span className="absolute bottom-2.5 right-3 text-[0.6rem] font-extrabold lowercase text-white/80">
-            ufcu
-          </span>
+          {c.image && !missing[c.id] ? (
+            <img
+              src={c.image}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+              onError={() => setMissing((m) => ({ ...m, [c.id]: true }))}
+            />
+          ) : (
+            <>
+              <div className="absolute inset-x-0 top-0 h-1.5" style={{ background: c.accent }} />
+              <div className="absolute left-3 top-5 h-5 w-7 rounded" style={{ background: c.chip }} />
+              <div className="absolute bottom-8 left-3 right-3 h-1.5 rounded bg-white/25" />
+              <div className="absolute bottom-3 left-3 text-[0.55rem] font-extrabold tracking-wider text-white/85">
+                {c.label}
+              </div>
+              <span className="absolute bottom-2.5 right-3 text-[0.6rem] font-extrabold lowercase text-white/80">
+                ufcu
+              </span>
+            </>
+          )}
         </div>
       ))}
     </div>
@@ -147,22 +162,24 @@ export function HeroCarousel({ compact = false }) {
                 className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(to top, rgba(2,3,50,0.96) 0%, rgba(2,3,50,0.88) 30%, rgba(2,3,50,0.35) 58%, rgba(2,3,50,0.05) 100%)',
+                    'linear-gradient(to top, rgba(2,3,50,0.94) 0%, rgba(2,3,50,0.78) 24%, rgba(2,3,50,0.34) 52%, rgba(2,3,50,0) 80%)',
                 }}
               />
 
-              <div className="absolute inset-x-0 bottom-0 p-6 pb-10 sm:p-7 sm:pb-11">
+              {/* No panel: the vertical gradient above plus a text shadow carry
+                  the contrast, so the photograph is never boxed in. */}
+              <div className="on-photo absolute inset-x-0 bottom-0 p-6 pb-10 sm:p-7 sm:pb-11">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-lighter">
                   {t(lang, `${slide.copy}Kicker`)}
                 </p>
                 <h2
-                  className={`display mt-2 font-extrabold text-white ${
+                  className={`display mt-1.5 font-extrabold text-white ${
                     compact ? 'text-xl' : 'text-xl sm:text-2xl'
                   }`}
                 >
                   {t(lang, `${slide.copy}Title`)}
                 </h2>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-navy-subtle">
+                <p className="mt-1.5 max-w-lg text-sm font-medium leading-relaxed text-white">
                   {t(lang, `${slide.copy}Body`)}
                 </p>
               </div>

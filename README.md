@@ -196,15 +196,20 @@ entirely under `prefers-reduced-motion`, and **any manual interaction restarts
 the timer** — without that, tapping a dot bumps you off your own choice a moment
 later, which at a 2-second cadence is constant.
 
-Photographs run full-bleed under a bottom-weighted scrim rather than boxed
-beside the caption. A uniform scrim flattened the image and the split panel
-fought it; weighting the gradient to the bottom keeps the caption legible while
-the photograph still reads. Images live in `public/slides/` and each slide falls
-back to a drawn panel if its file is missing.
+Photographs run full-bleed with the caption **directly on the image** — no
+panel behind it. Contrast comes from two things instead: a vertical gradient
+that's dense at the foot and fully clear across the top half, and a text shadow
+(`.on-photo`) on the caption itself. The shadow is what makes this work — it's
+invisible against the dark end of the gradient and only earns its keep where
+the photo underneath is bright, so the image is never boxed in. Images live in
+`public/slides/` and each slide falls back to a drawn panel if its file is
+missing.
 
 The card faces are themed to UT Austin, Texas State and Austin Community College
 using **only the schools' colours** — no logos or marks. UFCU really does offer
-collegiate card designs; the actual artwork is licensed.
+collegiate card designs; the actual artwork is licensed. Real art can be dropped
+at `public/slides/card-ut.png`, `card-txst.png` and `card-acc.png`, and it
+replaces the drawn face automatically.
 
 The carousel deliberately repeats none of the figures from the band below it.
 
