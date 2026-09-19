@@ -25,6 +25,13 @@ npm run build && npm run preview   # production build check
 without replaying the whole flow. Valid names: `welcome`, `goals`, `about`,
 `address`, `identity`, `waiting`, `secure`, `funding`, `done`, `dashboard`.
 
+`?goals=everyday,auto,credit` seeds the goal selection alongside it, so a
+populated portal can be re-shown during Q&A without replaying the flow.
+
+Every screen is wrapped in an error boundary: a crash shows a message and keeps
+the rest of the prototype alive, rather than unmounting the tree and leaving a
+white page mid-demo.
+
 ## The flow
 
 | # | Screen | What it demonstrates |
@@ -56,10 +63,13 @@ The filament also doubles as Lumi's smile, so the UFCU letterform *is* the
 character's expression.
 
 The bulb is a single closed path whose glass shoulders taper into a neck — a
-circle on a stand doesn't read as a bulb — and the screw base below it is an
-outlined, filled shape with its own ridge lines. Solid white bars on navy made
-the base dissolve into the page; giving it the same outline and fill as the
-glass keeps the whole silhouette legible on any background.
+circle on a stand doesn't read as a bulb — and the screw base is two bars
+stepping down in width, outlined and filled like the glass.
+
+A pale rim is drawn first, a couple of pixels wider than each shape. The navy
+outline has nowhere to go against a navy page, and the rim gives the whole
+silhouette an edge without changing its colour: on the white cards it falls away
+to nothing and the navy outline does the work on its own.
 
 The filament is centred in the glass cavity — it reads y 27.5–68.5 inside a
 16–80 opening, so there's 11.5 clear above and below.
@@ -112,6 +122,9 @@ and unbacked** — no recolouring, no redrawing, no container. Its navy body sit
 directly on the page gradient; the warm lift in the top-left of that gradient is
 what separates it from the ground, and its orange ring and white wordmark carry
 the rest. It also serves as the favicon.
+
+The header shows the mark alone — the spelt-out name beside it was redundant
+once the real logo was in place.
 
 > Worth knowing: the logo file's orange is `#ff671d`, which is **not** the
 > `#EF6820` on the prompt's brand sheet. That's the mark's own colour and it has
@@ -181,11 +194,42 @@ Their own reviews say members can't find a balance and the navigation is
 confusing, so the density is the thing that changes: balances lead, groups are
 labelled, and nothing is behind a menu.
 
-On top of the portal patterns: **a live virtual card** tappable to reveal its
-number (the instant-issuance idea from `Banking 101` — spend today, plastic
-later), **three tickable setup steps** explicitly marked as not urgent, and a
-**hide-balances toggle** that is both a privacy control and an accessibility
-affordance for anyone opening this in public.
+The portal runs **full width** (the rest of the flow stays a single centred
+card). Panels are laid out as **CSS columns, not a grid** — a grid leaves a
+ragged edge whenever one column runs shorter than its neighbour, whereas columns
+pack by height, so there is no dead space to look at. With the chat open it
+drops to a single column, since half a screen can't hold three.
+
+Panels, with the money-app patterns they borrow:
+
+- **A virtual card** in solid navy with a hard-edged orange rule. An earlier
+  version used a blurred orange glow, which sat directly behind the card number
+  and destroyed its contrast — brand colour belongs at the edges, not under text
+  you need to read. Tap to reveal the number (instant issuance, from
+  `Banking 101`: spend today, plastic later).
+- **A spending donut** with the total in the middle and a category list beneath.
+  A donut earns its place here because the question is "what share went where",
+  and selecting a category gives the exact figure.
+- **Income against spend**, paired bars per period. The quarter view is a real
+  aggregation of the same rows, not a relabelled month.
+- **A savings goal** whose slider moves the completion date. Watching the date
+  move as you change the monthly amount is what makes a target feel reachable.
+- **An account tracker** — horizontal bars, not a pie, because the real question
+  is "which account holds the most" and length beats angle for that. Assets and
+  debts stay separate groups so a balance is never visually netted against a
+  loan.
+- **A subscription tracker** with the count and annual total in the header. Each
+  payment switches off and both totals move with it; the annual figure is the
+  one that changes behaviour.
+- **A Day 1 / After 90 days toggle.** Day one is the honest zero-state a new
+  member actually sees — the spending, goal and subscription panels simply
+  aren't there, because inventing activity on day one would be a lie. The 90-day
+  view carries simulated activity so the trackers have something to plot, and
+  gives the pitch a second beat: this is what you open with, and this is what it
+  becomes.
+- **Three tickable setup steps** marked as not urgent, and a **hide-balances
+  toggle** that is both a privacy control and an accessibility affordance for
+  anyone opening this in public.
 
 Ending here gives the pitch a closing beat: *"and this is what they see ten
 seconds later."*

@@ -13,9 +13,9 @@ export const GOALS = [
     en: 'Everyday checking & savings', es: 'Cuenta corriente y ahorros',
     bundle: [
       { en: 'Free Checking', es: 'Cuenta corriente gratuita', kind: 'deposit',
-        valueEn: 'No monthly fee, no minimum balance', valueEs: 'Sin cuota mensual ni saldo mínimo' },
+        valueEn: 'No monthly fee, no minimum balance', valueEs: 'Sin cuota mensual ni saldo mínimo', balance90: 2418.63 },
       { en: 'High-Yield Savings', es: 'Ahorros de alto rendimiento', kind: 'deposit',
-        valueEn: 'Earns from your first dollar', valueEs: 'Rinde desde el primer dólar' },
+        valueEn: 'Earns from your first dollar', valueEs: 'Rinde desde el primer dólar', balance90: 1250.00 },
     ],
   },
   {
@@ -23,7 +23,7 @@ export const GOALS = [
     en: 'Planning to buy a car', es: 'Planeo comprar un auto',
     bundle: [
       { en: 'Auto Loan pre-qualification', es: 'Precalificación de préstamo de auto', kind: 'offer',
-        valueEn: 'Rates from 5.24% APR, held for 30 days', valueEs: 'Tasas desde 5.24% APR, por 30 días' },
+        valueEn: 'Rates from 5.24% APR, held for 30 days', valueEs: 'Tasas desde 5.24% APR, por 30 días', owed90: 18240.00 },
     ],
     offer: { en: 'Pre-qualified auto rate from 5.24% APR', es: 'Tasa de auto precalificada desde 5.24% APR' },
   },
@@ -32,7 +32,7 @@ export const GOALS = [
     en: 'Building my credit', es: 'Construir mi crédito',
     bundle: [
       { en: 'Starter Credit Card', es: 'Tarjeta de crédito inicial', kind: 'card',
-        valueEn: 'No annual fee; reports to all three bureaus', valueEs: 'Sin cuota anual; reporta a las tres agencias' },
+        valueEn: 'No annual fee; reports to all three bureaus', valueEs: 'Sin cuota anual; reporta a las tres agencias', owed90: 312.45 },
     ],
     offer: { en: 'Starter Credit Card with no annual fee', es: 'Tarjeta inicial sin cuota anual' },
   },
@@ -50,7 +50,7 @@ export const GOALS = [
     en: 'Banking for my business', es: 'Banca para mi negocio',
     bundle: [
       { en: 'Business Checking', es: 'Cuenta corriente empresarial', kind: 'deposit',
-        valueEn: 'Built for sole traders and small teams', valueEs: 'Para autónomos y equipos pequeños' },
+        valueEn: 'Built for sole traders and small teams', valueEs: 'Para autónomos y equipos pequeños', balance90: 640.25 },
     ],
   },
   {
@@ -58,7 +58,7 @@ export const GOALS = [
     en: 'Growing my savings', es: 'Hacer crecer mis ahorros',
     bundle: [
       { en: '12-month Certificate', es: 'Certificado a 12 meses', kind: 'deposit',
-        valueEn: 'Fixed return, federally insured', valueEs: 'Retorno fijo, asegurado federalmente' },
+        valueEn: 'Fixed return, federally insured', valueEs: 'Retorno fijo, asegurado federalmente', balance90: 1000.00 },
     ],
   },
 ]
@@ -164,3 +164,41 @@ export function formatPhone(value) {
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
+
+// Recurring payments the dashboard's subscription tracker plots. Simulated.
+export const SUBSCRIPTIONS = [
+  { id: 'phone', en: 'Mobile plan', es: 'Plan móvil', amount: 65.0 },
+  { id: 'gym', en: 'Gym membership', es: 'Gimnasio', amount: 42.0 },
+  { id: 'stream', en: 'Streaming', es: 'Streaming', amount: 15.49 },
+  { id: 'music', en: 'Music', es: 'Música', amount: 11.99 },
+  { id: 'cloud', en: 'Cloud storage', es: 'Almacenamiento', amount: 2.99 },
+]
+
+// $3,668.63 rather than $3668.63 — grouping is what makes a balance scannable.
+export const formatMoney = (n, lang = 'en') =>
+  `$${Number(n || 0).toLocaleString(lang === 'es' ? 'es-US' : 'en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`
+
+// Simulated 90-day activity for the spending and goal panels.
+export const SPEND_CATEGORIES = [
+  { id: 'bills', en: 'Bills & utilities', es: 'Servicios', amount: 412.47, color: '#23335D' },
+  { id: 'grocery', en: 'Groceries', es: 'Supermercado', amount: 318.9, color: '#EF6820' },
+  { id: 'transport', en: 'Transport', es: 'Transporte', amount: 164.2, color: '#8182B1' },
+  { id: 'dining', en: 'Dining', es: 'Restaurantes', amount: 121.75, color: '#F2780C' },
+  { id: 'health', en: 'Health', es: 'Salud', amount: 84.0, color: '#F49A6A' },
+  { id: 'other', en: 'Everything else', es: 'Otros', amount: 58.3, color: '#CDCDE0' },
+]
+
+// Income vs spend, most recent month last.
+export const MONTHLY = [
+  { key: 'apr', en: 'Apr', es: 'Abr', income: 2380, spend: 1910 },
+  { key: 'may', en: 'May', es: 'May', income: 2380, spend: 2040 },
+  { key: 'jun', en: 'Jun', es: 'Jun', income: 2650, spend: 1780 },
+  { key: 'jul', en: 'Jul', es: 'Jul', income: 2380, spend: 2210 },
+  { key: 'aug', en: 'Aug', es: 'Ago', income: 2380, spend: 1640 },
+  { key: 'sep', en: 'Sep', es: 'Sep', income: 2650, spend: 1159.62 },
+]
+
+export const GOAL = { en: 'Emergency fund', es: 'Fondo de emergencia', target: 1800, saved: 1250 }

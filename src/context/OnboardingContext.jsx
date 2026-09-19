@@ -56,7 +56,12 @@ export function OnboardingProvider({ children }) {
   })()
 
   const [step, setStep] = useState(initialStep)
-  const [goals, setGoals] = useState([])
+  // ?goals=everyday,auto,credit seeds the selection, so a populated portal can
+  // be re-shown during Q&A without replaying the whole flow.
+  const [goals, setGoals] = useState(() => {
+    const raw = new URLSearchParams(window.location.search).get('goals')
+    return raw ? raw.split(',').map((g) => g.trim()).filter(Boolean) : []
+  })
   const [form, setForm] = useState(INITIAL_FORM)
   const [idScanned, setIdScanned] = useState(false)
   const [consent, setConsent] = useState(false)

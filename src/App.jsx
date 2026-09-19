@@ -3,6 +3,7 @@ import { useOnboarding } from './context/OnboardingContext.jsx'
 import { t } from './lib/i18n.js'
 import { LumiTrigger } from './components/LumiTrigger.jsx'
 import { Icon } from './components/Icons.jsx'
+import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import { Concierge } from './components/Concierge.jsx'
 import { AccessibilityBar } from './components/AccessibilityBar.jsx'
 import { ProgressBar } from './components/ProgressBar.jsx'
@@ -62,9 +63,6 @@ function Wordmark({ onHome, lang }) {
         height="118"
       />
       </button>
-      <span className="hidden text-sm font-semibold text-navy-subtle sm:inline">
-        University Federal Credit Union
-      </span>
     </div>
   )
 }
@@ -77,6 +75,8 @@ export default function App() {
 
   const Screen = SCREENS[step]
   const isLanding = step === 'welcome'
+  const isPortal = step === 'dashboard'
+  const shell = isPortal ? 'max-w-[92rem]' : 'max-w-6xl'
   const mood = MOOD[step] || 'idle'
 
   // Keep the closed panel out of the tab order rather than just invisible.
@@ -97,7 +97,7 @@ export default function App() {
 
   return (
     <div className="mesh grain min-h-screen">
-      <header className="relative z-10 mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-6">
+      <header className={`relative z-10 mx-auto flex ${shell} flex-wrap items-center justify-between gap-4 px-5 py-6`}>
         <Wordmark onHome={() => go('welcome')} lang={lang} />
         <div className="flex items-center gap-3">
           <AccessibilityBar />
@@ -117,13 +117,15 @@ export default function App() {
       </header>
 
       {isLanding ? (
-        <Screen />
+        <ErrorBoundary>
+          <Screen />
+        </ErrorBoundary>
       ) : (
         <>
           {/* Closed, the card sits wide and centred. Opening the chat splits the
               page: the card slides into its right half as the chat is revealed
               on the left, landing on a true half-and-half. */}
-          <main className="relative z-10 mx-auto flex w-full max-w-6xl items-start gap-6 px-5 pb-36 lg:pb-16">
+          <main className={`relative z-10 mx-auto flex w-full ${shell} items-start gap-6 px-5 pb-36 lg:pb-16`}>
             <section
               aria-hidden={!chatOpen}
               className={`split-col min-w-0 lg:overflow-hidden ${
@@ -150,14 +152,16 @@ export default function App() {
 
             {/* Capped at max-w-2xl throughout: centred when the chat is closed,
                 filling the narrower right column once it opens. */}
-            <section className="mx-auto w-full min-w-0 max-w-2xl flex-1">
+            <section className={`mx-auto w-full min-w-0 flex-1 ${isPortal ? 'max-w-none' : 'max-w-2xl'}`}>
               <div className="u-card bg-white p-6 shadow-card sm:p-9">
                 {step !== 'done' && step !== 'dashboard' && (
                   <div className="mb-8">
                     <ProgressBar />
                   </div>
                 )}
-                <Screen />
+                <ErrorBoundary>
+                  <Screen chatOpen={chatOpen} />
+                </ErrorBoundary>
               </div>
             </section>
           </main>
@@ -171,7 +175,7 @@ export default function App() {
         </>
       )}
 
-      <footer className="relative z-10 mx-auto max-w-6xl px-5 pb-10 text-center text-xs text-navy-subtle">
+      <footer className={`relative z-10 mx-auto ${shell} px-5 pb-10 text-center text-xs text-navy-subtle`}>
         Concept prototype for the DevelopU Hackathon. All verification, funding and
         account data is simulated — no real financial systems are connected.
       </footer>

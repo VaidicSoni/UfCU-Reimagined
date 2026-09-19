@@ -9,7 +9,7 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
 
   // A flex column rather than absolute offsets: questions vary in length, and
   // fixed positions made long ones wrap into each other.
-  const showChips = fontScale === 1
+  const showChips = fontScale === 1 && step !== 'dashboard'
 
   return (
     <div className={`dock-anchor fixed bottom-6 left-6 z-40 ${open ? 'dock-anchor--hidden' : ''}`}>

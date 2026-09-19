@@ -27,6 +27,7 @@ const TALK     = [48, 54, 48, 54, 12, 16, 72, 54, 72, 54]
 const BULB =
   'M45 86 L45 84 C45 81 43.5 79.5 43 77.44 A34 34 0 1 1 77 77.44 C76.5 79.5 75 81 75 84 L75 86 Z'
 const NAVY = '#23335D'
+const RIM = 'rgba(214, 216, 234, 0.72)'
 
 const DRAW_MS = 620    // the "u" strokes itself on
 const HOLD_MS = 360    // and holds, legible as the wordmark
@@ -197,10 +198,10 @@ export function Mascot({
   return (
     <div
       className={`lumi lumi--${state} ${className}`}
-      style={{ width: size, height: size * 1.05 }}
+      style={{ width: size, height: size * 0.98 }}
       aria-hidden="true"
     >
-      <svg viewBox="0 0 120 126" className="h-full w-full overflow-visible">
+      <svg viewBox="0 0 120 118" className="h-full w-full overflow-visible">
         <defs>
           <radialGradient id="lumi-glow">
             <stop offset="0%" stopColor="#F2780C" stopOpacity={glow} />
@@ -215,12 +216,21 @@ export function Mascot({
 
         <circle className="lumi-halo" cx="60" cy="48" r="52" fill="url(#lumi-glow)" />
 
+        {/* A pale rim is drawn first, a couple of pixels wider than each shape.
+            The navy outline alone has nowhere to go against a navy page; this
+            gives the whole silhouette an edge without changing its colour. */}
+        <g fill="none" stroke={RIM} strokeLinejoin="round">
+          <path d={BULB} strokeWidth="9" />
+          <rect x="45.5" y="87" width="29" height="10" rx="5" strokeWidth="7.5" />
+          <rect x="49.5" y="100" width="21" height="10" rx="5" strokeWidth="7.5" />
+        </g>
+
         <path d={BULB} fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="5" strokeLinejoin="round" />
 
-        {/* Screw base: outlined and filled like the glass, so it reads against
-            the navy page instead of dissolving into it. */}
-        <rect x="44.5" y="85" width="31" height="29" rx="7" fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="5" />
-        <path d="M51 94h18M51 101h18M51 108h18" stroke={NAVY} strokeWidth="4" strokeLinecap="round" />
+        {/* Screw base: two bars stepping down in width, outlined and filled
+            like the glass so the bottom doesn't dissolve into the page. */}
+        <rect x="45.5" y="87" width="29" height="10" rx="5" fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="4" />
+        <rect x="49.5" y="100" width="21" height="10" rx="5" fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="4" />
 
         <path
           ref={filamentRef}
