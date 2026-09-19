@@ -26,7 +26,7 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
                 key={q}
                 onClick={() => onAsk(q)}
                 style={{ animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms` }}
-                className="dock-chip max-w-[14rem] rounded-2xl border border-white/25 bg-navy-darkest/85 px-4 py-2 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
+                className="dock-chip max-w-[17rem] rounded-full border-l-4 border-l-orange bg-navy-darkest/85 py-2 pl-4 pr-5 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
               >
                 {q}
               </button>
