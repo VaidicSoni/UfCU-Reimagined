@@ -27,7 +27,7 @@ export function Field({
   return (
     <div className="w-full min-w-0">
       <div
-        className={`relative min-w-0 rounded-2xl border-2 bg-white transition ${
+        className={`relative min-w-0 ${valid ? 'rounded-xl' : 'rounded-2xl'} border-2 bg-white transition ${
           focused
             ? 'border-navy ring-[3px] ring-orange ring-offset-2 ring-offset-white'
             : valid

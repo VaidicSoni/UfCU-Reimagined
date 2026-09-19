@@ -60,7 +60,7 @@ export function UniversityDropdown({ value, onChange, lang }) {
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-2 w-full rounded-2xl border-2 border-navy-subtle bg-white shadow-xl overflow-hidden animate-in fade-in zoom-in-95">
+        <div className="mt-2 flex h-80 w-full flex-col overflow-hidden rounded-2xl border-2 border-navy-subtle bg-white shadow-xl animate-in fade-in zoom-in-95">
           <div className="p-3 border-b-2 border-navy-subtle/50 bg-gray-50">
             <div className="relative">
               <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
@@ -77,7 +77,7 @@ export function UniversityDropdown({ value, onChange, lang }) {
             </div>
           </div>
           
-          <div className="max-h-64 overflow-y-auto">
+          <div className="min-h-0 flex-1 overflow-y-auto">
             {filteredPartners.length > 0 && (
               <div className="p-2">
                 <div className="px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-navy-lighter">
