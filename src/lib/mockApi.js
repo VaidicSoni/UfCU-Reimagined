@@ -234,3 +234,31 @@ export const UNIVERSITIES = [
   { id: 'acc', en: 'Austin Community College (ACC)', es: 'Austin Community College (ACC)', theme: 'acc', color: '#4B306A', cardBg: 'bg-[#4B306A]' }
 ]
 // Quick append
+
+// ── Identity edge cases ─────────────────────────────────────────────────
+
+// Accepted documents. UFCU's own form asks for a driver licence or state ID;
+// a passport matters for international students, who are a large slice of the
+// UT/Texas State population and the group most likely to have neither.
+export const ID_TYPES = [
+  { id: 'license', en: "Driver's licence", es: 'Licencia de conducir', placeholder: 'TX DRIVER LICENCE' },
+  { id: 'state', en: 'State ID', es: 'Identificación estatal', placeholder: 'TX STATE ID' },
+  { id: 'passport', en: 'Passport', es: 'Pasaporte', placeholder: 'PASSPORT' },
+]
+
+// SSNs are never issued starting with 9; ITINs always are. That single rule
+// catches the most common mistake — entering one in the other's field.
+export function validateTaxId(value, type) {
+  const digits = (value || '').replace(/\D/g, '')
+  if (digits.length !== 9) return { valid: false, reason: null }
+  if (type === 'itin' && digits[0] !== '9') return { valid: false, reason: 'taxErrItin' }
+  if (type === 'ssn' && digits[0] === '9') return { valid: false, reason: 'taxErrSsn' }
+  return { valid: true, reason: null }
+}
+
+// The scan fails the first time on purpose. A demo where verification always
+// succeeds never shows the recovery path, and a failed scan is the single
+// biggest drop-off point in digital account opening.
+export function scanOutcome(attempt) {
+  return attempt === 0 ? { ok: false, reason: 'scanGlare' } : { ok: true }
+}

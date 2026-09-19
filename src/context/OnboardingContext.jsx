@@ -65,6 +65,9 @@ export function OnboardingProvider({ children }) {
   })
   const [form, setForm] = useState(INITIAL_FORM)
   const [idScanned, setIdScanned] = useState(false)
+  const [taxIdType, setTaxIdType] = useState('ssn')
+  // 'document' | 'bank' — how identity was actually established.
+  const [identityVia, setIdentityVia] = useState(null)
   const [consent, setConsent] = useState(false)
   const [passkey, setPasskey] = useState(null)
   const [funded, setFunded] = useState(false)
@@ -104,6 +107,8 @@ export function OnboardingProvider({ children }) {
     setGoals([])
     setForm(INITIAL_FORM)
     setIdScanned(false)
+    setTaxIdType('ssn')
+    setIdentityVia(null)
     setConsent(false)
     setPasskey(null)
     setFunded(false)
@@ -127,6 +132,8 @@ export function OnboardingProvider({ children }) {
     goals, toggleGoal,
     form, update,
     idScanned, setIdScanned,
+    taxIdType, setTaxIdType,
+    identityVia, setIdentityVia,
     consent, setConsent,
     passkey, setPasskey,
     funded, setFunded,

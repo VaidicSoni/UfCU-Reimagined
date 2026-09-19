@@ -3,6 +3,7 @@ import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
 import { BANKS, delay } from '../lib/mockApi.js'
 import { Button } from '../components/Button.jsx'
+import { Icon } from '../components/Icons.jsx'
 import { MockPlaid } from '../components/MockPlaid.jsx'
 
 // Plaid stand-in. Credentials are never collected: picking a bank is enough to
@@ -11,6 +12,7 @@ export function Funding() {
   const { go, lang, linkedBank, setLinkedBank, setFunded } = useOnboarding()
   const [plaidBank, setPlaidBank] = useState(null)
   const [transferring, setTransferring] = useState(false)
+  const [noAccount, setNoAccount] = useState(false)
 
   const handleBankClick = (bank) => {
     setPlaidBank(bank)
@@ -41,7 +43,48 @@ export function Funding() {
         />
       )}
 
-      {!linkedBank ? (
+      {/* Being unbanked is the reason to join a credit union, not a reason to
+          be turned away — so it gets real routes rather than only "later". */}
+      {noAccount && !linkedBank ? (
+        <div className="space-y-4">
+          <div className="u-chip border-2 border-navy-subtle bg-navy-subtle/25 p-5">
+            <p className="text-base font-extrabold text-navy">{t(lang, 'noAccountTitle')}</p>
+            <p className="mt-1 text-sm text-navy-lighter">{t(lang, 'noAccountBody')}</p>
+          </div>
+
+          <ul className="space-y-3">
+            {[
+              ['altDirectDeposit', 'altDirectDepositBody', 'everyday'],
+              ['altBranch', 'altBranchBody', 'business'],
+              ['altLater', 'altLaterBody', 'mortgage'],
+            ].map(([title, body, icon]) => {
+              const Glyph = Icon[icon]
+              return (
+                <li key={title}>
+                  <button
+                    onClick={() => go('done')}
+                    className="u-chip flex w-full items-center gap-3 border-2 border-navy-subtle bg-white p-4 text-left transition hover:border-navy-lighter"
+                  >
+                    <Glyph className="h-6 w-6 shrink-0 text-navy-lighter" aria-hidden="true" />
+                    <span className="flex-1">
+                      <span className="block text-base font-bold text-navy">{t(lang, title)}</span>
+                      <span className="block text-sm text-navy-lighter">{t(lang, body)}</span>
+                    </span>
+                    <Icon.chevron className="h-4 w-4 shrink-0 text-navy-lighter" aria-hidden="true" />
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+
+          <button
+            onClick={() => setNoAccount(false)}
+            className="w-full text-sm font-semibold text-navy-lighter underline"
+          >
+            {t(lang, 'backToBanks')}
+          </button>
+        </div>
+      ) : !linkedBank ? (
         <div className="grid gap-3 sm:grid-cols-2">
           {BANKS.map((bank) => (
             <button
@@ -79,9 +122,21 @@ export function Funding() {
       )}
 
       <div className="space-y-3">
-        <Button onClick={transfer} disabled={!linkedBank || transferring} className="w-full">
-          {transferring ? '…' : t(lang, 'transferCta')}
-        </Button>
+        {/* Nothing to transfer from in the no-account view, so the CTA goes
+            rather than sitting there greyed out. */}
+        {!noAccount && (
+          <Button onClick={transfer} disabled={!linkedBank || transferring} className="w-full">
+            {transferring ? '…' : t(lang, 'transferCta')}
+          </Button>
+        )}
+        {!noAccount && !linkedBank && (
+          <button
+            onClick={() => setNoAccount(true)}
+            className="w-full text-sm font-semibold text-navy underline"
+          >
+            {t(lang, 'noAccountCta')}
+          </button>
+        )}
         <button
           onClick={() => go('done')}
           className="w-full text-sm font-semibold text-navy-lighter underline"
