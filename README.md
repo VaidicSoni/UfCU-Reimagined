@@ -23,7 +23,7 @@ npm run build && npm run preview   # production build check
 **Demo shortcut:** append `?step=<name>` to jump straight to any screen, e.g.
 <http://localhost:5173/?step=waiting>. Useful for re-showing one screen during Q&A
 without replaying the whole flow. Valid names: `welcome`, `goals`, `about`,
-`address`, `identity`, `waiting`, `secure`, `funding`, `done`.
+`address`, `identity`, `waiting`, `secure`, `funding`, `done`, `dashboard`.
 
 ## The flow
 
@@ -38,6 +38,7 @@ without replaying the whole flow. Valid names: `welcome`, `goals`, `about`,
 | 6 | Secure | **Real WebAuthn passkey** — no password is ever created. |
 | 7 | Funding | Plaid-style bank link, then a $25 opening deposit. |
 | 8 | Handoff | Accounts summary + magic-link bridge into the mobile app. |
+| 9 | Dashboard | The first sixty seconds as a member: balance, live virtual card, accounts, setup steps. |
 
 Screens 2–4 split what the original blueprint had as a single screen, so the flow
 actually honours One Question Per Screen instead of just claiming to.
@@ -54,9 +55,11 @@ at account approval.
 The filament also doubles as Lumi's smile, so the UFCU letterform *is* the
 character's expression.
 
-The bulb is a single closed path whose glass shoulders taper into a neck before
-the screw base — a circle on a stand doesn't read as a bulb. One path rather
-than stacked shapes, so the outline has no seams.
+The bulb is a single closed path whose glass shoulders taper into a neck — a
+circle on a stand doesn't read as a bulb — and the screw base below it is an
+outlined, filled shape with its own ridge lines. Solid white bars on navy made
+the base dissolve into the page; giving it the same outline and fill as the
+glass keeps the whole silhouette legible on any background.
 
 The filament is centred in the glass cavity — it reads y 27.5–68.5 inside a
 16–80 opening, so there's 11.5 clear above and below.
@@ -158,6 +161,49 @@ invisible.
 On phones the chips are hidden (they would run off-screen), Lumi carries a small
 "Help" badge instead, and the chat opens as a full-width sheet — a split makes no
 sense at that width.
+
+## The member dashboard
+
+Onboarding that ends at a receipt hasn't shown *"interest → membership-ready"* —
+it's shown that a form was submitted. The final screen is a working dashboard,
+built to echo the **live UFCU portal** rather than invent a new language:
+
+| Taken from the real portal | What changed |
+|---|---|
+| Navy greeting band, "Hello \<name\>" | Total available balance moved into it, large |
+| Routing number with a copy button | Kept as-is — members come looking for this |
+| Sort by account type / balance | Kept, as a segmented control instead of a dropdown |
+| Grouped sections with an orange accent rail | Kept, with the masked number and suffix code |
+| Total available balance row | Promoted to the header instead of the list footer |
+| Quick transfer (from / to / amount) | Kept, and it actually moves money between accounts |
+
+Their own reviews say members can't find a balance and the navigation is
+confusing, so the density is the thing that changes: balances lead, groups are
+labelled, and nothing is behind a menu.
+
+On top of the portal patterns: **a live virtual card** tappable to reveal its
+number (the instant-issuance idea from `Banking 101` — spend today, plastic
+later), **three tickable setup steps** explicitly marked as not urgent, and a
+**hide-balances toggle** that is both a privacy control and an accessibility
+affordance for anyone opening this in public.
+
+Ending here gives the pitch a closing beat: *"and this is what they see ten
+seconds later."*
+
+## Leaving the flow
+
+The header carries an **Exit** control on every step, and the wordmark is a link
+home. Neither discards anything — progress stays in state, so re-entering picks
+up where you left off. A full reset is deliberate and separate: "Run the demo
+again" on the handoff screen.
+
+## Lumi's questions follow the step
+
+The three suggested questions are per-screen, not a fixed list — on the SSN
+screen she offers "Why do you need my SSN?" and "What if my ID won't scan?"; on
+the dashboard she offers "Where is my card number?" and "How do I set up direct
+deposit?". `suggestionsFor(step, lang)` in `lib/concierge.js` drives it, and the
+knowledge base answers every question it offers.
 
 ## How this answers the prompt
 

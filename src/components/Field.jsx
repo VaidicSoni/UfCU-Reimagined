@@ -1,7 +1,11 @@
 import { useId, useState } from 'react'
+import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { Icon } from './Icons.jsx'
 
 // Floating-label input with an inline validity check, per the UI revamp doc.
+//
+// When fieldId is provided, focus/blur events update the global focusedField in
+// OnboardingContext so Lumi's suggestions change based on the active field.
 //
 // `secret` masks the value by default and offers a deliberate reveal. A demo
 // laptop on a projector should never paint a taxpayer ID across the wall, and
@@ -9,15 +13,26 @@ import { Icon } from './Icons.jsx'
 // in risky ways" — so the safe state is the default state.
 export function Field({
   label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode,
-  secret = false, ...rest
+  fieldId, secret = false, ...rest
 }) {
   const id = useId()
   const [focused, setFocused] = useState(false)
   const [revealed, setRevealed] = useState(false)
+  const { setFocusedField } = useOnboarding()
   // A date input paints its own mm/dd/yyyy placeholder, which would collide
   // with an unfloated label, so date fields float from the start.
   const floated = focused || String(value ?? '').length > 0 || type === 'date'
   const masked = secret && !revealed
+
+  const handleFocus = () => {
+    setFocused(true)
+    if (fieldId) setFocusedField(fieldId)
+  }
+
+  const handleBlur = () => {
+    setFocused(false)
+    if (fieldId) setFocusedField(null)
+  }
 
   return (
     <div className="w-full">
@@ -43,8 +58,8 @@ export function Field({
           inputMode={inputMode}
           autoComplete={autoComplete}
           onChange={(e) => onChange(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           className={`w-full bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none ${
             secret ? 'pr-20' : valid ? 'pr-11' : ''
           }`}

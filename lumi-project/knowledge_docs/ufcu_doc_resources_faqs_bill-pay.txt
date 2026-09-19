@@ -1,0 +1,75 @@
+URL: https://ufcu.org/resources/faqs/bill-pay
+Source: UFCU Website
+--------------------------------------------------
+
+Bill Pay FAQs
+Bill Pay
+Need support setting up Bill Pay? Watch this how-to video to learn more.
+Enrollment & Fees
+What is online Bill Pay?
+Bill Pay is a way to pay Billers directly from your account without using a card or writing a check. Instead, you access Online Banking or the UFCU Mobile app on your device and authorize a payment to a biller. UFCU sends your payment electronically when possible or via a paper check through the mail. Payments can be sent as soon as possible or can be scheduled. They can be one-time payments or recurring.
+What is the monthly fee for Bill Pay?
+There is no fee.
+Which accounts are eligible for Bill Pay enrollment?
+UFCU checking accounts are eligible.
+Does a joint owner have the same access to bill pay as the primary owner on the account?
+Yes. Any secondary or joint owner of an account can create their own username  and password to access Online Banking. Joint owners can view their own activity.
+Will I have a separate password for Bill Pay?
+No. Bill Pay is accessed from within Digital Banking.
+Payments
+How do I place a stop payment on a bill payment?
+Only bill payments issued by check are eligible for a stop payment. To place a stop payment on a bill payment please
+contact us
+.
+Can an electronic payment be stopped?
+No. An electronic payment cannot be stopped after the payment date. You can edit and/or delete a pending electronic payment before the payment date only if the payment displays as pending.
+If you send a payment by mistake, you must contact the merchant directly to request a refund.
+When is the money for a bill payment taken out of my account?
+For electronic payments, funds are withdrawn from your account after UFCU’s cutoff time on the send date. For payments by check, funds are withdrawn when the biller negotiates the check.
+What is the cut-off time for additions, changes, or deletions to billers and/or payments in Bill Pay?
+Bill payments are processed at approximately 4 PM Monday–Friday, excluding credit union holidays. Changes or deletions can be made before funds are withdrawn from your account, but new payment requests will not be processed until the next business day.
+What do I do with my payment coupon/statement that I used to mail back with my payment?
+Use the coupon or statement to complete the biller and payment information when you first set up your biller. All the information the biller needs is included with your electronic or check payment. You can shred the statement or keep it for your records.
+How far in advance of the due date should I schedule my payments?
+Allow three business days for electronic payments and seven business days for check payments. UFCU does not process payments on weekends or on federal bank holidays. Be aware that billers may not immediately credit payments when they receive them.
+What kind of payments can I make with Bill Pay?
+You can make free online Bill Pay payments to pay domestic businesses directly from your accounts. Select Pay & Transfer, then choose Pay a Bill. Note that the free Bill Pay service is not available for international payments.
+Billers
+What is a biller?
+A biller is any company or individual to whom you make payments.
+Who can be paid using Bill Pay?
+You can pay any biller with a United States address. Note that Billers may not be located outside of the United States.
+Do not rely on Bill Pay to pay tax entities, collection agencies, or court-ordered payments.
+How do I set up billers?
+Select Pay & Transfer » Pay a Bill » Select + Add Biller at the top and follow the instructions.
+Need support? Watch this how-to video
+at the top of the page
+to learn more.
+How do I know if my bill payment will be electronic or check?
+Select Pay Bills to view the payment method (electronic or check) for each biller. The system first determines whether the biller can receive electronic payments. If not, the biller receives a check in the mail.
+How do I reset a biller for electronic payments?
+Log in to Online Banking or the Mobile app.
+Select Pay & Transfer » Pay a Bill.
+Select the Biller Name of the biller you want to update.
+Click the trash can icon and then click confirm to delete this biller.
+Click the + symbol or Add Biller
+Search and click your desired biller
+Fill out the missing information and click Next
+Select the UFCU account you want to make payments from and enter the amount you want to pay.
+Click the arrow next to the amount to set up reoccurring payments.
+Confirm the information is correct and click Pay.
+Do I need to notify my billers that I will now be using Bill Pay?
+No. Billers receive your account number and information along with your payment so they can credit your account correctly.
+How do I delete a biller from my list?
+Select Pay & Transfer » Pay a Bill, search for the biller in the search bar, and then select the biller’s name. Select the trash can icon at the top right. Confirm the deletion. Any scheduled payments to this biller are also deleted.
+How can I change the biller details, such as the billing account number or the biller nickname?
+Select Pay & Transfer » Pay a Bill. Search for the biller in the search bar then select the biller name to access the Biller Detail page, which you can edit.
+What if a biller claims not to have received my payment?
+Provide proof of payment to the biller. Select Pay a Bill » Activity » History and find the payment. Select Proof of Payment. If the biller insists that a payment by check has not arrived, you can initiate a stop payment.
+Pending Payments
+How do I cancel a payment?
+Select Pay a Bill » Activity » Scheduled and find the payment.
+Select Delete, then Delete again to confirm.
+Payment History
+Can I view my history?
+Yes. Select Pay a Bill » Activity » History to see the most recent 90 days of your Bill Pay history.

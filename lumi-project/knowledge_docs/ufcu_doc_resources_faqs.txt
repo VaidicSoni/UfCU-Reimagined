@@ -1,0 +1,129 @@
+URL: https://ufcu.org/resources/faqs
+Source: UFCU Website
+--------------------------------------------------
+
+FAQs
+Bill Pay
+What is online Bill Pay?
+Bill Pay is a way to pay Billers directly from your account without using a card or writing a check. Instead, you access Online Banking or the UFCU Mobile app on your device and authorize a payment to a biller. UFCU sends your payment electronically when possible or via a paper check through the mail. Payments can be sent as soon as possible or can be scheduled. They can be one-time payments or recurring.
+What is the monthly fee for Bill Pay?
+There is no fee.
+Which accounts are eligible for Bill Pay enrollment?
+UFCU checking accounts are eligible.
+View More
+Credit and Debit Cards
+What does it mean to lock a card?
+Locking your card isn’t a notification that your card is lost or stolen, or that there have been unauthorized transactions on your account. It’s simply a way to confirm no transactions can be made until you find your card. If your card is lost or stolen, or if you notice unauthorized transactions, please call
+(888) 842-6328
+immediately.
+How can I request a replacement card?
+Log into Online Banking or the Mobile app.
+In the top toolbar, select Cards » Manage Card.
+Select the card you want to replace.
+In the Self-Service section, click Replace.
+Select the reason. If you choose Lost or Stolen, the current card is blocked, and a new card number is issued. If you choose Damaged, it will have the same number as the old one. Note that you always have the option of picking up a replacement card from any branch.
+Confirm or change the mailing address.
+Click Order New, then OK.
+What happens when I report a card lost or stolen?
+When you report your card lost or stolen, a new card will be ordered for you and the missing card will be blocked immediately to prevent any potential unauthorized transactions.
+View More
+Credit Coach
+What is a personalized path to credit improvement?
+Personalized paths to credit improvement are a core capability of Credit Coach. This feature is designed to guide you toward creditworthiness standards for specific loans or credit products.
+How does Credit Coach “know” what the specific creditworthiness standards are for UFCU products and services?
+UFCU Credit Coach is powered by Credit Mountain, a fintech company committed to helping credit unions offer declined borrowers a path to approval. UFCU has provided its lending guidelines and underwriting criteria to Credit Mountain to help them determine creditworthiness thresholds. Your credit data is compared with the UFCU-provided lending standards, and Credit Coach shares whether you’re ready now can be ready with action. If you are not prequalified based on your credit, Credit Coach gives you a personalized credit improvement path that can help you achieve your goals.
+If I complete all the steps along my personalized path, does this guarantee that my application for a loan or credit card will be approved?
+No. Many factors influence loan approval, and many are outside the scope of Credit Coach. Ultimately, your loan or credit application will go through the UFCU underwriting process, and that will determine your eligibility.
+View More
+Digital Banking
+How do I enroll and get started with the digital banking experience?
+You can enroll via any web browser or directly from the Mobile app. Regardless of how you enroll, you can rely on one unique Username and password to log in via Online Banking or the Mobile app. To get started, follow these tips for a smooth enrollment:
+Connect to WiFi for a stable connection.
+Use a web browser on a larger device for an optimal experience.
+From any web browser, visit our
+enrollment page
+and follow the steps.
+or
+Download the UFCU Mobile app, select No, and follow the prompts.
+Need support? Watch one of our how-to videos to enroll on a
+web browser
+or
+UFCU Mobile app
+.
+Can I set up my username and password on the app to be the same as what I use on a browser?
+Yes—in fact, you’ll create one password that is shared by Online Banking and the Mobile app to use across all your devices.
+Does the UFCU Mobile app support biometric login?
+Yes, you can set up the UFCU Mobile app to use Touch ID
+®
+and Face ID
+®
+on most Apple devices and Android Fingerprint ID on Android devices. You also will be guided through creating a permanent passcode for unlocking the app without the need to log in each time.
+View More
+Money Market
+Is there a minimum balance required for a money market account?
+There is a minimum deposit required to open a money market account ($2,500). When money market accounts have a zero balance, they will be closed automatically. But any account with a balance of $.01 or more can remain open.
+How can I access my money market funds?
+You can view and access your available money market funds immediately through UFCU Online Banking, Mobile Banking, Phone Banking, or by stopping by any location.
+What is a money market account and how does it work?
+A money market account offers flexible, high-yield savings that earns interest while continuing to provide access to your funds any time, day or night. You can access your funds without penalty anytime.
+View More
+Multi-Factor Authentication (MFA)
+What is MFA?
+MFA stands for Multi-Factor Authentication, which is a procedure that helps ensure only you can access your UFCU accounts through Digital Banking.
+Why do I need MFA?
+MFA greatly decreases the chances that criminals can steal your Digital Banking password. Usually, passwords are stolen when an unsuspecting user tries to access a site that is impersonating UFCU. MFA helps prevent this situation.
+How does it work?
+When you visit a UFCU branch, you know our faces and we know yours. MFA does the same thing over the internet, helping us to identify each other more accurately. When you enroll in Digital Banking, you will be prompted to enter a one-time passcode that helps us verify your identity.
+View More
+Overdraft Services
+What is the difference between Overdraft Protection Transfer and Courtesy Pay?
+Overdraft Protection Transfer and Courtesy Pay are two separate Overdraft Services offered by UFCU.
+Overdraft Protection Transfer allows funds to be transferred from a previously linked UFCU account, such as savings, Money Market, checking account, or Line of Credit, to pay an item. Overdraft Protection Transfer will not allow the account to overdraft or (go into a negative balance) to pay an item. To designate which account(s) you’d like to enroll in Overdraft Protection Transfer, log into
+Online Banking
+or contact Member Services.
+Courtesy Pay is a service that pays items that might otherwise be returned due to insufficient funds in your account, or when Overdraft Protection Transfer is unable to cover the transaction. If you have set up an Overdraft Protection Transfer source, we will try using this method before paying your overdraft utilizing Courtesy Pay.
+What is my Courtesy Pay limit?
+A Courtesy Pay limit is the amount your account may go negative. You receive a $100 Courtesy Pay limit when your account is opened. After 90 days, your Courtesy Pay limit will increase based on the type of checking account you have.
+Free and Teen Checking - $400 Courtesy Pay limit
+Plus - $1,000 Courtesy Pay limit
+Business Checking - $1,500 Courtesy Pay limit
+What is Courtesy Pay?
+Courtesy Pay is an Overdraft Service we offer to pay items when your checking account balance does not have sufficient funds. Instead of returning the transaction to the merchant for non-sufficient funds (NSF), we may pay it and overdraw your account. Courtesy Pay safeguards against unexpected life emergencies and may help you in avoiding fees from merchants, service interruptions, and the inconvenience of declined transactions.
+View More
+Shared Branches
+How do I find a Shared Branch?
+Visit the CO-OP Credit Unions website to find:
+National, International, and Texas Shared Branch Locations
+Local Shared Branch Outlets in Austin
+Who can use Shared Branches?
+Only members of participating credit unions.
+How do I find out if my credit union is a Shared Branch?
+Contact your host credit union or go to
+CO–OPCreditUnions.org/locators
+for updated listings of participating credit unions.
+View More
+View More
+Simply U
+™
+How much does it cost to open a Simply U™ Account?
+There is no fee to open a Simply U™ Account.
+Can anyone get a Simply U™ Account?
+Yes! Simply U™ is for any Member who wants all the basics, without the worry of overspending or monthly fees. A parent or guardian will need to be on the account for anyone under 18 years of age.
+How can I get a Simply U™ Account?
+Visit any UFCU branch or
+sign up online
+to open a Simply U™ Account. Once you have opened your account, a personalized card will be issued to you instantly. You may begin using your Simply U™ Account to make purchases immediately. Don’t forget to enroll in Direct Deposit to enjoy the benefit of receiving your paycheck up to two days early.
+Account Management
+What can a beneficiary do?
+A beneficiary does not have access to your account during your lifetime. Once a death certificate is presented after your passing, they may claim the remaining funds and then the account will be closed. You may designate multiple beneficiaries and update them at any time.
+What can a joint account holder do?
+A joint account holder shares full access to your account. They are issued their own debit card and given a unique login for use with Online Banking and the Mobile app. They can deposit or withdraw money, pay bills, view transactions, and use Online Banking or the Mobile app. They also share responsibility for fees or negative balances.
+What are my options if I want someone I trust to help manage my accounts?
+You can designate a
+joint account holder
+,
+beneficiary
+, or
+Power of Attorney (POA)
+. Each option offers various levels of access depending on your needs. These roles help ensure your accounts can be managed if you’re traveling, unavailable, or facing an unexpected life event.
+View more

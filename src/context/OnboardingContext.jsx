@@ -13,6 +13,7 @@ export const STEPS = [
   'secure',
   'funding',
   'done',
+  'dashboard',
 ]
 
 // Screens that count toward the visible progress bar (waiting/done are not
@@ -67,6 +68,10 @@ export function OnboardingProvider({ children }) {
   const [passkey, setPasskey] = useState(null)
   const [funded, setFunded] = useState(false)
   const [linkedBank, setLinkedBank] = useState(null)
+
+  // Which form field the user is currently focused on — drives context-aware
+  // Lumi suggestions so she asks about SSN when you're in the SSN field, etc.
+  const [focusedField, setFocusedField] = useState(null)
 
   // Accessibility preferences — the only thing we persist.
   const [lang, setLang] = useState(prefs.lang === 'es' ? 'es' : 'en')
@@ -143,6 +148,7 @@ export function OnboardingProvider({ children }) {
     passkey, setPasskey,
     funded, setFunded,
     linkedBank, setLinkedBank,
+    focusedField, setFocusedField,
     lang, setLang,
     fontScale, setFontScale,
     readAloud, setReadAloud,

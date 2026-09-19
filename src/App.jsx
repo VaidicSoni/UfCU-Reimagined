@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useOnboarding } from './context/OnboardingContext.jsx'
 import { t } from './lib/i18n.js'
 import { LumiTrigger } from './components/LumiTrigger.jsx'
+import { Icon } from './components/Icons.jsx'
 import { Concierge } from './components/Concierge.jsx'
 import { AccessibilityBar } from './components/AccessibilityBar.jsx'
 import { ProgressBar } from './components/ProgressBar.jsx'
@@ -14,6 +15,7 @@ import { Waiting } from './screens/Waiting.jsx'
 import { Secure } from './screens/Secure.jsx'
 import { Funding } from './screens/Funding.jsx'
 import { Done } from './screens/Done.jsx'
+import { Dashboard } from './screens/Dashboard.jsx'
 import { Disclosures } from './components/Disclosures.jsx'
 
 const SCREENS = {
@@ -26,6 +28,7 @@ const SCREENS = {
   secure: Secure,
   funding: Funding,
   done: Done,
+  dashboard: Dashboard,
 }
 
 // Lumi's scripted line for each step; chat answers layer on top of this.
@@ -39,6 +42,7 @@ const GUIDE_LINE = {
   secure: 's6Guide',
   funding: 's7Guide',
   done: 's8Guide',
+  dashboard: 's9Guide',
 }
 
 // How the mascot behaves at each step.
@@ -47,9 +51,10 @@ const MOOD = { waiting: 'thinking', secure: 'celebrate', done: 'celebrate' }
 // The official UFCU mark, used unmodified and unbacked. The warm lift in the
 // top-left of the page gradient is what separates its navy body from the
 // ground; its orange ring and white wordmark carry the rest.
-function Wordmark() {
+function Wordmark({ onHome, lang }) {
   return (
     <div className="flex items-center gap-3">
+      <button onClick={onHome} aria-label={t(lang, 'homeAria')} className="rounded-full">
       <img
         src="/ufcu-logo.svg"
         alt="UFCU — University Federal Credit Union"
@@ -57,6 +62,7 @@ function Wordmark() {
         width="232"
         height="118"
       />
+      </button>
       <span className="hidden text-sm font-semibold text-navy-subtle sm:inline">
         University Federal Credit Union
       </span>
@@ -65,7 +71,7 @@ function Wordmark() {
 }
 
 export default function App() {
-  const { step, lang } = useOnboarding()
+  const { step, lang, go } = useOnboarding()
   const [chatOpen, setChatOpen] = useState(false)
   const [docsOpen, setDocsOpen] = useState(false)
   const [seed, setSeed] = useState(null)
@@ -94,8 +100,22 @@ export default function App() {
   return (
     <div className="mesh grain min-h-screen">
       <header className="relative z-10 mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-6">
-        <Wordmark />
-        <AccessibilityBar />
+        <Wordmark onHome={() => go('welcome')} lang={lang} />
+        <div className="flex items-center gap-3">
+          <AccessibilityBar />
+          {/* Progress is kept, not discarded — re-entering picks up where you
+              left off, so leaving never costs anything. */}
+          {!isLanding && (
+            <button
+              onClick={() => go('welcome')}
+              aria-label={t(lang, 'exitFlowAria')}
+              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold text-white transition hover:bg-white/25"
+            >
+              <Icon.close className="h-4 w-4" aria-hidden="true" />
+              {t(lang, 'exitFlow')}
+            </button>
+          )}
+        </div>
       </header>
 
       {isLanding ? (
@@ -134,7 +154,7 @@ export default function App() {
                 filling the narrower right column once it opens. */}
             <section className="mx-auto w-full min-w-0 max-w-2xl flex-1">
               <div className="u-card bg-white p-6 shadow-card sm:p-9">
-                {step !== 'done' && (
+                {step !== 'done' && step !== 'dashboard' && (
                   <div className="mb-8">
                     <ProgressBar />
                   </div>

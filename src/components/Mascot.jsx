@@ -17,15 +17,16 @@ import { useEffect, useRef } from 'react'
 // Centred in the glass cavity (y 16..80 inside the stroke): the filament reads
 // 27.5..68.5, leaving 11.5 clear above and below.
 const LETTER_U = [46, 31, 46, 51, 14, 14, 74, 51, 74, 31]
-const SMILE    = [45, 57, 45, 57, 15,  8, 75, 57, 75, 57]
+const SMILE    = [48, 57, 48, 57, 12,  8, 72, 57, 72, 57]
 // Same endpoints and rx as the smile, only deeper — so the mouth opens like a
 // jaw instead of squeezing inwards, which is what looked wrong before.
-const TALK     = [45, 54, 45, 54, 15, 17, 75, 54, 75, 54]
+const TALK     = [48, 54, 48, 54, 12, 16, 72, 54, 72, 54]
 
 // Glass shoulders taper into a neck before the screw base — a circle on a stand
 // doesn't read as a bulb. One closed path, so the outline has no seams.
 const BULB =
-  'M45 92 L45 84 C45 81 43.5 79.5 43 77.44 A34 34 0 1 1 77 77.44 C76.5 79.5 75 81 75 84 L75 92 Z'
+  'M45 86 L45 84 C45 81 43.5 79.5 43 77.44 A34 34 0 1 1 77 77.44 C76.5 79.5 75 81 75 84 L75 86 Z'
+const NAVY = '#23335D'
 
 const DRAW_MS = 620    // the "u" strokes itself on
 const HOLD_MS = 360    // and holds, legible as the wordmark
@@ -88,10 +89,13 @@ export function Mascot({
       // Mouth only opens once there's a mouth to open.
       const d = filamentPath(talk > 0 ? mix(base, TALK, talk * m) : base)
       const offset = 100 - draw * 100
+      // The letterform carries more weight than the mouth does.
+      const width = 9 - 2 * m
       for (const node of [filamentRef.current, glowRef.current]) {
         if (!node) continue
         node.setAttribute('d', d)
         node.setAttribute('stroke-dashoffset', offset)
+        node.setAttribute('stroke-width', width)
       }
       const eyeOpen = clamp01((m - 0.4) / 0.5)
       if (eyesRef.current) {
@@ -193,10 +197,10 @@ export function Mascot({
   return (
     <div
       className={`lumi lumi--${state} ${className}`}
-      style={{ width: size, height: size * 1.08 }}
+      style={{ width: size, height: size * 1.05 }}
       aria-hidden="true"
     >
-      <svg viewBox="0 0 120 130" className="h-full w-full overflow-visible">
+      <svg viewBox="0 0 120 126" className="h-full w-full overflow-visible">
         <defs>
           <radialGradient id="lumi-glow">
             <stop offset="0%" stopColor="#F2780C" stopOpacity={glow} />
@@ -211,8 +215,12 @@ export function Mascot({
 
         <circle className="lumi-halo" cx="60" cy="48" r="52" fill="url(#lumi-glow)" />
 
-        <path d={BULB} fill="url(#lumi-glass)" stroke="#23335D" strokeWidth="4" strokeLinejoin="round" />
-        <ellipse cx="46" cy="34" rx="8.5" ry="11" fill="#FFFFFF" opacity="0.85" transform="rotate(-22 46 34)" />
+        <path d={BULB} fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="5" strokeLinejoin="round" />
+
+        {/* Screw base: outlined and filled like the glass, so it reads against
+            the navy page instead of dissolving into it. */}
+        <rect x="44.5" y="85" width="31" height="29" rx="7" fill="url(#lumi-glass)" stroke={NAVY} strokeWidth="5" />
+        <path d="M51 96h18M51 105h18" stroke={NAVY} strokeWidth="4" strokeLinecap="round" />
 
         <path
           ref={filamentRef}
@@ -220,7 +228,7 @@ export function Mascot({
           pathLength="100"
           fill="none"
           stroke={filamentColor}
-          strokeWidth="7"
+          strokeWidth={intro || !face ? 9 : 7}
           strokeLinecap="round"
           strokeDasharray="100"
           strokeDashoffset={intro ? 100 : 0}
@@ -231,7 +239,7 @@ export function Mascot({
           pathLength="100"
           fill="none"
           stroke="#F2780C"
-          strokeWidth="7"
+          strokeWidth={intro || !face ? 9 : 7}
           strokeLinecap="round"
           strokeDasharray="100"
           strokeDashoffset={intro ? 100 : 0}
@@ -240,14 +248,9 @@ export function Mascot({
         />
 
         <g ref={eyesRef} className="lumi-eyes" opacity={intro ? 0 : face ? 1 : 0}>
-          <ellipse cx="50" cy="41" rx="3.2" ry="4.2" fill="#23335D" />
-          <ellipse cx="70" cy="41" rx="3.2" ry="4.2" fill="#23335D" />
+          <ellipse cx="50" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
+          <ellipse cx="70" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
         </g>
-
-        {/* Screw base — two bands, the upper one tucked under the glass. */}
-        <rect x="45.5" y="91" width="29" height="7" rx="3.5" fill="#8182B1" />
-        <rect x="48" y="99.5" width="24" height="7" rx="3.5" fill="#8182B1" />
-        <rect x="53.5" y="108" width="13" height="6.5" rx="3.25" fill="#23335D" />
 
         <g className="lumi-sparks">
           <circle cx="14" cy="34" r="3.5" fill="#F2780C" />

@@ -29,6 +29,7 @@ export function About() {
             onChange={(v) => update({ firstName: v })}
             valid={form.firstName.length > 1}
             autoComplete="given-name"
+            fieldId="firstName"
           />
           <Field
             label={t(lang, 'lastName')}
@@ -36,6 +37,7 @@ export function About() {
             onChange={(v) => update({ lastName: v })}
             valid={form.lastName.length > 1}
             autoComplete="family-name"
+            fieldId="lastName"
           />
         </div>
         <Field
@@ -69,6 +71,7 @@ export function About() {
           onChange={(v) => update({ email: v })}
           valid={emailValid}
           autoComplete="email"
+          fieldId="email"
         />
         <Field
           label={t(lang, 'phone')}
@@ -78,6 +81,7 @@ export function About() {
           onChange={(v) => update({ phone: formatPhone(v) })}
           valid={phoneValid}
           autoComplete="tel"
+          fieldId="phone"
         />
       </div>
 

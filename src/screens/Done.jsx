@@ -1,6 +1,5 @@
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
-
 import { Button } from '../components/Button.jsx'
 import { Mascot } from '../components/Mascot.jsx'
 import { Icon } from '../components/Icons.jsx'
@@ -28,7 +27,7 @@ function QrPlaceholder() {
 }
 
 export function Done() {
-  const { lang, funded, reset, form, passkey } = useOnboarding()
+  const { lang, funded, reset, go, form, passkey } = useOnboarding()
 
   return (
     <div className="space-y-7">
@@ -77,6 +76,12 @@ export function Done() {
         <Button className="w-full">
           <Icon.phone className="h-5 w-5" aria-hidden="true" /> {t(lang, 'textApp')}
         </Button>
+        <button
+          onClick={() => go('dashboard')}
+          className="w-full rounded-full border-2 border-navy-subtle px-5 py-3 text-base font-bold text-navy transition hover:bg-navy-subtle/40"
+        >
+          {t(lang, 'goDashboard')}
+        </button>
         <button onClick={reset} className="w-full text-sm font-semibold text-navy-lighter underline">
           {t(lang, 'startOver')}
         </button>

@@ -1,0 +1,371 @@
+URL: https://ufcu.org/resources/faqs/digital-banking
+Source: UFCU Website
+--------------------------------------------------
+
+Digital Banking FAQs
+Online Account Access
+What is online account access?
+Online account access means conducting your financial business from your personal computer, phone, or devices anytime, anywhere. When you access your accounts through a browser, you’re using Online Banking. When you access your accounts through your mobile device, that’s the UFCU Mobile app. The two experiences are closely related, so we refer to Online Banking and the UFCU Mobile app as “online account access” or “Digital Banking.”
+Enrollment and Login
+How do I enroll and get started with the digital banking experience?
+You can enroll via any web browser or directly from the Mobile app. Regardless of how you enroll, you can rely on one unique Username and password to log in via Online Banking or the Mobile app. To get started, follow these tips for a smooth enrollment:
+Connect to WiFi for a stable connection.
+Use a web browser on a larger device for an optimal experience.
+From any web browser, visit our
+enrollment page
+and follow the steps.
+or
+Download the UFCU Mobile app, select No, and follow the prompts.
+Need support? Watch one of our how-to videos to enroll on a
+web browser
+or
+UFCU Mobile app
+.
+Can I set up my username and password on the app to be the same as what I use on a browser?
+Yes—in fact, you’ll create one password that is shared by Online Banking and the Mobile app to use across all your devices.
+Does the UFCU Mobile app support biometric login?
+Yes, you can set up the UFCU Mobile app to use Touch ID
+®
+and Face ID
+®
+on most Apple devices and Android Fingerprint ID on Android devices. You also will be guided through creating a permanent passcode for unlocking the app without the need to log in each time.
+Can secondary or joint owners enroll in Online Banking?
+Yes. Any secondary or joint owner of an account can create their own Username and password to access Online Banking. Joint owners can view their own activity and complete their own everyday banking transactions.
+Can authorized signers enroll in Online Banking?
+Yes. Any authorized signers on your account can create their own username and password to access the account in Digital Banking.
+Are there any specific requirements for accessing my accounts online?
+We recommend the following browsers:
+Chrome 2 most recent versions
+Safari 2 most recent major versions
+Edge 2 most recent major versions
+Firefox latest and extended support release (ESR)
+The Mobile app is available to download on these mobile devices:
+iPhone
+®
+iPad
+®
+products
+Android
+™
+smartphones
+Android tablets
+Passwords
+What are the password requirements for online account access?
+Must be 8-40 characters long
+Must have at least 2 letters including at least 1 upper-case and 1 lower-case letter
+Must have at least 1 number
+Must not be the same as your last 3 passwords
+Special characters allowed: ! # % ^ & * ( ) + = { } [ ] \ / , ; ? . @ $ _
+Your password is case-sensitive. For example, 'Z' is not the same as 'z'
+Must not contain 'password', other easy-to-guess words, or your first or last name
+Must not contain your personal data, such as your Social Security Number, account number, name, or date of birth
+Must not contain consecutive or repetitive characters, such as '1234' or 'aaa'
+Why do you have so many requirements for my password?
+Your financial security is one of our top priorities. Our password requirements help protect you against unauthorized and fraudulent access to your accounts. We want you to create a password that cannot be guessed or breached with malicious software.
+You can help keep your Online Banking account safe by adopting these habits:
+Keep your password private. Anyone who gains access to your password can perform the same transactions you can.
+Log in only on devices and internet connections that you know are secure. Avoid logging in on shared, publicly accessible systems and public WiFi.
+Use a unique password for UFCU. Do not use the same password for multiple websites. Hackers often use breached password lists to access websites.
+Use an unexpected combination of numbers, symbols, punctuation, and upper and lower case alphabetic characters. Hackers use software to identify predictable substitutions and character patterns, such as ‘Cowboys01’ and ‘p@$$w0rd’. They also buy lists of millions of passwords to guess or breach your account.
+Consider installing a secure password manager on your computer or other devices.
+What if I forget my username?
+On the Online Banking login page, click the “Forgot Username?” link. Provide your account number and identity information and click “Submit”. Follow the on-screen instructions.
+On the Mobile app login page, tap “Forgot Username or Password” then tap “I’ve forgotten my username” and follow the on-screen instructions.
+How do I change my username?
+It is not possible to change your username through Online Banking or the Mobile app. Please contact Member services at
+(800) 252-8311
+for assistance.
+What if I forget my password?
+On the Online Banking login page, click the “Forgot Password?” link. Provide your username and identity information and click “Submit” . Follow the on-screen instructions.
+On the Mobile app login page, tap “Forgot Username or Password”, then tap “I’ve forgotten my password” and follow the on-screen instructions.
+How do I change my password?
+Log in to Online Banking and select Profile Settings » My Profile » Security . You will be asked to provide your current password alongside your new password. Click “Confirm changes” to complete your password update.
+It is not possible to change your password through the Mobile app.
+One-time Passcodes
+What is a one-time passcode? When will I need one?
+One-time passcodes are an extra layer of protection for Members who use Online Banking and the Mobile app. We may send you a one-time passcode and then ask for it when we need to verify your identity. For example, we may prompt for it when you enroll in Online Banking and the Mobile app, log in on an unregistered device, or reset your password. You can choose to have your code delivered via text message or email — whichever is more convenient for you.
+Can I use my one-time passcode more than once?
+No. Your one-time passcode grants one-time access only.
+How long is my one-time passcode valid?
+Your one-time passcode expires after 10 minutes. If you don’t use the code within 10 minutes, you will need to request a new code.
+What if I do not receive my one-time passcode?
+If you do not receive a one-time passcode, please
+contact us
+immediately.
+Where will the one-time passcode come from?
+If you choose to receive your one-time passcode via text message, the message will be delivered from a toll-free number (for example, area code 844). If you choose to receive your one-time passcode via email, the email will come from members@ufcu.org.
+Can I skip the passcode by trusting my browser?
+Yes. You can register the current device-browser combination with us as a “trusted browser” for Online Banking and skip the one-time passcode during future logins. To register your browser during login, provide the MFA passcode and click
+Submit
+, then select the check box for
+Yes
+before continuing. For 30 days, you will not be prompted for the MFA passcode on this device-browser combination.
+How can I tell UFCU to “forget” a trusted browser?
+Log into Online Banking and navigate to
+Profile Settings > My
+Profile
+. Open the
+Trusted Browsers
+tab, which lists the browsers you have registered. Click
+Remove
+for any browser you don’t use anymore. Updating your list restores the passcode requirement for future logins on those device-browser combinations.
+Routing Number and Account Information
+Can I find my account number and UFCU's routing number when accessing my accounts online?
+Yes, you can find your account number and our routing number within Online Banking and the Mobile app on the Accounts page. When on the Accounts Page, click one of your accounts and then view Details to see your account number and our routing number.
+How can I simplify my list of accounts?
+To control which accounts are displayed on your main accounts list, access My Accounts within Online Banking. On the top navigation bar, select More » Hide & Rename Accounts then toggle to indicate the accounts you want to hide. You also can assign account nicknames here. When complete, click Back to My Accounts.  On the Mobile app, select More » Hide Accounts to toggle the accounts. Select your account and then Details » Account Name to edit the name.
+How to organize my accounts by account number?
+On the account summary page under the header there is a “Sort By” option. By default, this is set to “Account Type”. If you click and change to “Account Number”, you will see your accounts sorted by account number. In this view, your credit cards and loans are grouped together, and your checking and savings are grouped together. Once you finalize your preference, it will save on the device being used. You will need to set up your preference in both Online Banking and the Mobile app to see it reflected across all devices.
+Alerts
+What is an alert?
+An alert is an automated communication from UFCU that you receive if you have chosen to track activity in your accounts. Members may set up alerts for security reasons, for example to be notified of all payments made from their accounts. Alerts are also helpful for controlling spending, for example to know when your balance exceeds or falls short of some specific dollar amount.
+How are alerts delivered?
+You can choose to receive alerts by email, text, and notification, or any combination of those. Notifications are visible by clicking the bell icon when you are viewing Online Banking or the Mobile app.
+What alerts are available?
+You can select any or all of these alerts: Account Summary, Balance Over, Balance Under, Debit Card charges, Deposits, Withdrawals, and Credit Card charges. Not all alerts are available for all account types.
+How can I set up an alert?
+Log into Online Banking or the Mobile app.
+Click the bell in the upper right corner; then click the gear.
+Select the account for which you want to set alerts.
+Select one or more alerts to activate for that account.
+For each alert, choose to receive a notification and email, text, or all three.
+Click Save.
+Repeat for more of your accounts.
+How can I change or cancel an alert?
+Log into Online Banking or the Mobile app.
+Click the bell in the upper right corner; then click the gear.
+Select the account with alerts you want to change or cancel.
+On the list of alerts for that account, select the one to change or cancel.
+Remove notification, email, text, or all three.
+Click Save.
+Account History and Transaction Details
+Can I control which transaction details I can view?
+Yes. After you log in and select your account, you can choose between a compact or more detailed view. Click the toggle to enable or disable.
+How much transaction history can I view online?
+UFCU keeps about one year of transaction history available within the account view. To see activity older than one year, view statements online, visit any branch, or call Member Services at
+(800) 252-8311
+, and we’ll be happy to help.
+How do I download my transaction history for future import into a third-party financial software application, such as Intuit® Quicken® or QuickBooks®?
+Complete the following steps to download transactions from Online Banking:
+Log in to Online Banking and select the account from which you want to download your transaction history.
+Enter the start and end dates for the time period you’re interested in.
+Under Incoming or Outgoing, select All, Incoming, or Outgoing to indicate which type of transactions you would like to export.
+Enter the minimum and maximum dollar amounts you would like to be included, if applicable. If you leave these fields blank, all dollar amounts will be included.
+Enter the range of check numbers you would like to be included, if applicable. If you leave these fields blank, all checks will be included.
+Click Apply. If at any time you make a mistake or would like to start over, you can click Clear filters and begin again.
+Review the results that are displayed. If you are content with these results, click
+        the Download button to the right of the print icon near the top of your screen and select the desired format from the drop-down list.
+The file will download and become available for upload into your preferred third-party financial software.
+How can I view online statements?
+In Online Banking, select Accounts » Statements to search for statements from the past. In the Mobile app, select an account then tap Statements.
+How many months of statements are available online?
+Currently you can retrieve 84 months of statements.
+Will I receive both online and paper statements?
+Not automatically. If you would like to also receive paper statements, please visit a
+branch
+or
+contact us
+.
+Transfer to a Non-UFCU Member
+What is a Transfer to a Non-UFCU Member?
+It’s a service that Members can use to transfer funds from UFCU to anyone who has a domestic email address or mobile phone number within the United States. Note that you must accept the
+Digital Banking Terms and Conditions
+to use this service.
+Does the Transfer to a Non-UFCU Member recipient have to bank at UFCU?
+No. Anyone with a cell phone number or email address can receive a Transfer to a Non-UFCU Member payment.
+Does the Transfer to a Non-UFCU Member recipient need to retrieve funds from a particular location?
+No. A link is sent to their smart phone or email explaining that you have sent them funds. The recipient then has options about how to receive the funds.
+For example, for a $1.00 fee, the funds can be placed on a debit card number that the recipient specifies.
+How do I set up a person to pay with Transfer to a Non-UFCU Member?
+Select Pay & Transfer » Transfer to a Non-UFCU Member » Pay A Person.
+Select ‘+’ to Add Contact.
+Enter the person’s First and Last name and their Mobile Number or Email.
+Choose how the payment information should be delivered (Phone or Email).
+Set up a security question and its answer. You might need to provide the answer to the person.
+Select Save.
+Payments can be set up as one-time, one-time future-dated, or recurring.
+How do I send funds using Transfer to a Non-UFCU Member?
+Select Pay & Transfer » Transfer to a Non-UFCU Member » Pay A Person.
+Select the person to pay, then Next.
+Enter the amount.
+Add a memo (optional)
+Select the From account.
+Select the send date and whether the payment repeats.
+Select Pay, then confirm the payment.
+Select Done
+How do I edit or cancel a pending Transfer to a Non-UFCU Member payment?
+Select Transfer to a Non-UFCU Member » Activity » Scheduled.
+Select the payment.
+Select Delete or Edit, then confirm the action.
+How long do Transfers to a Non-UFCU Member take?
+Transfers between two UFCU accounts are instant.
+Transfers from a UFCU account to the recipient’s debit card is instant, and the recipient pays a $1.00 fee.
+Transfers from a UFCU account to a recipient via ACH take up to 2 business days. These require the recipient’s routing and account number.
+Is there a cost for Members to use the Transfer to a Non-UFCU Member service?
+UFCU does not charge to send funds.
+What happens to the money if the Transfer to a Non-UFCU Member recipient does not accept the funds?
+If after seven days the recipient does not claim the funds, the transaction is canceled. At that point, your account never gets debited.
+What if the Transfer to a Non-UFCU Member recipient doesn’t know the answer to the security question?
+The recipient must contact you for that information. UFCU does not have access to answers that you created.
+How many chances does the Transfer to a Non-UFCU Member recipient get to verify the answer to a security question?
+Three attempts.
+What if I need a proof of a Transfer to a Non-UFCU Member payment?
+To get proof of payment, select Transfer to a Non-UFCU Member » Activity » History, and then select the transaction. Select Print for a PDF or Export for a .csv file.
+Who gets notified when a Transfer to a Non-UFCU Member payment is delivered?
+Both you and the recipient are notified when the payment is sent and when it is delivered. Senders are notified when a payment is created, changed, or updated.
+What happens if a Transfer to a Non-UFCU Member payment cannot be sent?
+Both you and the recipient are notified when the payment link has expired. If the recipient does not claim your payment, the payment is canceled, and you must set up the payment again.
+What is a Real-Time Transfer to a Non-UFCU Member?
+This is a service that gives the recipient of a Transfer to a Non-UFCU Member transaction the option to provide the number of a debit card to receive the deposit immediately. The recipient is charged a $1.00 fee per transaction.
+General Information
+How do I enroll in paperless statements?
+In Online Banking, choose Accounts » Statements » Preferences, and then enable or disable paperless statements by clicking the toggle next to each account.
+How can I activate my debit or credit card?
+You can activate your debit or credit card within Online Banking or the Mobile app. Log in or launch the Mobile app. Under your inactivated card, select Cards » Manage Cards » Activate Now in Online Banking or tap Cards » Activate Now in the Mobile app. Be sure to enter your CVV, create and confirm your new PIN, and your card will be activated immediately.
+May I change my PIN?
+Yes, you may set or change your PIN within Online Banking or the Mobile app. Log in and select Cards » Manage Cards » Change PIN within Online Banking or tap Cards » Change PIN in the Mobile app. You must enter your current PIN first, then enter and confirm your new PIN, and the update will take effect immediately.
+How can I update my contact information?
+The easiest way to update your contact information is via Online Banking. Select Profile Settings » My Profile. You also can visit any
+branch
+or call Member Services at (800) 252-8311, and we’ll be happy to update your information for you. Or,
+download and print a Change of Address form (PDF)
+. Then email the completed form to
+members@ufcu.org
+.
+How can I make transfers between my accounts or to others?
+Online Banking and the UFCU Mobile app offer several methods for transferring funds. Select Pay & Transfer to view your options, which are:
+Deposit a Check (Mobile app only)
+Transfer Between Your UFCU Accounts
+Transfer To/From Your External Accounts
+Transfer to Another Member
+Transfer to a Non-UFCU Member
+Pay a Bill
+You also can manage scheduled transfers from this menu.
+Checks
+How do I view images of checks I wrote?
+You may view images of any check that you wrote after it has cleared. Select the transaction under the appropriate account. Transaction details are displayed, including images of the check.
+Note that UFCU checks cashed or deposited at a UFCU branch counter and checks written to a merchant that are converted to electronic payments are not available online.
+Can I view both the front and back of the check?
+Yes, both the front and back of the check are displayed.
+Is there a charge for viewing check images online?
+No, there is no charge to view your check images online. However, there is a fee to receive a physical copy of the physical check. Please refer to the
+fee schedule
+for more information.
+Mobile App Access
+What is the UFCU Mobile app?
+The Mobile app is available for download to your Apple
+®
+or Android™ device. With our Mobile app, you can deposit checks, view your account balances and activity, transfer funds, pay bills, pay your mortgage, and more.
+How can I get the UFCU Mobile app
+While on your device, select one of the links below to get started. Install the app like you would any other and click through the enroll prompts.
+Download on the App Store
+Get it on Google Play
+Is the UFCU Mobile app supported on my mobile device?
+The UFCU Mobile app is available to download on these mobile devices: iPhone
+®
+, iPad
+®
+products, Android™ smartphones, and Android tablets.
+Do you charge for the Mobile app?
+No, UFCU does not charge for our Mobile app. Note that your mobile-service provider might charge for data usage or text alerts.
+Is it secure?
+Yes! The Mobile app stores no account data on your mobile device. The app times out when your device is not in use, and a password is required to access functions. For added security, you can set up a passcode and/or biometric authentication. If your phone is ever lost or stolen, we can disable the service on your device.
+Do I need a data plan?
+Yes, a data plan or WiFi is required for the UFCU Mobile app. Having a data plan is the most reliable way to access the app on the go. Contact your mobile service provider for information about data plans.
+I'm not enrolled in Online Banking. Can I still use the Mobile app?
+Yes, you may enroll in Online Banking via any web browser or directly in the Mobile app. Just download the UFCU Mobile app, tap Enroll, and follow the prompts.
+Will my username and password for Online Banking also work for the Mobile app?
+Yes. The same credentials work for both.
+How can I enable auto-updates for the Mobile app?
+To ensure you're always benefiting from the latest features and enhancements, follow these steps to enable auto-updates for our Mobile app:
+Android
+Open the Google Play Store app.
+Tap your profile icon.
+Select "Settings."
+Tap "Network Preferences."
+Toggle on "Auto-update apps."
+Choose "over WiFi or mobile data," "with limited amount of mobile data," or "over WiFi only."
+Apple devices
+Open your device's "Settings."
+Scroll down and tap "App Store."
+Toggle on "App Updates."
+How can I activate my debit or credit card?
+You can activate your debit or credit card within Online Banking or the Mobile app. Log in or launch the Mobile app. Under your inactivated card, select Cards » Manage Cards » Activate Now in Online Banking or tap Cards » Activate Now in the Mobile app. Be sure to enter your CVV, create and confirm your new PIN, and your card will be activated immediately.
+May I change my PIN?
+Yes, you may set or change your PIN within Online Banking or the Mobile app. Log in and select Cards » Manage Cards » Change PIN within Online Banking or tap Cards » Change PIN in the Mobile app. You must enter your current PIN first, then enter and confirm your new PIN, and the update will take effect immediately.
+Will I be logged out of the UFCU Mobile app or Online Banking if I am not actively using the product?
+To ensure your security, you are logged out of each UFCU Online Banking or Mobile app session after 10 minutes of inactivity. You will be presented with an option to continue your session 60 seconds before the scheduled logout.
+Can I access multiple accounts with my device?
+Yes, you can access multiple accounts through the Mobile app. You can download the Mobile app on each device. Log in with the username and password that you created during enrollment.
+I want to view my account history in the Mobile app. How far into the past can I view?
+The Mobile app displays a maximum of two years of account-history information. The app lists the most recent activity first. If you need to see older activity, you can view statements in Online and Mobile Banking.
+Am I able to view pending transactions in the UFCU Mobile app?
+Yes, you can view pending transactions in your accounts and credit cards. To help with point-of-purchase decisions, you also can see your current and available balances.
+Can I schedule payments using Bill Pay in the UFCU Mobile app?
+Yes, you can set up or edit payments. You also can add, edit, or delete billers and view your bill-pay history.
+How can I switch between my business and personal accounts in the Mobile app?
+Select More in the bottom toolbar, then Switch Accounts. Or close the app and re-access it, selecting a different account as you sign back in.
+Mobile Deposits
+What is Mobile Deposit?
+UFCU Mobile Deposit is a quick and secure way to deposit checks into your account. On the UFCU Mobile app, you can take a photo of your check, enter the check information, and submit your deposit for processing.
+How do I get Mobile Deposit?
+After you log in to the Mobile app, tap Pay & Transfer » Deposit a Check. Review and accept the terms and conditions, then follow the prompts to deposit your check.
+Is there a fee to deposit a check with the Mobile app?
+There is currently no charge associated with this service.
+Can I use Mobile Deposit with any mobile device?
+Mobile Deposit works with Android and iPhone mobile devices. Older iPhones and devices without cameras are not supported. Your device’s camera must have auto-focus (not fixed focus).
+How do I endorse a check for Mobile Deposit?
+Before taking the photo, endorse the check and write the phrase, “For Mobile Deposit Only” on the back of your check.
+How do I submit my check?
+Place the check face-up on a flat, evenly lit, solid-color surface. Confirm the account to be deposited into then tap Front to display the frame. Mobile Deposit automatically focuses and takes a photo of your check after it is properly aligned. Or you can choose to manually take the photo by tapping the screen. Turn the check over and tap Back to display the frame. Align the check and wait for the app to take the photo. Confirm the dollars-and-cents amount that is on the check face (Mobile Deposit inserts the decimal). Submit and confirm your deposit.
+What if the app doesn’t take a photo of my check?
+If Mobile Deposit takes an unusually long time to capture your check, verify that the check is on a dark surface in bright light. Adjust your device’s distance from the check to fill the camera frame. If it still doesn’t take the photo, tap Manual in the top right header, align the check within the screen, then tap the frame screen to take the photo manually. Verify that the images are clear before submitting the check.
+How can I find my Mobile Deposit limits?
+Your current deposit limits are displayed in the app when you start a mobile deposit.
+Will there be a hold placed on my check?
+Funds deposited through UFCU Mobile Deposit are processed like all other deposits, so they are subject to our
+Funds Availability Policy (PDF)
+. View your deposit history to see your deposit status.
+How do I view my deposit history?
+After logging in to the Mobile app, select Pay & Transfer » Deposit a Check. Then select the file folder at the top of the screen to view your deposit history.
+What should I do with a physical check after I deposit it?
+After successfully submitting a deposit with Mobile Deposit, keep the check in a safe place for at least ten days. After that, destroy it.
+Mobile App Security
+What is a passcode?
+A passcode allows you to access the Mobile app without providing your full credentials each time you log in. At the same time, it prevents someone from accessing the app if your phone is left unlocked. You can change your passcode by selecting More in the bottom toolbar or by selecting "Forgot passcode?" after you open the Mobile app.
+What if my device is lost or stolen?
+Contact your mobile service provider to end service immediately if you believe that someone has gained access to your device. Then, contact us so that we can disable the Mobile app on that device for added peace of mind.
+Can I lock my credit and debit cards when I’m not using them, and unlock them myself when I’m ready to use one?
+Yes! Within the Mobile app, select Cards in the bottom toolbar. Slide to select from among the cards registered to you and lock or unlock each with the toggle. This feature is available to UFCU Mobile app users with an active UFCU debit or credit card.
+We encourage anyone whose card is lost or stolen to block the card immediately to reduce the chance of a fraudulent transaction.
+IMPORTANT: Locking your card is not a replacement for reporting the loss or theft of the card. Call us at
+(512) 467-8080
+or
+(800) 252-8311
+to file the report.
+How can I replace my lost, stolen, or damaged card?
+Log in to Online Banking or the Mobile app and select Card Management or tap Cards, select the card, tap Replace Card and follow the prompts.
+Transfers to Non-UFCU Accounts
+Can I transfer money to or from my accounts at other financial institutions?
+Yes. You can transfer funds to and from your domestic accounts at other financial institutions within the United States via Online Banking or the Mobile app. Select Pay & Transfer » Transfer To/From Your External Accounts. You will need to know the other institution's routing number along with your account number or login credentials. Note that this service is not available for international payments.
+What is the account verification process when setting up another financial institution for external transfers?
+Your name must be listed on the external account to be able to connect to it. If the financial institution you add uses electronic verification, setup can be completed immediately:
+Select » Transfer To/From Your External Accounts.
+Select Make a Transfer » To » Add External Account.
+Search for your other banking institution.
+Enter your username and password for the other banking institution.
+Agree and sign in.
+Retrieve and provide the security code if prompted.
+Select the account you want to link to. Select Continue.
+If the financial institution you add does not use electronic verification, you must use the manual verification process. This can take one or two business days. To verify your account manually:
+Select » Transfer To/From Your External Accounts.
+Select Make a Transfer » To » Add External Account.
+Select My bank is not on the list.
+Enter the name on the account, routing number, account number, and account type.
+Select Continue. We will send a micro-deposit to the external account.
+After you receive the deposit, select Transfer To/From Your External Accounts.
+Select Verify, then enter the first four characters of the reference code.
+What is the processing schedule for the account verification process?
+Requests and transfers are processed Sundays through Thursdays at 5 PM (excluding federal bank holidays).
+Can I use a third-party cash app or service to transfer funds to someone else?
+Yes. You can use your UFCU account or your credit or debit card to fund PayPal, Google Pay, Venmo, Cash App, and Apple Cash.
