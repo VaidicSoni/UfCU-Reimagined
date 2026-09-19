@@ -57,7 +57,7 @@ export function VirtualCard({ hidden, revealed, onToggle }) {
             <div className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </div>
 
-          <img src={cardImage || '/cards/default.png'} alt={`${uni.name} Card`} className="absolute inset-0 h-full w-full object-cover" />
+          <img src={cardImage || '/cards/default.png'} alt={`${uni.name} Card`} className="absolute inset-0 h-full w-full object-contain" />
 
           <div className="relative z-10 flex h-full flex-col justify-between p-6">
             <div className="flex items-start justify-between gap-4">

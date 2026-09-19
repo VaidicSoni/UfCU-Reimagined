@@ -38,7 +38,7 @@ function CardFan() {
           key={c.id}
           // Overlapping rather than spaced: three full-width cards side by side
           // are wider than the hero column and the last one gets clipped.
-          className={`relative h-24 w-36 shrink-0 overflow-hidden rounded-xl shadow-card sm:h-28 sm:w-40 ${
+          className={`relative w-36 sm:w-40 aspect-[1.586] shrink-0 overflow-hidden rounded-xl shadow-card ${
             i > 0 ? '-ml-8' : ''
           }`}
           style={{
@@ -51,7 +51,7 @@ function CardFan() {
             <img
               src={c.image}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-contain"
               onError={() => setMissing((m) => ({ ...m, [c.id]: true }))}
             />
           ) : (
