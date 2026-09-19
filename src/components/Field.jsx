@@ -28,7 +28,11 @@ export function Field({
     <div className="w-full min-w-0">
       <div
         className={`relative min-w-0 rounded-2xl border-2 bg-white transition ${
-          focused ? 'border-navy' : valid ? 'border-emerald-500/60' : 'border-navy-subtle'
+          focused
+            ? 'border-navy ring-[3px] ring-orange ring-offset-2 ring-offset-white'
+            : valid
+              ? 'border-emerald-500/60'
+              : 'border-navy-subtle'
         }`}
       >
         <label
@@ -53,7 +57,7 @@ export function Field({
           onChange={(e) => onChange(e.target.value)}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={`w-full min-w-0 bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none placeholder:text-navy-lighter ${
+          className={`field-input w-full min-w-0 bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none placeholder:text-navy-lighter ${
             trailing ? 'pr-[4.75rem]' : 'pr-12'
           }`}
           {...rest}

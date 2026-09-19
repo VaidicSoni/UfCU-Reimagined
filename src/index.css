@@ -36,6 +36,14 @@ body {
      forcing 4px drew a rectangle around pill-shaped inputs and buttons. */
 }
 
+/* A Field's input is a square box filling a rounded wrapper, so an outline on
+   the input draws a rectangle inside rounded corners. The input opts out and
+   the wrapper carries the ring instead, matching the shape you can actually
+   see. Higher specificity than the rule above, so it wins. */
+.field-input:focus-visible {
+  outline: none;
+}
+
 .frost {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(18px) saturate(140%);
