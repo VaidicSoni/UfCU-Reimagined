@@ -27,7 +27,7 @@ export function Identity() {
 
   const tax = validateTaxId(form.ssn, taxIdType)
   const noTax = taxIdType === 'none'
-  const ready = (noTax ? noTaxRoute === 'itin' : tax.valid) && idScanned && consent
+  const ready = (noTax ? noTaxRoute !== null : tax.valid) && idScanned && consent
   const doc = ID_TYPES.find((d) => d.id === docType)
 
   const scan = async () => {
@@ -135,9 +135,9 @@ export function Identity() {
             ))}
           </div>
 
-          {noTaxRoute === 'itin' && (
+          {noTaxRoute && (
             <p role="status" className="mt-3 text-sm font-semibold text-emerald-700">
-              {t(lang, 'noTaxChosen')}
+              {t(lang, noTaxRoute === 'itin' ? 'noTaxChosen' : 'noTaxBranchChosen')}
             </p>
           )}
         </section>

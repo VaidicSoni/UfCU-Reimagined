@@ -60,9 +60,10 @@ export function Dashboard({ chatOpen }) {
   const dashboardTheme = isBusiness ? 'business' : isStudent ? 'student' : 'personal'
   const radiusClass = dashboardTheme === 'business' ? 'rounded-md' : 'rounded-2xl'
 
-  // Animate stagger wrapper
-  const Panel = ({ children, dark = false }) => (
-    <div className={`animate-in fade-in slide-in-from-bottom-3 ${radiusClass} overflow-hidden ${dark ? 'bg-[#1C1C1E]' : ''}`}>
+  // Animate stagger wrapper. mb-5 and break-inside-avoid are what stop a panel
+  // splitting across a column break — the layout is CSS columns, not a grid.
+  const Panel = ({ children }) => (
+    <div className={`mb-5 break-inside-avoid animate-in fade-in slide-in-from-bottom-3 ${radiusClass} overflow-hidden`}>
       {children}
     </div>
   )
@@ -356,7 +357,7 @@ export function Dashboard({ chatOpen }) {
         )}
 
         {timeline === 'day90' && (
-          <Panel dark={true}>
+          <Panel>
             <IncomeSpendBars hidden={hidden} />
           </Panel>
         )}
@@ -444,7 +445,7 @@ export function Dashboard({ chatOpen }) {
 
         {/* Finish setting up / Explore Features */}
         {isStudent ? (
-          <Panel dark={true}>
+          <Panel>
             <StudentNextSteps />
           </Panel>
         ) : (

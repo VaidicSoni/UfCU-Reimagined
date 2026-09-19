@@ -64,7 +64,12 @@ export function OnboardingProvider({ children }) {
     const raw = new URLSearchParams(window.location.search).get('goals')
     return raw ? raw.split(',').map((g) => g.trim()).filter(Boolean) : []
   })
-  const [form, setForm] = useState(INITIAL_FORM)
+  const [form, setForm] = useState(() => {
+    // ?university=UT%20Austin seeds the student persona, so the student
+    // dashboard can be shown without walking the whole flow.
+    const uni = new URLSearchParams(window.location.search).get('university')
+    return uni ? { ...INITIAL_FORM, university: uni } : INITIAL_FORM
+  })
   const [idScanned, setIdScanned] = useState(false)
   const [taxIdType, setTaxIdType] = useState('ssn')
   // 'document' | 'bank' — how identity was actually established.

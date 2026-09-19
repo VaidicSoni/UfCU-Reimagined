@@ -23,6 +23,7 @@ export const COPY = {
     noTaxBranch: 'Talk to someone at a branch',
     noTaxBranchBody: 'Call (512) 467-8080 or (800) 252-8311, or book a time at any UFCU branch.',
     noTaxChosen: 'ITIN application started \u2014 we\u2019ll hold the rest of your application.',
+    noTaxBranchChosen: 'Saved \u2014 finish with a UFCU member advocate whenever you\u2019re ready.',
 
     micStart: 'Speak your question',
     micStop: 'Stop listening',
@@ -356,6 +357,7 @@ export const COPY = {
     noTaxBranch: 'Hablar con alguien en una sucursal',
     noTaxBranchBody: 'Llame al (512) 467-8080 o (800) 252-8311, o reserve una cita en cualquier sucursal.',
     noTaxChosen: 'Solicitud de ITIN iniciada: guardaremos el resto de su solicitud.',
+    noTaxBranchChosen: 'Guardado: term\u00ednelo con un asesor de UFCU cuando quiera.',
 
     micStart: 'Diga su pregunta',
     micStop: 'Dejar de escuchar',
