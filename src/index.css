@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Driven by the A / A+ accessibility toggle. */
+  --font-scale: 1;
+  color-scheme: light;
+}
+
+html {
+  font-size: calc(16px * var(--font-scale));
+}
+
+body {
+  margin: 0;
+  background: #f6f7fb;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Respect users who ask the OS for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible focus for keyboard users — never remove the ring. */
+:focus-visible {
+  outline: 3px solid #F2780C;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.frost {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(160px); }
+}
+.animate-scanline { animation: scanline 1.4s ease-in-out infinite alternate; }
+
+/* ── Lumi, the guide mascot ─────────────────────────────────────────── */
+
+.lumi { display: inline-block; }
+.lumi svg { animation: lumi-float 4.2s ease-in-out infinite; transform-origin: 50% 90%; }
+.lumi-eyes { transform-origin: 60px 48px; transition: transform 90ms ease, opacity 200ms ease; }
+.lumi-halo { animation: lumi-pulse 3.4s ease-in-out infinite; transform-origin: 60px 56px; }
+.lumi-sparks { opacity: 0; transform-origin: 60px 56px; }
+
+@keyframes lumi-float {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-7px) rotate(1deg); }
+}
+@keyframes lumi-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.07); }
+}
+@keyframes lumi-spark {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50%      { opacity: 0.9; transform: scale(1.15); }
+}
+@keyframes lumi-nod {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-9px) rotate(-5deg); }
+  60%      { transform: translateY(-2px) rotate(4deg); }
+}
+
+/* Working on something — sparks appear and the float speeds up. */
+.lumi--thinking svg { animation-duration: 1.5s; }
+.lumi--thinking .lumi-sparks { animation: lumi-spark 1.5s ease-in-out infinite; }
+
+/* A win — one celebratory nod, then settle. */
+.lumi--celebrate svg { animation: lumi-nod 1.1s ease-in-out 2; }
+.lumi--celebrate .lumi-sparks { animation: lumi-spark 0.75s ease-in-out 3; }
+
+/* ── Surface system ─────────────────────────────────────────────────── */
+
+/* Warm light pooling from the upper left — the "brighter futures" idea carried
+   into the page itself. Four layers: a warm lift under the header (which is
+   also what separates the navy logo from the ground), a cool periwinkle
+   counterweight top-right, a deep navy pool bottom-right, and a vertical
+   darkening underneath so the page has a floor. */
+.mesh {
+  background-color: #101c3d;
+  background-image:
+    radial-gradient(1100px 620px at 10% -12%, rgba(242, 120, 12, 0.42), transparent 58%),
+    radial-gradient(760px 520px at 24% 4%,  rgba(246, 160, 85, 0.20), transparent 55%),
+    radial-gradient(940px 700px at 90% -4%, rgba(129, 130, 177, 0.32), transparent 60%),
+    radial-gradient(1000px 820px at 78% 98%, rgba(35, 51, 93, 0.80), transparent 62%),
+    linear-gradient(180deg, #172a55 0%, #101c3d 52%, #0a1229 100%);
+  background-attachment: fixed;
+}
+
+/* Fine grain stops the large flat areas reading as a default template. */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The U motif: square shoulders, deeply rounded foot — the silhouette of the
+   UFCU wordmark's "u", reused as the shape language for every panel. */
+.u-card {
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-left-radius: 3.5rem;
+  border-bottom-right-radius: 3.5rem;
+}
+.u-chip {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 1.75rem;
+  border-bottom-right-radius: 1.75rem;
+}
+
+.display {
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+/* Thin orange rule used as a section marker. */
+.rule::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  border-radius: 2px;
+  background: #F2780C;
+  margin-bottom: 1rem;
+}
+
+/* ── Lumi's corner dock ─────────────────────────────────────────────── */
+
+/* Bottom-left, deliberately: the primary CTA lives bottom-right of the card,
+   and a helper there would compete with the button we want pressed. */
+.dock-anchor { transition: opacity 260ms ease, transform 340ms cubic-bezier(.16, 1, .3, 1); }
+.dock-anchor--hidden { opacity: 0; transform: scale(.78) translateY(12px); pointer-events: none; }
+
+/* She bounces and shakes on her own — no hover required. One long loop that
+   rests for most of its duration, then bursts, so she's lively but not busy. */
+@keyframes dock-idle {
+  0%, 60%   { transform: translateY(0) rotate(0deg); }
+  65%       { transform: translateY(-15px) rotate(-5deg); }
+  70%       { transform: translateY(0) rotate(4deg); }
+  74%       { transform: translateY(-7px) rotate(-4deg); }
+  78%       { transform: translateY(0) rotate(3deg); }
+  82%       { transform: translateY(0) rotate(-3deg); }
+  86%       { transform: translateY(0) rotate(2deg); }
+  90%, 100% { transform: translateY(0) rotate(0deg); }
+}
+.dock-lumi-inner { animation: dock-idle 5s ease-in-out infinite; transform-origin: 50% 85%; }
+
+/* Question chips fan out around her, staggered, then drift gently. */
+@keyframes chip-in {
+  from { opacity: 0; transform: translate(-14px, 14px) scale(.85); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes chip-drift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.dock-chip {
+  opacity: 0;
+  animation: chip-in 520ms cubic-bezier(.16, 1, .3, 1) forwards,
+             chip-drift 4.5s ease-in-out infinite;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+/* Opening splits the page: the card slides right into its half while the chat
+   is revealed in the left half. Both run on the same curve and duration. */
+.split-col { transition: width 520ms cubic-bezier(.16, 1, .3, 1), opacity 340ms ease; }
+.split-card { transition: max-width 520ms cubic-bezier(.16, 1, .3, 1); }
+.chat-body { transition: opacity 300ms ease 120ms, transform 420ms cubic-bezier(.16, 1, .3, 1) 60ms; }
+.chat-body--closed { opacity: 0; transform: translateX(-24px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-chip { opacity: 1; animation: none; }
+  .dock-lumi-inner { animation: none; }
+}
