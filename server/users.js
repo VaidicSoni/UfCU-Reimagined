@@ -1,3 +1,87 @@
+const seedRandom = (seed) => {
+  let x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+};
+
+function generateTransactions(seed, count, categories, minAmt, maxAmt, accountIds) {
+  const txs = [];
+  let s = seed;
+  const now = new Date("2026-09-19T12:00:00Z");
+  
+  for (let i = 0; i < count; i++) {
+    // random date in past 30 days
+    const daysAgo = Math.floor(seedRandom(s++) * 30);
+    const d = new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
+    const dateStr = d.toISOString().split('T')[0];
+    
+    const catKeys = Object.keys(categories);
+    const cat = catKeys[Math.floor(seedRandom(s++) * catKeys.length)];
+    const merchants = categories[cat];
+    const desc = merchants[Math.floor(seedRandom(s++) * merchants.length)];
+    
+    // amount between minAmt and maxAmt
+    const amt = (seedRandom(s++) * (maxAmt - minAmt) + minAmt).toFixed(2);
+    const amount = cat === 'Income' ? parseFloat(amt) : -parseFloat(amt);
+    
+    const accountId = accountIds[Math.floor(seedRandom(s++) * accountIds.length)];
+    
+    txs.push({
+      id: `tx_${s}_${i}`,
+      date: dateStr,
+      description: desc,
+      amount: amount,
+      category: cat,
+      accountId: accountId
+    });
+  }
+  
+  return txs.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function summarize(txs) {
+  const summary = {};
+  for (const t of txs) {
+    if (t.amount < 0) {
+      summary[t.category] = (summary[t.category] || 0) + Math.abs(t.amount);
+    }
+  }
+  // round to 2 decimals
+  for (const k in summary) {
+    summary[k] = parseFloat(summary[k].toFixed(2));
+  }
+  return summary;
+}
+
+const studentCats = {
+  "Food & Dining": ["Torchy's Tacos", "P. Terry's", "Kerbey Lane Cafe", "Chick-fil-A", "Chipotle", "Pizza Press"],
+  "Entertainment": ["Spotify", "Netflix", "Alamo Drafthouse", "AMC Theaters", "Barton Springs Pool"],
+  "Education": ["UT Co-op", "Chegg", "Canvas Sub", "University Bookstore"],
+  "Groceries": ["HEB Grocery", "Trader Joe's", "Target", "Oasis Texas Brewing"],
+  "Transport": ["CapMetro", "Uber", "Lyft", "Lime Scooter"]
+};
+
+const studentTxs = generateTransactions(100, 45, studentCats, 5, 80, ["acc_chk_01"]);
+
+const businessCats = {
+  "Business Expenses": ["Apple Store", "AWS Services", "Google Workspace", "WeWork", "Office Depot", "Adobe Creative Cloud"],
+  "Food & Dining": ["Uchi Austin", "Franklin Barbecue", "Odd Duck", "Launderette", "Eberly"],
+  "Auto & Transport": ["Tesla Supercharger", "Chevron", "Valero", "Delta Airlines", "Enterprise Rent-A-Car"],
+  "Shopping": ["Whole Foods", "Nordstrom", "Amazon", "Central Market", "IKEA"],
+  "Income": ["Client Payment - Consulting", "Invoice #1042", "Stripe Payout", "Square Inc"]
+};
+
+const businessTxs = generateTransactions(200, 80, businessCats, 20, 500, ["acc_chk_02", "acc_bus_01"]);
+
+const personalCats = {
+  "Groceries": ["Central Market", "HEB Grocery", "Randalls", "Sprouts"],
+  "Utilities": ["Austin Energy", "Texas Gas Service", "Spectrum Internet", "City of Austin Water"],
+  "Gas": ["Shell Station", "Exxon", "7-Eleven"],
+  "Home": ["Home Depot", "Lowe's", "Target", "Bed Bath & Beyond"],
+  "Healthcare": ["CVS Pharmacy", "Walgreens", "Austin Regional Clinic"]
+};
+
+const personalTxs = generateTransactions(300, 35, personalCats, 15, 150, ["acc_chk_03"]);
+
 export const users = [
   {
     id: "user_student_01",
@@ -28,18 +112,8 @@ export const users = [
         routingNumber: "**********"
       }
     ],
-    spendingSummary: {
-      "Food & Dining": 150.50,
-      "Entertainment": 45.00,
-      "Education": 120.00,
-      "Groceries": 80.20
-    },
-    recentTransactions: [
-      { id: "tx_01", date: "2026-09-18", description: "HEB Grocery", amount: -45.20, category: "Groceries", accountId: "acc_chk_01" },
-      { id: "tx_02", date: "2026-09-17", description: "UT Co-op", amount: -120.00, category: "Education", accountId: "acc_chk_01" },
-      { id: "tx_03", date: "2026-09-15", description: "Torchy's Tacos", amount: -18.50, category: "Food & Dining", accountId: "acc_chk_01" },
-      { id: "tx_04", date: "2026-09-14", description: "Spotify", amount: -5.99, category: "Entertainment", accountId: "acc_chk_01" }
-    ]
+    spendingSummary: summarize(studentTxs),
+    recentTransactions: studentTxs
   },
   {
     id: "user_multi_02",
@@ -84,19 +158,8 @@ export const users = [
         accountNumber: "****7733"
       }
     ],
-    spendingSummary: {
-      "Business Expenses": 4500.00,
-      "Food & Dining": 420.00,
-      "Auto & Transport": 350.00,
-      "Shopping": 890.00
-    },
-    recentTransactions: [
-      { id: "tx_11", date: "2026-09-19", description: "Apple Store - Domain", amount: -2499.00, category: "Business Expenses", accountId: "acc_bus_01" },
-      { id: "tx_12", date: "2026-09-18", description: "Uchi Austin", amount: -210.00, category: "Food & Dining", accountId: "acc_chk_02" },
-      { id: "tx_13", date: "2026-09-15", description: "Tesla Supercharger", amount: -15.40, category: "Auto & Transport", accountId: "acc_chk_02" },
-      { id: "tx_14", date: "2026-09-10", description: "Whole Foods", amount: -145.20, category: "Shopping", accountId: "acc_chk_02" },
-      { id: "tx_15", date: "2026-09-01", description: "Client Payment - Consulting", amount: 8500.00, category: "Income", accountId: "acc_bus_01" }
-    ]
+    spendingSummary: summarize(businessTxs),
+    recentTransactions: businessTxs
   },
   {
     id: "user_simple_03",
@@ -117,15 +180,7 @@ export const users = [
         accountNumber: "****3312"
       }
     ],
-    spendingSummary: {
-      "Groceries": 250.00,
-      "Utilities": 120.00,
-      "Gas": 45.00
-    },
-    recentTransactions: [
-      { id: "tx_21", date: "2026-09-16", description: "Austin Energy", amount: -120.00, category: "Utilities", accountId: "acc_chk_03" },
-      { id: "tx_22", date: "2026-09-14", description: "Shell Station", amount: -45.00, category: "Gas", accountId: "acc_chk_03" },
-      { id: "tx_23", date: "2026-09-12", description: "Central Market", amount: -85.50, category: "Groceries", accountId: "acc_chk_03" }
-    ]
+    spendingSummary: summarize(personalTxs),
+    recentTransactions: personalTxs
   }
 ];
