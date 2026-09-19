@@ -35,7 +35,7 @@ export function Done() {
   return (
     <div className="space-y-7">
       <div>
-        <Mascot brightness={1} size={92} state="celebrate" />
+        <Mascot brightness={1} size={92} state="celebrate" face />
         <h1 className="mt-3 text-3xl font-extrabold leading-tight text-navy">{t(lang, 's8Title')}</h1>
       </div>
 

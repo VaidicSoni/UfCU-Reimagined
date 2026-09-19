@@ -15,6 +15,12 @@ export const COPY = {
     guide: 'Your UFCU guide',
     back: 'Back',
 
+    // Read-aloud (accessibility)
+    readAloud: 'Read answers aloud',
+    readAloudOn: 'Reading aloud is on',
+    playMessage: 'Play this message',
+    stopMessage: 'Stop reading',
+
     // Bundle recommendation (rubric A: product fit + value explanation)
     bundleTitle: 'Your UFCU bundle',
     bundleFor: (seg) => `Tailored for someone ${seg}`,
@@ -148,6 +154,11 @@ export const COPY = {
     send: 'Enviar',
     guide: 'Su guía de UFCU',
     back: 'Atrás',
+
+    readAloud: 'Leer respuestas en voz alta',
+    readAloudOn: 'La lectura en voz alta está activada',
+    playMessage: 'Reproducir este mensaje',
+    stopMessage: 'Detener la lectura',
 
     bundleTitle: 'Su paquete UFCU',
     bundleFor: (seg) => `Adaptado para alguien ${seg}`,

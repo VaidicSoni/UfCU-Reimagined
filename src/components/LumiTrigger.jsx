@@ -43,9 +43,10 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
               brightness={0.32 + 0.68 * (progress.current / progress.total)}
               state={mood}
               size={96}
+              face={false}
             />
           </span>
-          <span className="pointer-events-none absolute -right-2 top-1 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card lg:hidden">
+          <span className="pointer-events-none absolute -right-3 -top-2 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card lg:hidden">
             {lang === 'es' ? 'Ayuda' : 'Help'}
           </span>
         </button>

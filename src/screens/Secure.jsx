@@ -53,6 +53,7 @@ export function Secure() {
           brightness={1}
           size={110}
           state={passkey ? 'celebrate' : 'idle'}
+          face
           className="mx-auto"
         />
         <p className="mt-3 text-base text-navy-lighter">

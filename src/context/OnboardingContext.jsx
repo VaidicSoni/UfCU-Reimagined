@@ -66,16 +66,17 @@ export function OnboardingProvider({ children }) {
   // Accessibility preferences — the only thing we persist.
   const [lang, setLang] = useState(prefs.lang === 'es' ? 'es' : 'en')
   const [fontScale, setFontScale] = useState(prefs.fontScale || 1)
+  const [readAloud, setReadAloud] = useState(prefs.readAloud === true)
 
   useEffect(() => {
     document.documentElement.style.setProperty('--font-scale', fontScale)
     document.documentElement.lang = lang
     try {
-      localStorage.setItem(PREFS_KEY, JSON.stringify({ lang, fontScale }))
+      localStorage.setItem(PREFS_KEY, JSON.stringify({ lang, fontScale, readAloud }))
     } catch {
       /* private browsing — preferences simply don't persist */
     }
-  }, [lang, fontScale])
+  }, [lang, fontScale, readAloud])
 
   const update = useCallback((patch) => setForm((f) => ({ ...f, ...patch })), [])
 
@@ -121,6 +122,7 @@ export function OnboardingProvider({ children }) {
     linkedBank, setLinkedBank,
     lang, setLang,
     fontScale, setFontScale,
+    readAloud, setReadAloud,
   }
 
   return <OnboardingContext.Provider value={value}>{children}</OnboardingContext.Provider>

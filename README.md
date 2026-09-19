@@ -54,21 +54,42 @@ at account approval.
 The filament also doubles as Lumi's smile, so the UFCU letterform *is* the
 character's expression.
 
-The filament draws itself on as the **u**, holds long enough to read as the
-wordmark, then relaxes into a smile as the eyes open — and returns to the
-letterform every ~6 seconds, so the connection lands even if you arrive
-mid-screen. Both shapes share one path grammar (`M, L, A, L`), so the morph is a
-numeric interpolation of ten values rather than a cross-fade between two
-drawings; the arc bottom stays anchored while the stems retract, which is what
-keeps the curve reading as one continuous shape.
+The bulb is a single closed path whose glass shoulders taper into a neck before
+the screw base — a circle on a stand doesn't read as a bulb. One path rather
+than stacked shapes, so the outline has no seams.
 
-Lumi is pure inline SVG: no image assets, no library, nothing to load. The morph
-loop writes SVG attributes directly rather than going through React state, so a
-permanently running animation never re-renders the tree. Ambient motion stays
-deliberately small — a slow float, an irregular blink that only fires while the
-face is actually showing, a soft halo pulse — with two reactive states:
+The filament is centred in the glass cavity — it reads y 27.5–68.5 inside a
+16–80 opening, so there's 11.5 clear above and below.
+
+**At rest she stays the UFCU "u".** She relaxes into a face only where she's
+actually in use: her introduction on the landing page, and whenever the chat is
+open. That keeps the letterform — the brand — as her default state. Close the
+chat and she returns to the letter.
+
+On the landing she **cycles** between the two (face for 3.6s, letter for 1.9s),
+because a one-shot intro is over inside two seconds and most visitors never see
+it. Everywhere else the transition is driven by actual state, not a timer.
+
+While reading aloud, her mouth animates against the speech at 2.2 Hz, driven by
+the utterance's own `onstart`/`onend` events rather than a guess about timing,
+so she stops the moment the sentence does. The open mouth keeps the smile's
+endpoints and horizontal radius and only deepens, so the jaw drops rather than
+the mouth squeezing inwards, and two detuned sines drive it so it doesn't read
+as a metronome.
+
+All three shapes — letter, smile, open mouth — share one path grammar
+(`M, L, A, L`), so every transition is a numeric interpolation of ten values
+rather than a cross-fade between drawings; the arc bottom stays anchored while
+the stems retract, which is what keeps the curve reading as one continuous
+shape.
+
+Lumi is pure inline SVG: no image assets, no library, nothing to load. The
+animation writes SVG attributes directly rather than going through React state,
+so a permanently running loop never re-renders the tree. Ambient motion stays
+deliberately small — a slow float, an irregular blink that fires only when she
+has a face and isn't mid-sentence, a soft halo pulse — with two reactive states:
 `thinking` during the KYC wait and `celebrate` on approval. All of it is
-suppressed under `prefers-reduced-motion`, which pins Lumi to the resting face.
+suppressed under `prefers-reduced-motion`.
 
 Three rules carry the look beyond default template territory:
 
@@ -117,10 +138,10 @@ is deliberate: every primary CTA (`Continue`, `Verify my identity`) sits
 bottom-right of the card, so a helper there would overlap the button we most
 want pressed, and in left-to-right reading the eye lands there last.
 
-She bounces and shakes on her own, on a five-second CSS loop that rests for most
-of its length then bursts — no hover required, so she reads as alive even while
-the member is typing. Three suggested questions fan out around her along an arc,
-staggered in and drifting gently.
+She holds the UFCU letterform there, and bounces and shakes on her own on a
+five-second CSS loop that rests for most of its length then bursts — no hover
+required, so she reads as alive even while the member is typing. Three suggested
+questions fan out around her along an arc, staggered in and drifting gently.
 
 Opening the chat **splits the page** rather than covering it: the card slides
 into the right half as the chat is revealed in the left, landing on a true
@@ -163,8 +184,11 @@ three things the data is used for, and a passkey instead of a password.
 a funded account with a card on the way and a signed-in path into the app.
 
 **"Accessible to all generations"** — text scaling (A / A+ / A++), full Spanish
-translation, text-to-speech on every concierge line, keyboard-visible focus
-rings, ARIA live regions on progress, and reduced-motion support.
+translation, keyboard-visible focus rings, ARIA live regions on progress, and
+reduced-motion support. Plus **read-aloud**: a toggle at the top of the chat has
+Lumi speak every reply and every step's explanation, with a play button on each
+individual message for anyone who wants one line repeated. The preference
+persists, so it survives a reload mid-demo.
 
 ## Scoring against the rubric
 

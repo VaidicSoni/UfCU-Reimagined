@@ -119,6 +119,7 @@ export default function App() {
                 }`}
               >
                 <Concierge
+                  open={chatOpen}
                   message={t(lang, GUIDE_LINE[step])}
                   mood={mood}
                   seed={seed}

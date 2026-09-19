@@ -50,9 +50,9 @@ body {
 
 .lumi { display: inline-block; }
 .lumi svg { animation: lumi-float 4.2s ease-in-out infinite; transform-origin: 50% 90%; }
-.lumi-eyes { transform-origin: 60px 48px; transition: transform 90ms ease, opacity 200ms ease; }
-.lumi-halo { animation: lumi-pulse 3.4s ease-in-out infinite; transform-origin: 60px 56px; }
-.lumi-sparks { opacity: 0; transform-origin: 60px 56px; }
+.lumi-eyes { transform-origin: 60px 41px; transition: transform 90ms ease, opacity 200ms ease; }
+.lumi-halo { animation: lumi-pulse 3.4s ease-in-out infinite; transform-origin: 60px 48px; }
+.lumi-sparks { opacity: 0; transform-origin: 60px 48px; }
 
 @keyframes lumi-float {
   0%, 100% { transform: translateY(0) rotate(-1deg); }

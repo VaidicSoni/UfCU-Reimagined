@@ -47,7 +47,7 @@ export function Landing() {
         {/* Lumi's introduction */}
         <div className="u-card relative bg-white/[0.07] p-8 ring-1 ring-white/10">
           <div className="flex flex-col items-center text-center">
-            <Mascot brightness={0.85} size={150} />
+            <Mascot brightness={0.85} size={150} face loop />
             <p className="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-orange-lighter">
               {t(lang, 'meetLumi')}
             </p>
