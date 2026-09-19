@@ -34,6 +34,7 @@ export function Address() {
             onChange={onAddressChange}
             valid={form.address.length > 4}
             autoComplete="street-address"
+            fieldId="address"
           />
           {suggestions.length > 0 && (
             <ul className="absolute z-20 mt-2 w-full overflow-hidden rounded-2xl border-2 border-navy-subtle bg-white shadow-card">
@@ -53,14 +54,15 @@ export function Address() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <Field label={t(lang, 'city')} value={form.city} onChange={(v) => update({ city: v })} valid={!!form.city} />
-          <Field label={t(lang, 'state')} value={form.state} onChange={(v) => update({ state: v })} valid={!!form.state} />
+          <Field label={t(lang, 'city')} value={form.city} onChange={(v) => update({ city: v })} valid={!!form.city} fieldId="city" />
+          <Field label={t(lang, 'state')} value={form.state} onChange={(v) => update({ state: v })} valid={!!form.state} fieldId="state" />
           <Field
             label={t(lang, 'zip')}
             inputMode="numeric"
             value={form.zip}
             onChange={(v) => update({ zip: v.replace(/\D/g, '').slice(0, 5) })}
             valid={form.zip.length === 5}
+            fieldId="zip"
           />
         </div>
       </div>

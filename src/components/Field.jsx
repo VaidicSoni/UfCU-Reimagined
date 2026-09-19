@@ -1,13 +1,27 @@
 import { useId, useState } from 'react'
+import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { Icon } from './Icons.jsx'
 
 // Floating-label input with an inline validity check, per the UI revamp doc.
+// When fieldId is provided, focus/blur events update the global focusedField
+// in OnboardingContext so Lumi's suggestions change based on the active field.
 export function Field({
-  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode, ...rest
+  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode, fieldId, ...rest
 }) {
   const id = useId()
   const [focused, setFocused] = useState(false)
+  const { setFocusedField } = useOnboarding()
   const floated = focused || String(value ?? '').length > 0
+
+  const handleFocus = () => {
+    setFocused(true)
+    if (fieldId) setFocusedField(fieldId)
+  }
+
+  const handleBlur = () => {
+    setFocused(false)
+    if (fieldId) setFocusedField(null)
+  }
 
   return (
     <div className="w-full">
@@ -33,8 +47,8 @@ export function Field({
           inputMode={inputMode}
           autoComplete={autoComplete}
           onChange={(e) => onChange(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           className="w-full bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none"
           {...rest}
         />

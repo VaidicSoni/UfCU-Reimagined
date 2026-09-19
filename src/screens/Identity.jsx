@@ -31,6 +31,7 @@ export function Identity() {
         onChange={(v) => update({ ssn: formatSSN(v) })}
         valid={ssnValid}
         hint={t(lang, 'ssnWhy')}
+        fieldId="ssn"
       />
 
       {/* Mock ID capture. No camera is opened and no image is stored. */}

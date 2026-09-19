@@ -1,11 +1,13 @@
 import { useOnboarding } from '../context/OnboardingContext.jsx'
-import { suggestionsFor } from '../lib/concierge.js'
+import { getSuggestions } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
 
 // The collapsed corner dock. Lumi bounces and shakes on her own via CSS; the
 // open chat lives in the page layout, not here.
+// Chips are now context-aware: they change based on the current screen + focused field.
 export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
-  const { lang, step, progress, fontScale } = useOnboarding()
+  const { lang, step, progress, fontScale, focusedField } = useOnboarding()
+  const suggestions = getSuggestions(step, focusedField, lang)
 
   // A flex column rather than absolute offsets: questions vary in length, and
   // fixed positions made long ones wrap into each other.
@@ -19,7 +21,7 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
             is always tappable, and the same questions sit inside the chat. */}
         {showChips && (
           <div className="mb-2 hidden flex-col items-start gap-2 xl:flex">
-            {suggestionsFor(step, lang).slice(0, 3).map((q, i) => (
+            {suggestions.slice(0, 3).map((q, i) => (
               <button
                 key={q}
                 onClick={() => onAsk(q)}
@@ -42,7 +44,6 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
               brightness={0.32 + 0.68 * (progress.current / progress.total)}
               state={mood}
               size={96}
-              face={false}
             />
           </span>
           <span className="pointer-events-none absolute -right-3 -top-2 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card xl:hidden">

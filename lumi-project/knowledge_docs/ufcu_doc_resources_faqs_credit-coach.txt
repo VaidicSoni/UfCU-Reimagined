@@ -1,0 +1,57 @@
+URL: https://ufcu.org/resources/faqs/credit-coach
+Source: UFCU Website
+--------------------------------------------------
+
+Credit Coach FAQs
+General Information
+What is UFCU Credit Coach and how does it work?
+UFCU Credit Coach is a free and unique web-based, digital credit counselor that can help you improve your credit score by creating personalized roadmaps to help position you for credit success.
+Whether you’re looking to get approved for a loan or seek a credit card, Credit Coach can offer personalized recommendations to address the key factors that contribute to improving your credit score over time.
+Who is Credit Coach for?
+Whether you’re just starting out, or you have an established credit history, Credit Coach can help you get beyond basic monitoring and management of your credit.
+Nearly everyone can benefit from Credit Coach as it can help you determine eligibility for loan products and will provide an actionable path to credit building and improvement. You must be at least 18 years old and have a Social Security Number to sign up for Credit Coach. We are currently inviting borrowers who have expressed an interest in UFCU consumer lending products. Stay tuned for updates as we work toward making this program available to all Members.
+How do I get started with Credit Coach?
+UFCU Credit Coach can be accessed by all at
+https://ufcu.creditmountain.org
+We are rolling out Credit Coach access in UFCU Digital Banking. If you have access to Online Banking or the Mobile app there will be an option to enroll for Credit Coach on the main account page. Only Members can access UFCU Digital Banking.
+What if I already have a Credit Coach account?
+If you already enrolled in a Credit Coach account with UFCU, you can link your account in Digital Banking.
+Log in to either Online Banking or the Mobile app
+Find the credit score widget and click Enroll
+Click ‘Already have an account? Login’ and follow the steps
+How does Credit Coach help determine my personalized strategy?
+To create a personalized strategy, Credit Coach considers many factors including, but not limited to, credit history, payment history, outstanding debt, rent payments, and more. Leveraging your actual credit information, Credit Coach uses the latest technology to compare your credit profile to your stated goal, such as a home or auto loan. This process enables Credit Coach to create a unique, personalized strategy that provides a path to improved credit.
+If I use Credit Coach, is my credit score guaranteed to improve?
+No. There is no guarantee of a credit score increase. Credit scoring models are complex, and the factors affecting a person’s credit score vary from individual to individual. Also, a score increase “guarantee” may be out of compliance with the Credit Repair Organizations Act (CROA) or other applicable legislation.
+Will using Credit Coach hurt my credit score?
+No. Signing up for Credit Coach requires a soft pull of your credit data but does not generate a hard pull. Once you begin using Credit Coach, you might get a recommendation for a rent reporting service, a credit builder loan (subject to availability), or other services based on your personal credit profile. These services do not harm your credit score. Finally, Credit Coach may refer you to a UFCU online application if you are ready to apply for a loan. Should you choose to proceed with an application, this will result in a hard credit pull and, likely, a temporary lowering of your credit score.
+How much does it cost to use Credit Coach?
+Credit Coach is free! Some of the third-party provided services, however, may require an additional charge. As of March 2023, the third party service providers are Kredit (for credit dispute) and Boom Pay (for rent reporting). These providers’ services are cost-effective, and their pricing is transparent and clearly displayed.
+Can UFCU track or monitor my Credit Coach activity?
+Yes. UFCU employees have access to an administration portal specifically designed to allow them to access data about your goals and progress. We do not share any specific financial data or transactions. If you would like more information about the type of information disclosed, please review the
+UFCU Privacy Policy
+.
+Getting Started
+Enrolling
+Why must I share personal information with Credit Coach?
+When enrolling, you might be asked to enter sensitive information, such as your social security number, home address, monthly income, Vehicle Identification Number (VIN), or other information. This data is required to verify your profile, to prevent fraud, and to create a more personalized approach to your credit improvement journey.
+UFCU Credit Coach is powered by Credit Mountain, a fintech company committed to helping credit unions offer declined borrowers a path to approval. To learn more about how Credit Mountain uses data, please see the
+Credit Mountain Privacy Policy
+.
+It is important to note that your private and personal information is never shared without your consent. Data is collected and used to comply with applicable laws, to protect your consumer rights, to provide digital credit counselor-related services, or to fulfill business obligations.
+As a consumer, is my financial data safe with Credit Mountain?
+Yes. UFCU Credit Coach is powered by Credit Mountain, a fintech company committed to helping credit unions offer declined borrowers a path to approval. Credit Mountain employs the latest measures in cyber security while also enforcing very strict security protocols to make sure all your information is stored safely. Credit Mountain is certified to the industry SOC-2 standard. To learn more about how Credit Mountain uses data, please see the
+Credit Mountain Privacy Policy
+.
+What if I have registration or authentication issues?
+UFCU Credit Coach is powered by Credit Mountain, a fintech company committed to helping credit unions offer declined borrowers a path to approval. To provide the most secure experience, Credit Mountain may conduct reviews of your information during sign-up. Additional verification can take anywhere from 3 to 5 business days.
+Credit Mountain provides support by chat (available at the bottom right of the UFCU Credit Coach screen) or email (
+support@creditmountain.org
+).
+Personalized Credit Improvement Paths
+What is a personalized path to credit improvement?
+Personalized paths to credit improvement are a core capability of Credit Coach. This feature is designed to guide you toward creditworthiness standards for specific loans or credit products.
+How does Credit Coach “know” what the specific creditworthiness standards are for UFCU products and services?
+UFCU Credit Coach is powered by Credit Mountain, a fintech company committed to helping credit unions offer declined borrowers a path to approval. UFCU has provided its lending guidelines and underwriting criteria to Credit Mountain to help them determine creditworthiness thresholds. Your credit data is compared with the UFCU-provided lending standards, and Credit Coach shares whether you’re ready now can be ready with action. If you are not prequalified based on your credit, Credit Coach gives you a personalized credit improvement path that can help you achieve your goals.
+If I complete all the steps along my personalized path, does this guarantee that my application for a loan or credit card will be approved?
+No. Many factors influence loan approval, and many are outside the scope of Credit Coach. Ultimately, your loan or credit application will go through the UFCU underwriting process, and that will determine your eligibility.

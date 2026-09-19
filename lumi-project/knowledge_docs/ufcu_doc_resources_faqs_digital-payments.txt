@@ -1,0 +1,76 @@
+URL: https://ufcu.org/resources/faqs/digital-payments
+Source: UFCU Website
+--------------------------------------------------
+
+Digital Payment FAQs
+Digital Payments
+What happens if I replace my device?
+You will need to add your card(s) again and follow the setup steps once more to carry over info to any different or new devices. In some cases, the digital wallet will still hold your cards and just ask you to verify your CVC number on the back of your UFCU debit or credit card.
+What happens if my UFCU card is replaced?
+If your UFCU card is replaced, you will need to re-add it to Apple Pay or Google Wallet to continue making digital payments. If you have any trouble, you can contact
+(800) 252-8311
+for help.
+Is it safe to use my UFCU card in a digital wallet?
+Yes. Digital wallets use advanced security features like tokenization and biometric authentication (such as Face ID, Touch ID, or a device passcode). Your actual card number is never shared with merchants, adding an extra layer of protection. You are also protected from unauthorized purchases with the
+UFCU and VISA Zero Liability Policy
+.
+How do I add my UFCU card to a digital wallet?
+Once you activate your physical UFCU debit or credit card, you can add it directly to Apple Pay or Google Wallet from your UFCU mobile app in just a few taps.
+After activating your card:
+Login to the Mobile app
+Go to the Cards section
+Select your card and tap ‘Add to Wallet’
+Once added, your card is ready to use.
+For steps to add your card to Garmin Pay or Samsung Pay please visit:
+https://www.ufcu.org/resources/member-services/banking/digital-payment-solutions
+What digital payment options are offered at UFCU?
+Members can tap to add their eligible UFCU debit and credit cards to Apple Pay® or Google Wallet™ from the UFCU Mobile app for fast, secure, and contactless payments. You can also add your card in the Garmin pay and Samsung pay apps too. Use your digital wallet to pay in stores, online, and in apps — no physical card required.
+What is a digital wallet and how does it work?
+A digital wallet is the modern version of your everyday wallet, allowing you to make secure payments and store essentials like loyalty cards and tickets. It works seamlessly across desktops, laptops, mobile devices, and wearables for quick and convenient access anytime.
+Instant Payments
+What are instant payments?
+Instant payments are a fast way to receive money directly into your UFCU account, typically within seconds, even outside normal business hours.
+How can I receive an instant payment to my UFCU account?
+To receive an instant payment, the sender must initiate the payment from their financial institution. You may need to provide your 13-digit UFCU account number and/or UFCU’s routing number (314977405).
+You can find your account number in Online Banking or at the bottom of your checks.
+For help locating your account details, visit
+Online Banking FAQs
+.
+At this time, UFCU Members can
+receive instant payments only
+.
+Where will I see an instant payment in my account?
+Instant payments appear in your transaction history within Online Banking and the Mobile app. You might see such labels as:
+“FedNow deposit”
+“RTP deposit”
+“Faster payments”
+“Deposit” or “Transfer”
+The transaction description might also include:
+The sender’s name
+The sending financial institution
+A payment processor name
+How fast are instant payments?
+In most cases, instant payments are delivered within seconds. Timing may vary depending on the sending financial institution.
+Is there a fee to receive instant payments?
+No. UFCU does not charge a fee to receive instant payments. Any fees are determined by the sending financial institution.
+What are FedNow
+®
+and RTP
+®
+?
+FedNow and RTP (Real-Time Payments) are payment networks that allow financial institutions to send money instantly between accounts. UFCU uses these networks to enable Members to receive instant payments from other financial institutions.
+Do I need to sign up to receive instant payments?
+No. You can receive instant payments automatically when one is sent to you. At this time, UFCU Members can
+receive instant payments only
+.
+What do I do if I receive money I wasn’t expecting?
+There are several reasons you might receive an instant payment:
+Someone sent you money from another bank or credit union
+A business issued a refund or reimbursement
+A payroll or disbursement payment was processed
+If you don’t recognize the transaction, contact the sender.
+Are instant payments available 24/7?
+Instant payments can be sent at any time, including weekends and holidays, depending on the sending financial institution.
+Are funds always available immediately?
+Most instant payments are delivered within seconds. In some cases, availability may vary due to processing or review.
+See Mobile Wallet Terms and Conditions.
