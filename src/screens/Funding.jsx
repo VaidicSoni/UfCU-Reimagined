@@ -125,9 +125,12 @@ export function Funding() {
         {/* Nothing to transfer from in the no-account view, so the CTA goes
             rather than sitting there greyed out. */}
         {!noAccount && (
-          <Button onClick={transfer} disabled={!linkedBank || transferring} className="w-full">
-            {transferring ? '…' : t(lang, 'transferCta')}
-          </Button>
+          <div className="flex gap-3">
+            <Button variant="ghost" onClick={() => go('secure')}>{t(lang, 'back')}</Button>
+            <Button onClick={transfer} disabled={!linkedBank || transferring} className="flex-1">
+              {transferring ? '…' : t(lang, 'transferCta')}
+            </Button>
+          </div>
         )}
         {!noAccount && !linkedBank && (
           <button

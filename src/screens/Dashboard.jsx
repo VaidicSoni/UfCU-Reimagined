@@ -43,7 +43,7 @@ const groupOf = (name) => {
 const Panel = ({ children }) => <div className="mb-5 break-inside-avoid">{children}</div>
 
 export function Dashboard({ chatOpen }) {
-  const { lang, goals, form, funded } = useOnboarding()
+  const { lang, goals, form, funded, go } = useOnboarding()
   const [hidden, setHidden] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [sort, setSort] = useState('type')
@@ -500,7 +500,15 @@ export function Dashboard({ chatOpen }) {
         )}
       </div>
 
-      <p className="text-center text-xs text-navy-subtle">{t(lang, 'dashDemoNote')}</p>
+      <div className="flex flex-col items-center gap-3">
+        <button
+          onClick={() => go('done')}
+          className="text-sm font-semibold text-navy-subtle underline hover:text-white"
+        >
+          {t(lang, 'back')}
+        </button>
+        <p className="text-center text-xs text-navy-subtle">{t(lang, 'dashDemoNote')}</p>
+      </div>
     </div>
   )
 }

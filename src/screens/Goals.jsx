@@ -48,9 +48,12 @@ export function Goals() {
 
       <BundleCard />
 
-      <Button onClick={() => go('about')} disabled={goals.length === 0} className="w-full">
-        {t(lang, 's1Cta')}
-      </Button>
+      <div className="flex gap-3">
+        <Button variant="ghost" onClick={() => go('welcome')}>{t(lang, 'back')}</Button>
+        <Button onClick={() => go('about')} disabled={goals.length === 0} className="flex-1">
+          {t(lang, 's1Cta')}
+        </Button>
+      </div>
     </div>
   )
 }

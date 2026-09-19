@@ -99,9 +99,43 @@ export function OnboardingProvider({ children }) {
     setGoals((g) => (g.includes(id) ? g.filter((x) => x !== id) : [...g, id]))
   }, [])
 
-  const go = useCallback((next) => {
-    setStep(next)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  // Every step change is a history entry, so the browser's Back button and the
+  // trackpad swipe move through the flow instead of leaving the app. Other
+  // query params are preserved — ?goals= seeds the selection and ?scan=fail is
+  // read on every scan, so dropping them mid-flow would change behaviour.
+  const pushStep = useCallback((next, replace) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('step', next)
+    window.history[replace ? 'replaceState' : 'pushState']({ step: next }, '', url)
+  }, [])
+
+  const go = useCallback(
+    (next) => {
+      setStep(next)
+      pushStep(next, false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    [pushStep]
+  )
+
+  // The first entry needs step state attached, or the first Back has nothing
+  // to return to and drops out of the app.
+  useEffect(() => {
+    pushStep(initialStep, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const onPop = (event) => {
+      const previous = event.state?.step
+      // setStep directly: pushing again here would fight the history stack.
+      if (previous && STEPS.includes(previous)) {
+        setStep(previous)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
   }, [])
 
   const reset = useCallback(() => {
@@ -115,7 +149,10 @@ export function OnboardingProvider({ children }) {
     setFunded(false)
     setLinkedBank(null)
     setStep('welcome')
-  }, [])
+    // Keep history in step with the reset, or Back would return to a screen
+    // whose data has just been cleared.
+    pushStep('welcome', false)
+  }, [pushStep])
 
   const progress = useMemo(() => {
     const index = PROGRESS_STEPS.indexOf(step)
