@@ -159,6 +159,30 @@ export function OnboardingProvider({ children }) {
     pushStep('welcome', false)
   }, [pushStep])
 
+  const signInDemo = useCallback((user) => {
+    const [firstName = '', ...lastParts] = (user.name || '').split(' ')
+    const profile = user.profile || {}
+    const demoGoals = user.type === 'student'
+      ? ['everyday', 'credit']
+      : user.type === 'business'
+        ? ['everyday', 'business']
+        : ['everyday']
+
+    setGoals(demoGoals)
+    setForm((current) => ({
+      ...current,
+      firstName,
+      lastName: lastParts.join(' '),
+      email: profile.email || '',
+      phone: profile.phone || '',
+      address: profile.address || '',
+      university: profile.university || 'none',
+    }))
+    setFunded(true)
+    setStep('dashboard')
+    pushStep('dashboard', false)
+  }, [pushStep])
+
   const progress = useMemo(() => {
     const index = PROGRESS_STEPS.indexOf(step)
     if (index === -1) {
@@ -171,7 +195,7 @@ export function OnboardingProvider({ children }) {
   }, [step])
 
   const value = {
-    step, go, reset, progress,
+    step, go, reset, signInDemo, progress,
     goals, toggleGoal,
     form, update,
     idScanned, setIdScanned,

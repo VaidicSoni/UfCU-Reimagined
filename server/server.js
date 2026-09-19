@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3001;
+const port = Number(process.env.PORT || 3001);
 
 app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
@@ -78,12 +78,46 @@ app.get('/api/users', (req, res) => {
     res.json(summary);
 });
 
+app.post('/api/login', (req, res) => {
+    const { email, password } = req.body || {};
+    const user = users.find((candidate) =>
+        candidate.demoLogin?.email === email && candidate.demoLogin?.password === password
+    );
+
+    if (!user) {
+        return res.status(401).json({ error: "Invalid demo credentials." });
+    }
+
+    const { demoLogin, ...safeUser } = user;
+    res.json(safeUser);
+});
+
 app.get('/api/users/:id', (req, res) => {
     const user = users.find(u => u.id === req.params.id);
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }
     res.json(user);
+});
+
+app.get('/api/users/:id/transactions', (req, res) => {
+    const user = users.find(u => u.id === req.params.id);
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    const status = req.query.status;
+    const transactions = status
+        ? user.recentTransactions.filter((transaction) => transaction.status === status)
+        : user.recentTransactions;
+    res.json(transactions);
+});
+
+app.get('/api/users/:id/transfers', (req, res) => {
+    const user = users.find(u => u.id === req.params.id);
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user.transfers);
 });
 
 app.listen(port, () => {

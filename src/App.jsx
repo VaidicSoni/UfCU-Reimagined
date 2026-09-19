@@ -6,6 +6,7 @@ import { Icon } from './components/Icons.jsx'
 import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import { Concierge } from './components/Concierge.jsx'
 import { AccessibilityBar } from './components/AccessibilityBar.jsx'
+import { DemoLogin } from './components/DemoLogin.jsx'
 import { ProgressBar } from './components/ProgressBar.jsx'
 import { Landing } from './screens/Landing.jsx'
 import { Goals } from './screens/Goals.jsx'
@@ -97,10 +98,11 @@ export default function App() {
 
   return (
     <div className="mesh grain min-h-screen">
-      <header className={`relative z-10 mx-auto flex ${shell} flex-wrap items-center justify-between gap-4 px-5 py-6`}>
+      <header className={`relative z-[100] mx-auto flex ${shell} flex-wrap items-center justify-between gap-4 px-5 py-6`}>
         <Wordmark onHome={() => go('welcome')} lang={lang} />
         <div className="flex items-center gap-3">
           <AccessibilityBar />
+          <DemoLogin lang={lang} />
           {/* Progress is kept, not discarded — re-entering picks up where you
               left off, so leaving never costs anything. */}
           {!isLanding && (

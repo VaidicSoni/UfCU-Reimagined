@@ -174,6 +174,69 @@ export const SUBSCRIPTIONS = [
   { id: 'cloud', en: 'Cloud storage', es: 'Almacenamiento', amount: 2.99 },
 ]
 
+// Transaction fixtures used by the dashboard demo. They intentionally cover
+// posted, pending, income, card, loan, and transfer activity for each persona.
+export const DEMO_TRANSACTIONS = {
+  student: [
+    { id: 'stu-001', date: '2026-09-19', merchant: 'CapMetro', category: 'Transport', amount: -2.50, account: 'Free Checking', status: 'posted' },
+    { id: 'stu-002', date: '2026-09-18', merchant: "Torchy's Tacos", category: 'Food & Dining', amount: -18.42, account: 'Free Checking', status: 'posted' },
+    { id: 'stu-003', date: '2026-09-17', merchant: 'Spotify', category: 'Entertainment', amount: -11.99, account: 'Free Checking', status: 'posted', recurring: true },
+    { id: 'stu-004', date: '2026-09-16', merchant: 'UT Co-op', category: 'Education', amount: -64.80, account: 'Free Checking', status: 'pending' },
+    { id: 'stu-005', date: '2026-09-15', merchant: 'Campus Dining', category: 'Food & Dining', amount: -12.75, account: 'Free Checking', status: 'posted' },
+    { id: 'stu-006', date: '2026-09-14', merchant: 'HEB Grocery', category: 'Groceries', amount: -47.63, account: 'Free Checking', status: 'posted' },
+    { id: 'stu-007', date: '2026-09-13', merchant: 'Scholarship Deposit', category: 'Income', amount: 850.00, account: 'Free Checking', status: 'posted' },
+    { id: 'stu-008', date: '2026-09-11', merchant: 'Rent transfer', category: 'Transfer', amount: -650.00, account: 'Free Checking', status: 'posted', transfer: true },
+    { id: 'stu-009', date: '2026-09-09', merchant: 'Netflix', category: 'Entertainment', amount: -15.49, account: 'Free Checking', status: 'posted', recurring: true },
+    { id: 'stu-010', date: '2026-09-07', merchant: 'Lyft', category: 'Transport', amount: -14.20, account: 'Free Checking', status: 'posted' },
+  ],
+  business: [
+    { id: 'biz-001', date: '2026-09-19', merchant: 'Stripe Payout', category: 'Income', amount: 4250.00, account: 'Business Checking', status: 'posted' },
+    { id: 'biz-002', date: '2026-09-18', merchant: 'AWS Services', category: 'Business Expenses', amount: -238.74, account: 'Business Checking', status: 'posted', recurring: true },
+    { id: 'biz-003', date: '2026-09-17', merchant: 'Office Depot', category: 'Business Expenses', amount: -184.22, account: 'Business Checking', status: 'pending' },
+    { id: 'biz-004', date: '2026-09-16', merchant: 'Google Workspace', category: 'Business Expenses', amount: -36.00, account: 'Business Checking', status: 'posted', recurring: true },
+    { id: 'biz-005', date: '2026-09-15', merchant: 'Client Payment - Consulting', category: 'Income', amount: 2875.00, account: 'Business Checking', status: 'posted' },
+    { id: 'biz-006', date: '2026-09-14', merchant: 'WeWork', category: 'Business Expenses', amount: -420.00, account: 'Business Checking', status: 'posted', recurring: true },
+    { id: 'biz-007', date: '2026-09-12', merchant: 'Delta Airlines', category: 'Auto & Transport', amount: -612.18, account: 'Business Checking', status: 'posted' },
+    { id: 'biz-008', date: '2026-09-10', merchant: 'Business reserve transfer', category: 'Transfer', amount: -1000.00, account: 'Business Checking', status: 'posted', transfer: true },
+    { id: 'biz-009', date: '2026-09-08', merchant: 'Adobe Creative Cloud', category: 'Business Expenses', amount: -79.99, account: 'Business Checking', status: 'posted', recurring: true },
+    { id: 'biz-010', date: '2026-09-05', merchant: 'Invoice #1042', category: 'Income', amount: 1980.00, account: 'Business Checking', status: 'posted' },
+  ],
+  personal: [
+    { id: 'per-001', date: '2026-09-19', merchant: 'Austin Energy', category: 'Utilities', amount: -126.40, account: 'Free Checking', status: 'pending' },
+    { id: 'per-002', date: '2026-09-18', merchant: 'Central Market', category: 'Groceries', amount: -84.63, account: 'Free Checking', status: 'posted' },
+    { id: 'per-003', date: '2026-09-16', merchant: 'Austin Regional Clinic', category: 'Healthcare', amount: -45.00, account: 'Free Checking', status: 'posted' },
+    { id: 'per-004', date: '2026-09-15', merchant: 'City of Austin Water', category: 'Utilities', amount: -72.18, account: 'Free Checking', status: 'posted', recurring: true },
+    { id: 'per-005', date: '2026-09-14', merchant: 'Payroll Deposit', category: 'Income', amount: 2650.00, account: 'Free Checking', status: 'posted' },
+    { id: 'per-006', date: '2026-09-12', merchant: 'Shell Station', category: 'Gas', amount: -54.21, account: 'Free Checking', status: 'posted' },
+    { id: 'per-007', date: '2026-09-10', merchant: "Lowe's", category: 'Home', amount: -118.72, account: 'Free Checking', status: 'posted' },
+    { id: 'per-008', date: '2026-09-08', merchant: 'Target', category: 'Home', amount: -68.34, account: 'Free Checking', status: 'posted' },
+    { id: 'per-009', date: '2026-09-06', merchant: 'Transfer to savings', category: 'Transfer', amount: -250.00, account: 'Free Checking', status: 'posted', transfer: true },
+    { id: 'per-010', date: '2026-09-03', merchant: 'CVS Pharmacy', category: 'Healthcare', amount: -32.56, account: 'Free Checking', status: 'posted' },
+  ],
+}
+
+export const DEMO_TRANSFERS = [
+  { id: 'tr-001', date: '2026-09-11', from: 'Free Checking', to: 'Student Savings', amount: 650.00, status: 'completed', note: 'Rent reserve' },
+  { id: 'tr-002', date: '2026-09-09', from: 'Business Checking', to: 'High-Yield Savings', amount: 1000.00, status: 'completed', note: 'Tax reserve' },
+  { id: 'tr-003', date: '2026-09-06', from: 'Free Checking', to: 'Savings', amount: 250.00, status: 'completed', note: 'Emergency fund' },
+]
+
+export const DEMO_CARDS = [
+  { id: 'card-student', persona: 'student', name: 'Starter Credit Card', last4: '1842', limit: 1500, balance: 312.45, available: 1187.55, dueDate: '2026-10-04', minimumDue: 35.00, status: 'active' },
+  { id: 'card-business', persona: 'business', name: 'Business Rewards Card', last4: '9031', limit: 10000, balance: 1240.62, available: 8759.38, dueDate: '2026-10-12', minimumDue: 75.00, status: 'active' },
+]
+
+export const DEMO_LOANS = [
+  { id: 'loan-auto', persona: 'business', name: 'Auto Loan', principal: 18240.00, payment: 412.18, apr: 5.24, nextDue: '2026-10-01', status: 'current' },
+  { id: 'loan-home', persona: 'personal', name: 'Mortgage rate watch', principal: 0, payment: 0, apr: null, nextDue: null, status: 'prequalified' },
+]
+
+export const DEMO_PERSONAS = {
+  student: { name: 'Alex Rivera', type: 'student', university: 'ut', accounts: ['Free Checking', 'Student Savings'] },
+  business: { name: 'Sarah Chen', type: 'business', university: 'none', accounts: ['Business Checking', 'High-Yield Savings'] },
+  personal: { name: 'Marcus Johnson', type: 'personal', university: 'none', accounts: ['Free Checking'] },
+}
+
 // $3,668.63 rather than $3668.63 — grouping is what makes a balance scannable.
 export const formatMoney = (n, lang = 'en') =>
   `$${Number(n || 0).toLocaleString(lang === 'es' ? 'es-US' : 'en-US', {

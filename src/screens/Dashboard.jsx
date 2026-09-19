@@ -11,6 +11,7 @@ import { SpendingDonut } from '../components/SpendingDonut.jsx'
 import { PetalChart } from '../components/PetalChart.jsx'
 import { SwipeCategory } from '../components/SwipeCategory.jsx'
 import { StudentNextSteps } from '../components/StudentNextSteps.jsx'
+import { RecentActivity } from '../components/RecentActivity.jsx'
 import { bundleFor, GOALS, formatMoney } from '../lib/mockApi.js'
 
 // The first sixty seconds as a member — and, on the 90-day view, what the
@@ -58,6 +59,7 @@ export function Dashboard({ chatOpen }) {
   const isStudent = form.university && form.university !== 'none'
   const isBusiness = goals.includes('business')
   const dashboardTheme = isBusiness ? 'business' : isStudent ? 'student' : 'personal'
+  const persona = dashboardTheme
   const radiusClass = dashboardTheme === 'business' ? 'rounded-md' : 'rounded-2xl'
 
   // Animate stagger wrapper. mb-5 and break-inside-avoid are what stop a panel
@@ -332,6 +334,10 @@ export function Dashboard({ chatOpen }) {
             revealed={revealed}
             onToggle={() => setRevealed((v) => !v)}
           />
+        </Panel>
+
+        <Panel>
+          <RecentActivity persona={persona} hidden={hidden} lang={lang} />
         </Panel>
 
         {day90 && (

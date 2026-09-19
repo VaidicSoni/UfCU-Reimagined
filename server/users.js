@@ -52,6 +52,16 @@ function summarize(txs) {
   return summary;
 }
 
+function enrichTransactions(txs) {
+  return txs.map((tx, index) => ({
+    ...tx,
+    status: index % 11 === 0 ? "pending" : "posted",
+    type: tx.category === "Income" ? "credit" : tx.category === "Transfer" ? "transfer" : "debit",
+    recurring: /AWS|Google Workspace|Adobe|Spotify|Netflix|Energy|Water/i.test(tx.description),
+    postedAt: index % 11 === 0 ? null : `${tx.date}T09:00:00Z`
+  }));
+}
+
 const studentCats = {
   "Food & Dining": ["Torchy's Tacos", "P. Terry's", "Kerbey Lane Cafe", "Chick-fil-A", "Chipotle", "Pizza Press"],
   "Entertainment": ["Spotify", "Netflix", "Alamo Drafthouse", "AMC Theaters", "Barton Springs Pool"],
@@ -60,7 +70,7 @@ const studentCats = {
   "Transport": ["CapMetro", "Uber", "Lyft", "Lime Scooter"]
 };
 
-const studentTxs = generateTransactions(100, 45, studentCats, 5, 80, ["acc_chk_01"]);
+const studentTxs = enrichTransactions(generateTransactions(100, 45, studentCats, 5, 80, ["acc_chk_01"]));
 
 const businessCats = {
   "Business Expenses": ["Apple Store", "AWS Services", "Google Workspace", "WeWork", "Office Depot", "Adobe Creative Cloud"],
@@ -70,7 +80,7 @@ const businessCats = {
   "Income": ["Client Payment - Consulting", "Invoice #1042", "Stripe Payout", "Square Inc"]
 };
 
-const businessTxs = generateTransactions(200, 80, businessCats, 20, 500, ["acc_chk_02", "acc_bus_01"]);
+const businessTxs = enrichTransactions(generateTransactions(200, 80, businessCats, 20, 500, ["acc_chk_02", "acc_bus_01"]));
 
 const personalCats = {
   "Groceries": ["Central Market", "HEB Grocery", "Randalls", "Sprouts"],
@@ -80,13 +90,44 @@ const personalCats = {
   "Healthcare": ["CVS Pharmacy", "Walgreens", "Austin Regional Clinic"]
 };
 
-const personalTxs = generateTransactions(300, 35, personalCats, 15, 150, ["acc_chk_03"]);
+const personalTxs = enrichTransactions(generateTransactions(300, 35, personalCats, 15, 150, ["acc_chk_03"]));
+
+const demoTransfers = [
+  { id: "tr_001", date: "2026-09-11", fromAccountId: "acc_chk_01", toAccountId: "acc_sav_01", amount: 650.00, status: "completed", note: "Rent reserve" },
+  { id: "tr_002", date: "2026-09-09", fromAccountId: "acc_bus_01", toAccountId: "acc_sav_02", amount: 1000.00, status: "completed", note: "Tax reserve" },
+  { id: "tr_003", date: "2026-09-06", fromAccountId: "acc_chk_03", toAccountId: "acc_sav_03", amount: 250.00, status: "completed", note: "Emergency fund" }
+];
+
+const recurringPayments = [
+  { id: "rec_phone", merchant: "Mobile plan", amount: 65.00, cadence: "monthly", nextDate: "2026-10-01", status: "active" },
+  { id: "rec_stream", merchant: "Streaming", amount: 15.49, cadence: "monthly", nextDate: "2026-09-24", status: "active" },
+  { id: "rec_cloud", merchant: "Cloud storage", amount: 2.99, cadence: "monthly", nextDate: "2026-09-27", status: "active" }
+];
+
+const MONTHLY_SUMMARY = {
+  student: [
+    { month: "Jul", income: 1450, spending: 1120 },
+    { month: "Aug", income: 850, spending: 980 },
+    { month: "Sep", income: 850, spending: 827 }
+  ],
+  business: [
+    { month: "Jul", income: 8420, spending: 3910 },
+    { month: "Aug", income: 9100, spending: 4280 },
+    { month: "Sep", income: 9105, spending: 2571 }
+  ],
+  personal: [
+    { month: "Jul", income: 2650, spending: 1240 },
+    { month: "Aug", income: 2650, spending: 1080 },
+    { month: "Sep", income: 2650, spending: 602 }
+  ]
+};
 
 export const users = [
   {
     id: "user_student_01",
     name: "Alex Rivera",
     type: "student",
+    demoLogin: { email: "alex.student@demo.ufcu.org", password: "demo123" },
     profile: {
       email: "alex.rivera@example.com",
       phone: "(512) 555-0198",
@@ -114,12 +155,19 @@ export const users = [
       }
     ],
     spendingSummary: summarize(studentTxs),
-    recentTransactions: studentTxs
+    recentTransactions: studentTxs,
+    pendingTransactions: studentTxs.filter((tx) => tx.status === "pending"),
+    transfers: demoTransfers.filter((transfer) => ["acc_chk_01", "acc_sav_01"].includes(transfer.fromAccountId)),
+    recurringPayments,
+    cards: [{ id: "card_student", name: "Starter Credit Card", last4: "1842", limit: 1500, balance: 312.45, available: 1187.55, dueDate: "2026-10-04", minimumDue: 35.00, status: "active" }],
+    loans: [],
+    monthlySummary: MONTHLY_SUMMARY.student
   },
   {
     id: "user_multi_02",
     name: "Sarah Chen",
     type: "business",
+    demoLogin: { email: "sarah.business@demo.ufcu.org", password: "demo123" },
     profile: {
       email: "sarah.chen@example.com",
       phone: "(512) 555-8842",
@@ -160,12 +208,19 @@ export const users = [
       }
     ],
     spendingSummary: summarize(businessTxs),
-    recentTransactions: businessTxs
+    recentTransactions: businessTxs,
+    pendingTransactions: businessTxs.filter((tx) => tx.status === "pending"),
+    transfers: demoTransfers.filter((transfer) => ["acc_chk_02", "acc_bus_01"].includes(transfer.fromAccountId)),
+    recurringPayments,
+    cards: [{ id: "card_business", name: "Business Rewards Card", last4: "9031", limit: 10000, balance: 1240.62, available: 8759.38, dueDate: "2026-10-12", minimumDue: 75.00, status: "active" }],
+    loans: [{ id: "loan_auto", name: "Auto Loan", principal: 18240.00, payment: 412.18, apr: 5.24, nextDue: "2026-10-01", status: "current" }],
+    monthlySummary: MONTHLY_SUMMARY.business
   },
   {
     id: "user_simple_03",
     name: "Marcus Johnson",
     type: "personal",
+    demoLogin: { email: "marcus.personal@demo.ufcu.org", password: "demo123" },
     profile: {
       email: "marcus.j@example.com",
       phone: "(512) 555-3311",
@@ -179,9 +234,23 @@ export const users = [
         balance: 850.12,
         currency: "USD",
         accountNumber: "****3312"
+      },
+      {
+        id: "acc_sav_03",
+        type: "savings",
+        name: "Emergency Savings",
+        balance: 3200.00,
+        currency: "USD",
+        accountNumber: "****7710"
       }
     ],
     spendingSummary: summarize(personalTxs),
-    recentTransactions: personalTxs
+    recentTransactions: personalTxs,
+    pendingTransactions: personalTxs.filter((tx) => tx.status === "pending"),
+    transfers: demoTransfers.filter((transfer) => transfer.fromAccountId === "acc_chk_03"),
+    recurringPayments,
+    cards: [],
+    loans: [{ id: "loan_home", name: "Mortgage rate watch", principal: 0, payment: 0, apr: null, nextDue: null, status: "prequalified" }],
+    monthlySummary: MONTHLY_SUMMARY.personal
   }
 ];
