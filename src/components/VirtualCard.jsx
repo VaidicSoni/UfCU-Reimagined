@@ -46,7 +46,7 @@ export function VirtualCard({ hidden, revealed, onToggle }) {
         className="p-4 [perspective:1000px]"
       >
         <div 
-          className={`relative aspect-[1.586] overflow-hidden rounded-xl shadow-lg transition-transform duration-200 ease-out ${!isCustomCard ? 'bg-navy text-white' : ''}`}
+          className="relative aspect-[1.586] overflow-hidden rounded-xl shadow-lg transition-transform duration-200 ease-out"
           style={{
             transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
             transformStyle: 'preserve-3d'
@@ -57,34 +57,18 @@ export function VirtualCard({ hidden, revealed, onToggle }) {
             <div className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </div>
 
-          {isCustomCard ? (
-            <img src={cardImage} alt={`${uni.name} Card`} className="absolute inset-0 h-full w-full object-cover" />
-          ) : (
-            <>
-              {/* Brand accent, kept clear of the number */}
-              <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-orange" />
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-14 -right-14 h-28 w-28 rotate-45 bg-orange/15"
-              />
-            </>
-          )}
+          <img src={cardImage || '/cards/default.png'} alt={`${uni.name} Card`} className="absolute inset-0 h-full w-full object-cover" />
 
           <div className="relative z-10 flex h-full flex-col justify-between p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className={`text-[0.65rem] font-bold uppercase tracking-[0.18em] ${isCustomCard ? 'text-white/80 drop-shadow-md' : 'text-navy-subtle'}`}>
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/80 drop-shadow-md">
                   {t(lang, 'cardDebit')}
                 </p>
                 <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-bold text-emerald-300 drop-shadow-md">
                   <span aria-hidden="true">●</span> {t(lang, 'cardActive')}
                 </p>
               </div>
-              {!isCustomCard && (
-                <span className="rounded-full border-2 border-orange px-3 py-1">
-                  <span className="text-base font-extrabold lowercase tracking-tight text-white">ufcu</span>
-                </span>
-              )}
             </div>
 
             <div>
@@ -94,13 +78,13 @@ export function VirtualCard({ hidden, revealed, onToggle }) {
 
               <div className="mt-4 flex items-end justify-between gap-4">
                 <div>
-                  <p className={`text-[0.6rem] font-bold uppercase tracking-[0.18em] ${isCustomCard ? 'text-white/80 drop-shadow-md' : 'text-navy-subtle'}`}>
+                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white/80 drop-shadow-md">
                     {t(lang, 'cardHolder')}
                   </p>
                   <p className="mt-0.5 text-sm font-bold uppercase text-white drop-shadow-md">{holder}</p>
                 </div>
                 <div className="text-right">
-                  <p className={`text-[0.6rem] font-bold uppercase tracking-[0.18em] ${isCustomCard ? 'text-white/80 drop-shadow-md' : 'text-navy-subtle'}`}>
+                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white/80 drop-shadow-md">
                     {t(lang, 'cardExpires')}
                   </p>
                   <p className="mt-0.5 text-sm font-bold text-white drop-shadow-md">09/30</p>

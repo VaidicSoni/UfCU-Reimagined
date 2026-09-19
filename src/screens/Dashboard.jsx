@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
-import { bundleFor, GOALS, formatMoney } from '../lib/mockApi.js'
 import { Icon } from '../components/Icons.jsx'
-import { AccountChart } from '../components/AccountChart.jsx'
-import { SubscriptionTracker } from '../components/SubscriptionTracker.jsx'
 import { VirtualCard } from '../components/VirtualCard.jsx'
-import { SpendingDonut } from '../components/SpendingDonut.jsx'
+import { AccountChart } from '../components/AccountChart.jsx'
 import { IncomeSpendBars } from '../components/IncomeSpendBars.jsx'
+import { SubscriptionTracker } from '../components/SubscriptionTracker.jsx'
 import { SavingsGoal } from '../components/SavingsGoal.jsx'
+import { SpendingDonut } from '../components/SpendingDonut.jsx'
+import { PetalChart } from '../components/PetalChart.jsx'
+import { SwipeCategory } from '../components/SwipeCategory.jsx'
+import { formatMoney } from '../lib/mockApi.js'
 
 // The first sixty seconds as a member — and, on the 90-day view, what the
 // account looks like once it's actually in use.
@@ -47,6 +49,22 @@ export function Dashboard({ chatOpen }) {
   const [copied, setCopied] = useState(false)
   const [done, setDone] = useState([])
   const [timeline, setTimeline] = useState('day1')
+  const [from, setFrom] = useState(0)
+  const [to, setTo] = useState(1)
+  const [amount, setAmount] = useState('')
+  const [notice, setNotice] = useState(null)
+
+  const isStudent = form.university && form.university !== 'none'
+  const isBusiness = goals.includes('business')
+  const dashboardTheme = isBusiness ? 'business' : isStudent ? 'student' : 'personal'
+  const radiusClass = dashboardTheme === 'business' ? 'rounded-md' : 'rounded-2xl'
+
+  // Animate stagger wrapper
+  const Panel = ({ children, dark = false }) => (
+    <div className={`animate-in fade-in slide-in-from-bottom-3 ${radiusClass} overflow-hidden ${dark ? 'bg-[#1C1C1E]' : ''}`}>
+      {children}
+    </div>
+  )
 
   // Memoised on `goals`: bundleFor returns a fresh array each call, and an
   // unstable identity here cascades into `seed` and re-sets balances on every
@@ -324,23 +342,35 @@ export function Dashboard({ chatOpen }) {
           </Panel>
         )}
 
-        <Panel>
-          <AccountChart
-            assets={accounts
-              .filter((a) => a.balance > 0)
-              .map((a) => ({ key: a.key, label: a.label, hint: a.hint, amount: a.balance }))}
-            debts={debts}
-            hidden={hidden}
-          />
-        </Panel>
-
-        {day90 && (
+        {isStudent && timeline === 'day90' ? (
           <Panel>
+            <PetalChart accounts={accounts} />
+          </Panel>
+        ) : (
+          <Panel>
+            <AccountChart
+              assets={accounts
+                .filter((a) => a.balance > 0)
+                .map((a) => ({ key: a.key, label: a.label, hint: a.hint, amount: a.balance }))}
+              debts={debts}
+              hidden={hidden}
+            />
+          </Panel>
+        )}
+
+        {timeline === 'day90' && (
+          <Panel dark={true}>
             <IncomeSpendBars hidden={hidden} />
           </Panel>
         )}
 
-        {day90 && (
+        {isStudent && timeline === 'day90' && (
+          <Panel>
+            <SwipeCategory lang={lang} />
+          </Panel>
+        )}
+
+        {timeline === 'day90' && (
           <Panel>
             <SubscriptionTracker active hidden={hidden} />
           </Panel>
