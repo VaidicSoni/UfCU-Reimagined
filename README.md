@@ -175,6 +175,50 @@ On phones the chips are hidden (they would run off-screen), Lumi carries a small
 "Help" badge instead, and the chat opens as a full-width sheet — a split makes no
 sense at that width.
 
+## The landing page
+
+Kept deliberately short: hero, proof, products. Someone ready to join clicks
+the CTA and never scrolls; everything below is for the rest.
+
+**The carousel sits in the hero**, sharing the right column with Lumi's
+introduction rather than living further down the page — so the first screen
+carries the headline, the rotating proof and the guide together. Lumi's intro
+is a compact row instead of a tall card to make room. Both columns carry
+`min-w-0`: the carousel's track is a flex row of full-width slides, and without
+it the grid column sizes to that intrinsic width and overflows the page.
+
+**The carousel** advances every 2 seconds and carries four things a prospective
+member wants to know: the team behind it, the collegiate card designs, the
+schools already affiliated, and that anyone can join through the American
+Consumer Council regardless. It can be swiped, dragged, arrowed, dotted or
+driven with the keyboard. Autoplay pauses on hover and on focus, is skipped
+entirely under `prefers-reduced-motion`, and **any manual interaction restarts
+the timer** — without that, tapping a dot bumps you off your own choice a moment
+later, which at a 2-second cadence is constant.
+
+Photographs run full-bleed under a bottom-weighted scrim rather than boxed
+beside the caption. A uniform scrim flattened the image and the split panel
+fought it; weighting the gradient to the bottom keeps the caption legible while
+the photograph still reads. Images live in `public/slides/` and each slide falls
+back to a drawn panel if its file is missing.
+
+The card faces are themed to UT Austin, Texas State and Austin Community College
+using **only the schools' colours** — no logos or marks. UFCU really does offer
+collegiate card designs; the actual artwork is licensed.
+
+The carousel deliberately repeats none of the figures from the band below it.
+
+**The product cards start the flow.** Each one seeds its goal and jumps into
+onboarding, so picking "Mortgage Lending" lands on the goals step with that
+already selected rather than on a blank screen.
+
+**The figures are UFCU's own**, from the scraped site rather than rounded from
+memory: 436,007 member-owners, $4.239B in assets, chartered 1936.
+
+> One claim to be ready to defend: the hero says *about 3 minutes*, while
+> UFCU's own page says 3–5. Ours is the improvement being proposed, not a
+> quotation of theirs.
+
 ## The member dashboard
 
 Onboarding that ends at a receipt hasn't shown *"interest → membership-ready"* —

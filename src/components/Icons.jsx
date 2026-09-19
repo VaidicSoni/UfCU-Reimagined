@@ -97,6 +97,11 @@ export const Icon = {
       <path d="M15 6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15" {...base} />
     </svg>
   ),
+  chevron: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <path d="M9.5 5.5L16 12l-6.5 6.5" {...base} />
+    </svg>
+  ),
   shield: (p) => (
     <svg viewBox="0 0 24 24" {...p}>
       <path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 8.5-4.1-.8-7-4.3-7-8.5V6z" {...base} />

@@ -202,3 +202,27 @@ export const MONTHLY = [
 ]
 
 export const GOAL = { en: 'Emergency fund', es: 'Fondo de emergencia', target: 1800, saved: 1250 }
+
+// Sourced from UFCU's live "Open an Account" form. The last option is the one
+// that matters: anyone can join through the American Consumer Council, free,
+// and UFCU enrols you. Their own site hides that behind a modal.
+export const AFFILIATIONS = [
+  'Ascension/Seton',
+  'Austin Community College (ACC)',
+  'Concordia University (CTX)',
+  'Foundation Communities',
+  'Galveston College',
+  'Goodwill',
+  'Huston-Tillotson University (HT)',
+  'Indeed',
+  "St. Edward's University (SEU)",
+  'Southwestern University (SU)',
+  'Temple College (TC)',
+  'Texas State University (TXST)',
+  'TX A&M at Galveston (TAMUG)',
+  'TX A&M HSC',
+  'University of Texas at Austin (UT Austin)',
+  'University of Texas Medical Branch (UTMB)',
+  'UTHealth-Houston',
+  'YMCA',
+]

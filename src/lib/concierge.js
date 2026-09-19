@@ -43,9 +43,9 @@ const KNOWLEDGE = [
     es: "No necesita contraseña. Usamos una clave de acceso vinculada a su dispositivo.",
   },
   {
-    keywords: ['member', 'membership', 'join', 'eligible'],
-    en: "You become a UFCU member the moment you open a deposit account, a loan, or a mortgage with us.",
-    es: "Usted se convierte en miembro de UFCU al abrir una cuenta de depósito, un préstamo o una hipoteca.",
+    keywords: ['member', 'membership', 'join', 'eligible', 'qualify'],
+    en: "Almost certainly yes. Employees, students and alumni of UFCU's partner schools and employers — UT Austin, Texas State, ACC, St. Edward's, Indeed and others — can join directly. If none apply, we enrol you through the American Consumer Council for free and handle it for you. Opening a deposit account, loan or mortgage then makes you a member-owner.",
+    es: "Casi con certeza. Empleados, estudiantes y exalumnos de las escuelas y empleadores asociados de UFCU pueden unirse directamente. Si ninguno aplica, lo inscribimos gratis a través del American Consumer Council. Abrir una cuenta, préstamo o hipoteca lo convierte en miembro-dueño.",
   },
   // ── New context-aware entries ──
   {
@@ -95,8 +95,8 @@ const KNOWLEDGE = [
   },
   {
     keywords: ['what is ufcu', 'credit union', 'bank', 'difference'],
-    en: "UFCU is a member-owned, not-for-profit credit union. Unlike banks, we have no outside shareholders — every dollar we save goes back into better rates and lower fees for our 400,000+ members across Austin and Central Texas.",
-    es: "UFCU es una cooperativa de crédito sin fines de lucro. A diferencia de los bancos, no tenemos accionistas externos — cada dólar ahorrado se devuelve en mejores tasas y menos cargos para nuestros 400,000+ miembros.",
+    en: "UFCU is a member-owned, not-for-profit credit union. Unlike banks, we have no outside shareholders — every dollar we save goes back into better rates and lower fees for our 436,007 member-owners across Central Texas, Houston and Galveston.",
+    es: "UFCU es una cooperativa de crédito sin fines de lucro. A diferencia de los bancos, no tenemos accionistas externos — cada dólar ahorrado se devuelve en mejores tasas y menos cargos para nuestros 436,007 miembros-dueños.",
   },
 ]
 

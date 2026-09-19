@@ -3,26 +3,35 @@ import { t } from '../lib/i18n.js'
 import { Mascot } from '../components/Mascot.jsx'
 import { Icon } from '../components/Icons.jsx'
 import { Button } from '../components/Button.jsx'
+import { HeroCarousel } from '../components/HeroCarousel.jsx'
 
+// `goal` is the selection each card seeds, so picking a product from the
+// landing page starts onboarding already pointed at it rather than dropping
+// the member on a blank goals screen.
 const SERVICES = [
-  { key: 'Everyday', icon: Icon.everyday },
-  { key: 'Consumer', icon: Icon.consumer },
-  { key: 'Mortgage', icon: Icon.mortgage },
-  { key: 'Business', icon: Icon.business },
-  { key: 'Invest', icon: Icon.invest },
+  { key: 'Everyday', icon: Icon.everyday, goal: 'everyday' },
+  { key: 'Consumer', icon: Icon.consumer, goal: 'credit' },
+  { key: 'Mortgage', icon: Icon.mortgage, goal: 'home' },
+  { key: 'Business', icon: Icon.business, goal: 'business' },
+  { key: 'Invest', icon: Icon.invest, goal: 'invest' },
 ]
 
 // Screen 0. Before we ask for anything, say who UFCU is and what they offer —
 // a credit union's member-owned model is its whole differentiator and most
 // prospective members don't know it.
 export function Landing() {
-  const { go, lang } = useOnboarding()
+  const { go, lang, goals, toggleGoal } = useOnboarding()
+
+  const startWith = (goal) => {
+    if (!goals.includes(goal)) toggleGoal(goal)
+    go('goals')
+  }
 
   return (
     <div className="relative z-10">
       {/* Hero */}
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:pt-10">
-        <div>
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:pt-10">
+        <div className="min-w-0">
           <p className="rule text-xs font-bold uppercase tracking-[0.18em] text-orange-lighter">
             {t(lang, 'eyebrow')}
           </p>
@@ -44,16 +53,22 @@ export function Landing() {
           <p className="mt-4 text-sm text-navy-lighter">{t(lang, 'landingNote')}</p>
         </div>
 
-        {/* Lumi's introduction */}
-        <div className="u-card relative bg-white/[0.07] p-8 ring-1 ring-white/10">
-          <div className="flex flex-col items-center text-center">
-            <Mascot brightness={0.85} size={150} face loop />
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-orange-lighter">
-              {t(lang, 'meetLumi')}
-            </p>
-            <p className="mt-3 text-base leading-relaxed text-white">{t(lang, 'lumiIntro')}</p>
+        <div className="min-w-0 space-y-4">
+          <HeroCarousel compact />
+
+          {/* Lumi's introduction, as a row rather than a tall card so the
+              carousel can share the column with it. */}
+          <div className="u-card flex items-center gap-4 bg-white/[0.07] p-5 ring-1 ring-white/10">
+            <Mascot brightness={0.85} size={84} face loop className="shrink-0" />
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-lighter">
+                {t(lang, 'meetLumi')}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-white">{t(lang, 'lumiIntro')}</p>
+            </div>
           </div>
         </div>
+
       </section>
 
       {/* Purpose + proof */}
@@ -64,16 +79,16 @@ export function Landing() {
           </blockquote>
           <dl className="mt-8 grid gap-6 sm:grid-cols-3">
             <div>
-              <dt className="text-3xl font-extrabold text-orange-lighter">400,000+</dt>
-              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statMembers')}</dd>
+              <dt className="text-3xl font-extrabold text-orange-lighter">436,007</dt>
+              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statMembersReal')}</dd>
             </div>
             <div>
-              <dt className="text-3xl font-extrabold text-orange-lighter">100%</dt>
-              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statOwned')}</dd>
+              <dt className="text-3xl font-extrabold text-orange-lighter">$4.239B</dt>
+              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statAssets')}</dd>
             </div>
             <div>
-              <dt className="text-3xl font-extrabold text-orange-lighter">ATX</dt>
-              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statPlace')}</dd>
+              <dt className="text-3xl font-extrabold text-orange-lighter">90 yrs</dt>
+              <dd className="mt-1 text-sm text-navy-subtle">{t(lang, 'statSince')}</dd>
             </div>
           </dl>
         </div>
@@ -89,17 +104,21 @@ export function Landing() {
         </h2>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map(({ key, icon: Glyph }) => (
-            <article
+          {SERVICES.map(({ key, icon: Glyph, goal }) => (
+            <button
               key={key}
-              className="u-chip bg-white/[0.06] p-6 ring-1 ring-white/10 transition hover:bg-white/[0.11]"
+              onClick={() => startWith(goal)}
+              className="u-chip bg-white/[0.06] p-6 text-left ring-1 ring-white/10 transition hover:bg-white/[0.11] hover:ring-white/25"
             >
               <Glyph className="h-7 w-7 text-orange" />
               <h3 className="mt-4 text-lg font-bold text-white">{t(lang, `svc${key}`)}</h3>
               <p className="mt-2 text-sm leading-relaxed text-navy-subtle">
                 {t(lang, `svc${key}Body`)}
               </p>
-            </article>
+              <span className="mt-4 inline-block text-sm font-bold text-orange-lighter">
+                {t(lang, 'svcStart')} &rarr;
+              </span>
+            </button>
           ))}
 
           {/* Closing CTA occupies the sixth cell of the grid. */}
