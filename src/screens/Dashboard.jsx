@@ -10,6 +10,7 @@ import { SavingsGoal } from '../components/SavingsGoal.jsx'
 import { SpendingDonut } from '../components/SpendingDonut.jsx'
 import { PetalChart } from '../components/PetalChart.jsx'
 import { SwipeCategory } from '../components/SwipeCategory.jsx'
+import { StudentNextSteps } from '../components/StudentNextSteps.jsx'
 import { formatMoney } from '../lib/mockApi.js'
 
 // The first sixty seconds as a member — and, on the 90-day view, what the
@@ -445,11 +446,16 @@ export function Dashboard({ chatOpen }) {
           </Panel>
         )}
 
-        {/* Finish setting up */}
-        <Panel>
-          <section className="u-card border-2 border-navy-subtle bg-white p-5 sm:p-6">
-            <h2 className="text-sm font-extrabold uppercase tracking-[0.14em] text-navy">
-              {t(lang, 'nextSteps')}
+        {/* Finish setting up / Explore Features */}
+        {isStudent ? (
+          <Panel dark={true}>
+            <StudentNextSteps />
+          </Panel>
+        ) : (
+          <Panel>
+            <section className="u-card border-2 border-navy-subtle bg-white p-5 sm:p-6">
+              <h2 className="text-sm font-extrabold uppercase tracking-[0.14em] text-navy">
+                {t(lang, 'nextSteps')}
             </h2>
             <p className="mt-1 text-sm text-navy-lighter">{t(lang, 'nextStepsSub')}</p>
             <ul className="mt-4 space-y-3">
@@ -495,6 +501,7 @@ export function Dashboard({ chatOpen }) {
             </ul>
           </section>
         </Panel>
+        )}
       </div>
 
       <p className="text-center text-xs text-navy-subtle">{t(lang, 'dashDemoNote')}</p>
