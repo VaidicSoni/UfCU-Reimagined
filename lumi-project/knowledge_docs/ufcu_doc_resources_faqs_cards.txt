@@ -1,0 +1,195 @@
+URL: https://ufcu.org/resources/faqs/cards
+Source: UFCU Website
+--------------------------------------------------
+
+Credit and Debit Card FAQs
+Credit Cards
+What should I do if I lose my card or find fraudulent charges?
+If your UFCU Credit Card has been lost or stolen, or your card has been declined and you suspect possible fraud, call Member Services at (800) 252-83111
+Can I make credit card payments at the credit union?
+Yes. Credit card payments can be made at any UFCU branch. You can also call Member Service to transfer funds to pay your UFCU credit card from your UFCU checking or savings account. In addition, payments can be made through Online Banking or Mobile Banking.
+Where do I mail credit card payments if I don't have my remittance envelope?
+The payment address is:
+VISA
+PO Box 9389
+Austin TX, 78766-9389
+Please be sure to include your credit card account number on your check.
+How do I dispute a charge on my credit card statement?
+All billing disputes and inquiries must be submitted in writing to the following address:
+UFCU
+Attn: Card Services
+P.O. Box 9350
+Austin, TX 78766-9350
+Note: Your letter should include your name and credit card account number, the charge in question and an explanation of why you believe there is an error. All billing disputes must be received within 60 days of the date that the charge first appeared.
+How do I change my billing address?
+You can update your billing address in either of the following ways:
+Log in to Online Banking, and select Settings » Change Contact Info.
+Visit any
+branch
+.
+How can I obtain a personal identification number (PIN) for my credit card in order to access cash through an ATM machine?
+If you would like to choose your own PIN, you can call (866) 928-5450, and set or change your PIN over the phone. The Credit Card Department at UFCU DOES NOT have access to PINs.
+How can I add an additional user to my account?
+The primary cardholder must complete and submit an
+Add Authorized User Request
+form.
+Your request will be processed in 2-3 business days and you should receive the new card with the additional user's name in 7-10 business days.
+How can I transfer a balance to my UFCU card from another credit card?
+In order to perform a balance transfer, complete the
+Balance Transfer Request
+form.
+Can I make a credit card payment for an amount greater than my credit card balance?
+You cannot make a payment for an amount greater than your credit card balance.
+What is the benefit of having my credit card information available in Online Banking?
+By integrating your credit card information into Online Banking, you are able to make credit card payments by directly transferring funds into your credit card account.
+My credit card account information is incorrect or missing from my Account Summary page. What can I do?
+Please contact a UFCU Representative, who will be able to correct this problem.
+I've opened a new UFCU account and my credit card information is no longer shown. What happened?
+Your credit card account information could still be associated with your older account. Please contact a UFCU Representative so that they can correct this problem.
+Can my credit card information be removed from Online Banking?
+Not at this time, though your credit card information will be removed when you close your credit card account.
+Why did I receive a credit limit increase?
+UFCU increased credit card limits for Members who have demonstrated wise use of their credit. If UFCU has increased your credit card limit, it generally is because you are a cardholder in good standing who has consistently made payments on time.
+Can anyone get an automatic credit limit increase?
+No. Automatic increases are awarded to cardholders in good standing who have maintained a positive payment history. However, you can request an increase by contacting us at (512) 498- 2277.
+How can I request a credit limit increase?
+If you have been making on-time credit card payments for some time, or have had an increase in your income, you can request a higher credit card limit. UFCU will pull a credit bureau report to determine if you may be eligible for a credit limit increase. Contact us at
+(512) 498- 2277
+to request a higher credit card limit.
+How can I opt out of a credit card limit increase?
+To decline an automatic increase to your UFCU credit card limit, contact us at
+cardprocessingservices@ufcu.org
+or call
+(512) 467-8080
+.
+Will increasing my credit limit impact my credit score?
+Credit card limit increases can have a positive impact on your credit score by potentially improving your credit utilization ratio. (Your credit utilization ratio is the percentage of available credit you are using, or your total outstanding credit card balance divided by your total credit limit.) If your credit limit increases but your balance stays the same, your credit utilization ratio will be lower. That can lead to a higher credit score, because the credit utilization ratio is one of several factors used to determine your credit score.
+Can my credit card statement be combined with my checking account statement?
+At this time, both statements will continue to be delivered separately.
+What is Visa Platinum?
+Visa Platinum is the type of card you will use for UFCU Credit card rewards. Learn more from
+Visa
+.
+What is the credit card restriction policy?
+A credit card will be restricted for use if any loans with UFCU reach eight days past due.
+How do I restore access to my credit card?
+To restore access to your credit card, please pay the minimum payment that is due on the past due loan(s). Access will be restored within 24 business hours.
+How can I redeem rewards and points from my credit card?
+Log into Online Banking or the Mobile app.
+In the top toolbar, select Cards » Manage Card.
+Select the credit card that offers rewards or points.
+In the Self-Service section, click Redeem, or click the Points & Rewards button located under the current balance.
+Card Keeper™
+What is Card Keeper™?
+Card Keeper™ is a Digital Banking security feature that gives you complete control over your cards. You can temporarily lock or unlock a misplaced card, update your PIN, and view spending limits — all in one secure place.
+How can I change my personal identification number (PIN)?
+Log into Online Banking or the Mobile app.
+In the top toolbar, select Cards » Manage Card.
+Select the card for which you want to select a new PIN.
+In the Self-Service section, click Change.
+What happens when I report a card lost or stolen?
+When you report your card lost or stolen, a new card will be ordered for you and the missing card will be blocked immediately to prevent any potential unauthorized transactions.
+How can I request a replacement card?
+Log into Online Banking or the Mobile app.
+In the top toolbar, select Cards » Manage Card.
+Select the card you want to replace.
+In the Self-Service section, click Replace.
+Select the reason. If you choose Lost or Stolen, the current card is blocked, and a new card number is issued. If you choose Damaged, it will have the same number as the old one. Note that you always have the option of picking up a replacement card from any branch.
+Confirm or change the mailing address.
+Click Order New, then OK.
+How can I lock a card?
+If you temporarily misplace your debit card, lock your card in Digital Banking using Card Keeper™. Log in to Digital Banking, choose Card Keeper™ » Manage Cards and select the card you want to manage. Then click the toggle to lock or unlock your card.
+What does it mean to lock a card?
+Locking your card isn’t a notification that your card is lost or stolen, or that there have been unauthorized transactions on your account. It’s simply a way to confirm no transactions can be made until you find your card. If your card is lost or stolen, or if you notice unauthorized transactions, please call
+(888) 842-6328
+immediately.
+Debit Cards
+What is a debit card preauthorization hold?
+When you use your debit card to conduct a credit transaction (you do not enter your PIN), the merchant sends us the amount, usually your purchase total, for preauthorization. This amount is placed on hold and removed from your available balance immediately. The hold is released after approximately 72 hours or when the transaction clears, whichever comes first. The hold helps reflect the most current available balance on your account through UFCU’s Online Banking, Phone Banking, Account Alerts and at ATMs.
+Will debit card preauthorization holds apply to all my purchases?
+No, they only apply to debit card purchases when you sign your name or do not enter a PIN. Debit purchases and ATM withdrawals made using a PIN subtract the funds immediately from your account, thereby reflecting an accurate available balance.
+Exception: When using your PIN at a fuel dispenser, the merchant may still send a preauthorization request.
+What is the difference between my actual balance and my available balance?
+Your available balance reflects any preauthorization holds or deposit holds and is used to determine available funds when future transactions attempt to clear the account.
+The balance we use internally as transactions clear is called your actual balance or total balance and includes all items that have cleared the account up to that point. This actual balance does not include outstanding debit purchases, share drafts (checks), or automatic drafts. If funds are not sufficient in the actual balance at the time of clearing, an overdraft fee is charged for each transaction that attempts to clear.
+Why is UFCU implementing debit card preauthorization holds? Won’t that mean less money for me?
+Most members depend on the accuracy of their available balances to help them avoid NSF situations or Courtesy Pay fees. Debit card preauthorization holds allow members to view pending transactions and provide timely available balance information. For example:
+John visits the ATM and sees his available checking balance is $100, so he withdraws $50. He doesn’t realize his wife made a debit card signature purchase for $75 from their joint account earlier in the day. The resulting balance in their account would be negative when the debit transaction arrives for processing, so their overdraft protection is triggered to transfer $25.
+However, if UFCU had placed a debit card preauthorization hold for his wife’s $75 transaction, John would have known that he really only had $25 available to him and could have avoided the NSF situation by withdrawing less money.
+Is UFCU implementing debit card preauthorization holds to generate more overdraft fees?
+No, in fact, we believe this feature provides the information needed to help members avoid overdraft situations and thereby avoid Courtesy Pay fees. There is no change to our overdraft transfer or Courtesy Pay policies or processing.
+The advantage of preauthorization holds is that you can check your balance and get a more accurate picture of what is truly available to you before you spend.
+How will I know if a debit card preauthorization hold has been placed?
+Your preauthorization transactions will appear as Pending Transactions within UFCU’s Online Banking. You can also obtain your available balance through UFCU’s Phone Banking and at ATMs.
+In addition, you may use an Account Balance Change Alert to notify you via email or text message when your account reaches an available balance threshold you specify.
+Will the debit card preauthorization hold always equal the exact amount of my transaction?
+No. Some merchants, especially gas stations, hotels and sometimes restaurants, will preauthorize an amount that is higher or lower than the actual purchase amount. For example:
+Gas stations:
+Many gas stations preauthorize transactions for amounts ranging from $1 to $75 because they do not know how much gas you will actually pump in advance of your transaction. If they preauthorize $75, we will place a hold for $75, even if your actual transaction is only $45. After 2 hours, we will release the hold and those funds will be available to you again.
+If you are worried about large preauthorization holds from gas stations, we recommend the following:
+Use a UFCU credit card for your transaction.
+-or-
+Use your debit card as "debit" and enter your PIN.
+Hotels:
+When using a debit card to make reservations in advance, hotels generally will preauthorize an amount equal to an overnight stay, or more, depending on the length of your stay. This will result in a hold on your account up to 72 hours. Then, when you actually arrive, the hotel will place another preauthorization, often larger than the cost of your stay to cover possible incidental expenses. Because these can result in significant holds against your account, we recommend always using your UFCU credit card for hotel reservations.
+When I make a purchase online or by phone using my debit card, is it processed as a credit or debit transaction?
+Online and telephone debit card transactions are generally processed as credit transactions because you do not have the option to enter your PIN. These types of purchases will create a preauthorization hold.
+If you place a hold on my account and then the transaction comes in, is there a chance you’ll subtract it again?
+When merchants preauthorize an amount that is different from the final transaction total, there is a chance that the hold and the transaction will not match, and the hold will not release. If the transaction does not match the hold, the system will automatically release the hold on your account in 72 hours.
+Can I set up overdraft transfer protection to help avoid fees?
+It is always a good idea to have overdraft transfer protection set up on your account. Overdraft transfer protection helps you avoid larger Courtesy Pay fees by using your Savings Account, Money Market Account or Line-of-Credit loan to automatically cover the insufficient funds.
+When you open a UFCU checking account, your Savings account is automatically established as the overdraft account, but you may also use a Money Market account or Line-of-Credit loan as well. Please
+contact us
+for more details.
+Can debit card preauthorization holds on my debit card be removed?
+It is not our policy to remove debit card preauthorization holds unless an error was made. If an erroneous hold was placed, or there are extenuating circumstances, please
+contact us
+.
+Contactless Chip Cards
+What is a contactless card?
+A contactless card is a chip card that is embedded with a near-field communication (NFC) antenna. This allows you to “tap to pay” at a contactless-enabled checkout terminal without having to swipe, dip, or insert the card.
+What is the difference between my existing chip card and my contactless card?
+Contactless cards use the same security as a chip card but allow you to pay without touching surfaces for a quick and secure checkout experience. The key difference is that you can tap to pay at a contactless-enabled checkout terminal.
+Why the change to a contactless card?
+Contactless payments are just as secure as payments made with a contact chip card but have the added feature to tap to pay for a touch-free checkout experience.
+Where can contactless cards be used?
+Contactless credit and debit cards can be used with any retailer that has a contactless option at their checkout terminal. You can identify these options by looking for the contactless symbol
+*
+or the words “tap here.”
+How do I use a contactless card?
+When prompted by the checkout terminal, bring your contactless card within a few inches of the terminal. Your payment will be processed within seconds.
+Are contactless cards secure?
+Yes. Each contactless transaction is conducted using a unique, one-time code. During that transaction, your personal information is not transmitted. The contactless method eliminates the need to swipe or insert your card into the checkout terminal, which means the card cannot be compromised by skimming devices.
+What should I do if my contactless card is lost or stolen?
+As with all UFCU cards, if your contactless card has been lost or stolen, or your card has been declined and you suspect possible fraud, call Member Services at
+(800) 252-8311
+.
+What if the store doesn’t have a contactless checkout terminal?
+Your contactless card also has a chip and a traditional magnetic stripe that can be used at checkout terminals that do not have contactless options.
+Add Authorized User
+Close modal dialog
+To add an authorized user to your UFCU credit card:
+Verify your identity by answering security questions
+Complete and fill out the request form
+Create a digital signature and sign the form
+To complete the form, you will need the following information about the person you would like to add:
+Name
+SSN
+Date of Birth
+Phone Number
+Mailing Address
+You will also need to know your UFCU account and credit card numbers.
+Start the process now
+Balance Transfer Form
+Close modal dialog
+To transfer your credit card balance:
+Verify your identity by answering security questions
+Complete and fill out the request form
+Create a digital signature and sign the form
+To complete the form, you will need the following information about the credit card company from which you want to transfer:
+Name
+Payment Address
+Account Number
+Amount to transfer
+You will also need to know your UFCU account and credit card numbers.
+Start the process now

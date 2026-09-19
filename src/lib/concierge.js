@@ -1,7 +1,11 @@
-// "Mock RAG" — hardcoded keyword matching, per Implementation Option A.
-// Deliberately offline: a live LLM call would put the demo at the mercy of
-// venue Wi-Fi, and the prompt requires the app to run locally on a laptop.
+// Context-aware concierge with dual-path answers:
+// • Suggested chip Q&A: instant hardcoded lookup from KNOWLEDGE (no server call)
+// • Custom typed Q&A: async fetch to local RAG server at /api/ask
+//
+// Suggested questions change based on the current onboarding screen AND which
+// text field the user is focused on, so Lumi always feels relevant.
 
+// ── Hardcoded knowledge for instant chip answers ───────────────────────
 const KNOWLEDGE = [
   {
     keywords: ['ssn', 'social security', 'social'],
@@ -9,99 +13,90 @@ const KNOWLEDGE = [
     es: "La ley federal exige que verifiquemos su identidad. Su número está cifrado, nunca se comparte y no afecta su crédito.",
   },
   {
-    keywords: ['credit union', 'different from a bank', 'vs a bank', 'not a bank'],
-    en: "A credit union is owned by its members, not outside shareholders. Profits come back to you as better rates and lower fees.",
-    es: "Una cooperativa de crédito es propiedad de sus miembros, no de accionistas. Las ganancias vuelven a usted en mejores tasas y menos cargos.",
-  },
-  {
-    keywords: ['join', 'eligible', 'qualify', 'membership', 'member'],
-    en: "If you live, work or study in Central Texas — or you're related to a member — you can join. Opening a deposit account, loan or mortgage makes it official.",
-    es: "Si vive, trabaja o estudia en Texas Central, o es familiar de un miembro, puede unirse. Abrir una cuenta, préstamo o hipoteca lo hace oficial.",
-  },
-  {
     keywords: ['safe', 'secure', 'security', 'encrypt', 'privacy', 'data'],
-    en: "Everything you enter is protected with bank-level encryption. We only ask for what the law requires — nothing more, and we never sell it.",
-    es: "Todo lo que ingresa está protegido con cifrado de nivel bancario. Solo pedimos lo que la ley exige y nunca lo vendemos.",
+    en: "Everything you enter is protected with bank-level encryption. We only ask for what the law requires — nothing more.",
+    es: "Todo lo que ingresa está protegido con cifrado de nivel bancario. Solo pedimos lo que la ley exige.",
   },
   {
-    keywords: ['insured', 'ncua', 'fdic', 'protected'],
-    en: "Your deposits are federally insured by the NCUA up to $250,000 — the credit union equivalent of FDIC cover.",
-    es: "Sus depósitos están asegurados federalmente por la NCUA hasta $250,000.",
-  },
-  {
-    keywords: ['credit score', 'score', 'hurt', 'affect my credit'],
+    keywords: ['credit', 'score', 'hurt', 'affect'],
     en: "Opening your account uses a soft check only, so your credit score is untouched.",
     es: "Abrir su cuenta solo usa una verificación suave, así que su puntaje de crédito no se ve afectado.",
   },
   {
-    keywords: ['fee', 'fees', 'cost', 'charge', 'minimum', 'free'],
+    keywords: ['fee', 'fees', 'cost', 'charge', 'minimum'],
     en: "UFCU Free Checking has no monthly maintenance fee and no minimum balance requirement.",
     es: "La cuenta corriente gratuita de UFCU no tiene cuota mensual ni saldo mínimo.",
   },
   {
-    keywords: ['long', 'time', 'minutes', 'how long', 'quick', 'take'],
+    keywords: ['long', 'time', 'minutes', 'how long', 'quick'],
     en: "Most members finish in under three minutes. I'll stay with you the whole way.",
     es: "La mayoría de los miembros terminan en menos de tres minutos. Estaré con usted todo el camino.",
   },
   {
-    keywords: ['phone', 'number', 'text', 'mobile'],
-    en: "We use your mobile number to send a one-time security code, and later the link that signs you into the app.",
-    es: "Usamos su número móvil para enviar un código de seguridad y luego el enlace para entrar a la app.",
+    keywords: ['id', 'license', 'passport', 'document', 'photo', 'scan'],
+    en: "A driver's license works, and so does a passport or state ID. International students can use a foreign passport with an ITIN.",
+    es: "Puede usar licencia de conducir, pasaporte o identificación estatal. Estudiantes internacionales pueden usar pasaporte extranjero con ITIN.",
   },
   {
-    keywords: ['name', 'nickname', 'legal name', 'call me'],
-    en: "We need your legal name to match your ID, but you can set a preferred name once you're in.",
-    es: "Necesitamos su nombre legal para que coincida con su identificación, pero puede elegir un nombre preferido después.",
+    keywords: ['password', 'passkey', 'login', 'log in'],
+    en: "No password needed. We use a passkey tied to your device — your face or fingerprint unlocks it.",
+    es: "No necesita contraseña. Usamos una clave de acceso vinculada a su dispositivo.",
   },
   {
-    keywords: ['address', 'moved', 'live', 'mail'],
-    en: "Your address is used to mail your debit card and to meet federal address-verification rules. You can update it any time.",
-    es: "Su dirección se usa para enviar su tarjeta y cumplir las reglas federales. Puede actualizarla cuando quiera.",
+    keywords: ['member', 'membership', 'join', 'eligible'],
+    en: "You become a UFCU member the moment you open a deposit account, a loan, or a mortgage with us.",
+    es: "Usted se convierte en miembro de UFCU al abrir una cuenta de depósito, un préstamo o una hipoteca.",
+  },
+  // ── New context-aware entries ──
+  {
+    keywords: ['checking', 'checking account', 'accounts', 'offer'],
+    en: "We offer four checking options: Teen Checking (ages 13–17), Simply U™ (hassle-free basics), Free Checking (classic with $400 Courtesy Pay), and Plus Checking (premium with up to 2.25% APY dividends and auto rate discounts).",
+    es: "Ofrecemos cuatro opciones: Teen Checking (13–17 años), Simply U™ (lo básico), Free Checking (clásica con $400 en Courtesy Pay) y Plus Checking (premium con hasta 2.25% APY).",
   },
   {
-    keywords: ['id', 'license', 'passport', 'document', 'photo', 'scan', "won't scan", 'blurry'],
-    en: "A driver's licence works, and so does a passport or state ID. If a scan fails, try better lighting and avoid glare — or upload a photo instead.",
-    es: "Puede usar licencia, pasaporte o identificación estatal. Si falla el escaneo, pruebe con mejor luz o suba una foto.",
+    keywords: ['plus checking', 'premium', 'plus'],
+    en: "Plus Checking earns up to 2.25% APY on the first $10,000, includes a 0.25% auto loan rate discount, $200 mortgage fee credit, reimbursed international fees, and $1,000 Courtesy Pay. The $10/month fee is waived with $10,000+ balance or $4,000+ in monthly direct deposits.",
+    es: "Plus Checking gana hasta 2.25% APY en los primeros $10,000, incluye descuento de 0.25% en préstamos de auto, crédito de $200 en hipoteca, reembolso de cargos internacionales y $1,000 en Courtesy Pay. La cuota de $10/mes se elimina con $10,000+ de saldo o $4,000+ de depósito directo.",
   },
   {
-    keywords: ['checking', 'verifying', 'background', 'what are you'],
-    en: "We're reading your ID, confirming your identity and running the federal checks every financial institution has to run. It takes seconds.",
-    es: "Estamos leyendo su identificación, confirmando su identidad y haciendo las verificaciones federales obligatorias.",
+    keywords: ['savings', 'save', 'saving'],
+    en: "UFCU Savings accounts start at just $1 to open with no monthly fee. For higher yields, our Money Market earns up to 3.25% APY ($2,500 to open), and Certificates up to 4.10% APY ($1,000 to open, 3–60 month terms).",
+    es: "Las cuentas de ahorro UFCU se abren desde $1 sin cuota mensual. Para mejores rendimientos, Money Market gana hasta 3.25% APY ($2,500 para abrir) y Certificados hasta 4.10% APY ($1,000 para abrir).",
   },
   {
-    keywords: ['password', 'passkey', 'login', 'log in', 'sign in'],
-    en: "No password needed. A passkey is tied to this device, so your face or fingerprint unlocks your account — nothing to remember or leak.",
-    es: "No necesita contraseña. Una clave de acceso se vincula a este dispositivo: su rostro o huella la desbloquea.",
+    keywords: ['phone', 'number', 'call', 'text'],
+    en: "We'll use your phone number to send a security code for verification. We won't share it with third parties or use it for marketing calls.",
+    es: "Usaremos su número para enviar un código de seguridad. No lo compartiremos con terceros ni lo usaremos para llamadas de marketing.",
   },
   {
-    keywords: ['lose', 'lost', 'new phone', 'device', 'broken'],
-    en: "If you lose the device, we'll email you a one-time magic link so you can set up a passkey on the new one.",
-    es: "Si pierde el dispositivo, le enviaremos un enlace mágico para crear una clave de acceso en el nuevo.",
+    keywords: ['email', 'spam', 'mail'],
+    en: "We'll only email you about your account — things like statements and security alerts. No spam, ever. You can change your email anytime in Online Banking.",
+    es: "Solo le enviaremos correos sobre su cuenta — como estados de cuenta y alertas de seguridad. Sin spam, nunca. Puede cambiar su correo en Online Banking.",
   },
   {
-    keywords: ['fund', 'money', 'deposit', 'transfer', 'add money', 'link my bank', 'plaid'],
-    en: "A small opening deposit activates the account and your virtual card. Linking your other bank is read-only and you can fund it later instead.",
-    es: "Un depósito inicial activa la cuenta y su tarjeta virtual. Vincular su otro banco es solo de lectura y puede hacerlo después.",
+    keywords: ['address', 'mail', 'card', 'send', 'p.o. box', 'po box'],
+    en: "We need your address to mail your debit card and to meet federal address verification rules. A P.O. Box can work for mailing, but federal law also requires a physical address on file.",
+    es: "Necesitamos su dirección para enviar su tarjeta de débito y cumplir con verificación federal. Un apartado postal funciona para correo, pero la ley requiere también una dirección física.",
   },
   {
-    keywords: ['card arrive', 'physical card', 'debit card', 'when will', 'mail my card'],
-    en: "Your virtual card works right away. The physical card is posted to your address and usually lands within five business days.",
-    es: "Su tarjeta virtual funciona de inmediato. La tarjeta física llega por correo en unos cinco días hábiles.",
+    keywords: ['plaid', 'link bank', 'bank', 'external'],
+    en: "Plaid securely connects your existing bank so we can transfer your opening deposit. Your bank login credentials are encrypted by Plaid and never stored by UFCU.",
+    es: "Plaid conecta de forma segura su banco actual para transferir su depósito inicial. Sus credenciales son cifradas por Plaid y nunca almacenadas por UFCU.",
   },
   {
-    keywords: ['direct deposit', 'payroll', 'paycheck', 'salary'],
-    en: "Direct deposit takes one form: give your employer the routing and account number on your dashboard, and your pay lands here.",
-    es: "Para el depósito directo, dé a su empleador el número de ruta y cuenta de su panel.",
+    keywords: ['deposit', 'minimum deposit', 'fund', 'transfer'],
+    en: "You can start with as little as $1 for savings or $0 for checking. For this demo, we're showing a $25 opening deposit — but there's no real minimum required.",
+    es: "Puede comenzar con tan solo $1 para ahorro o $0 para cuenta corriente. En esta demostración mostramos $25, pero no hay mínimo real requerido.",
   },
   {
-    keywords: ['card number', 'see my card', 'reveal', 'wallet', 'apple pay'],
-    en: "Tap your card on the dashboard to reveal the full number, or add it straight to your phone's wallet to pay today.",
-    es: "Toque su tarjeta en el panel para ver el número completo, o agréguela a la billetera de su teléfono.",
+    keywords: ['protect', 'insured', 'fdic', 'ncua', 'ncusif'],
+    en: "Your funds are federally insured up to $250,000 per account ownership type through the NCUSIF — the credit union equivalent of FDIC. Not a single penny has ever been lost by a member of a federally insured credit union.",
+    es: "Sus fondos están asegurados federalmente hasta $250,000 por tipo de titularidad a través del NCUSIF. Ningún centavo se ha perdido jamás en una cooperativa de crédito asegurada federalmente.",
   },
   {
-    keywords: ['magic link', 'app', 'download'],
-    en: "The magic link is a one-time sign-in. Tap it on your phone and the app opens already signed in — no password, no re-typing.",
-    es: "El enlace mágico es un inicio de sesión único. Tóquelo en su teléfono y la app se abre ya conectada.",
+    keywords: ['what is ufcu', 'credit union', 'bank', 'difference'],
+    en: "UFCU is a member-owned, not-for-profit credit union. Unlike banks, we have no outside shareholders — every dollar we save goes back into better rates and lower fees for our 400,000+ members across Austin and Central Texas.",
+    es: "UFCU es una cooperativa de crédito sin fines de lucro. A diferencia de los bancos, no tenemos accionistas externos — cada dólar ahorrado se devuelve en mejores tasas y menos cargos para nuestros 400,000+ miembros.",
   },
 ]
 
@@ -110,57 +105,113 @@ const FALLBACK = {
   es: "Buena pregunta. Un asesor de UFCU puede explicarle en detalle. Por ahora, sigamos adelante.",
 }
 
+// ── Instant keyword-match lookup (for hardcoded chip answers) ──────────
 export function askGuide(question, lang = 'en') {
   const q = (question || '').toLowerCase()
   const hit = KNOWLEDGE.find((entry) => entry.keywords.some((k) => q.includes(k)))
-  return hit ? hit[lang] : FALLBACK[lang]
+  return hit ? hit[lang] : null
 }
 
-// Suggested questions follow the step, so the three on offer are always the
-// three actually worth asking here.
-const BY_STEP = {
-  welcome: {
-    en: ['What is a credit union?', 'Can I join UFCU?', 'How long does this take?'],
-    es: ['¿Qué es una cooperativa de crédito?', '¿Puedo unirme a UFCU?', '¿Cuánto tiempo toma?'],
-  },
+// ── Async RAG lookup (for custom typed questions) ──────────────────────
+export async function askRag(question, screen = '', field = '', lang = 'en') {
+  // Hit the RAG API which uses the real local LLM (Llama 3.2 via Metal)
+  try {
+    const res = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, screen, focusedField: field }),
+    })
+    if (!res.ok) throw new Error(`Server error: ${res.status}`)
+    const data = await res.json()
+    return data.answer
+  } catch (err) {
+    console.warn('[Lumi RAG] Server unavailable or error, falling back:', err.message)
+    return FALLBACK[lang]
+  }
+}
+
+// ── Context-aware suggestions ──────────────────────────────────────────
+// Keyed by screen → field → [questions]. null field = default for that screen.
+const CONTEXT_SUGGESTIONS = {
   goals: {
-    en: ['Can I pick more than one?', 'Are there any fees?', 'Can I join UFCU?'],
-    es: ['¿Puedo elegir más de una?', '¿Hay cargos?', '¿Puedo unirme a UFCU?'],
+    _default: {
+      en: ['What checking accounts do you offer?', "What's Plus Checking?", 'Do you have savings accounts?'],
+      es: ['¿Qué cuentas corrientes ofrecen?', '¿Qué es Plus Checking?', '¿Tienen cuentas de ahorro?'],
+    },
   },
   about: {
-    en: ['Why do you need my phone number?', 'Do I have to use my legal name?', 'Is my data safe?'],
-    es: ['¿Por qué necesitan mi teléfono?', '¿Debo usar mi nombre legal?', '¿Están seguros mis datos?'],
+    _default: {
+      en: ['What info do you need from me?', 'How long does this take?', 'Is my data safe?'],
+      es: ['¿Qué información necesitan?', '¿Cuánto tiempo toma?', '¿Están seguros mis datos?'],
+    },
+    firstName: {
+      en: ['What info do you need from me?', 'How long does this take?', 'Is my data safe?'],
+      es: ['¿Qué información necesitan?', '¿Cuánto tiempo toma?', '¿Están seguros mis datos?'],
+    },
+    email: {
+      en: ['Will you send me spam?', 'Can I change my email later?', 'Is my data safe?'],
+      es: ['¿Me enviarán spam?', '¿Puedo cambiar mi correo?', '¿Están seguros mis datos?'],
+    },
+    phone: {
+      en: ['Why do you need my phone number?', 'Is my number shared?', 'How long does this take?'],
+      es: ['¿Por qué necesitan mi número?', '¿Se comparte mi número?', '¿Cuánto tiempo toma?'],
+    },
   },
   address: {
-    en: ['Why do you need my address?', 'What do you mail me?', 'I just moved — what do I use?'],
-    es: ['¿Por qué necesitan mi dirección?', '¿Qué me envían?', 'Acabo de mudarme, ¿qué uso?'],
+    _default: {
+      en: ['Why do you need my address?', 'Can I use a P.O. Box?', 'Is my data safe?'],
+      es: ['¿Por qué necesitan mi dirección?', '¿Puedo usar un apartado postal?', '¿Están seguros mis datos?'],
+    },
+    address: {
+      en: ['Why do you need my address?', 'Can I use a P.O. Box?', 'Where do you send my card?'],
+      es: ['¿Por qué necesitan mi dirección?', '¿Puedo usar un apartado postal?', '¿A dónde envían mi tarjeta?'],
+    },
   },
   identity: {
-    en: ['Why do you need my SSN?', "What if my ID won't scan?", 'Will this affect my credit?'],
-    es: ['¿Por qué necesitan mi SSN?', '¿Y si no escanea mi identificación?', '¿Afecta mi crédito?'],
+    _default: {
+      en: ['What IDs do you accept?', 'What if my ID scan fails?', 'Is my data safe?'],
+      es: ['¿Qué identificaciones aceptan?', '¿Qué pasa si falla el escaneo?', '¿Están seguros mis datos?'],
+    },
+    ssn: {
+      en: ['Why do you need my SSN?', 'Will this affect my credit score?', 'Is my SSN safe?'],
+      es: ['¿Por qué necesitan mi SSN?', '¿Afectará mi puntaje de crédito?', '¿Está seguro mi SSN?'],
+    },
   },
   waiting: {
-    en: ['What are you checking?', 'How long does this take?', 'Is my data safe?'],
-    es: ['¿Qué están verificando?', '¿Cuánto tiempo toma?', '¿Están seguros mis datos?'],
+    _default: {
+      en: ['What are you checking?', 'How long does this take?', 'Are my funds insured?'],
+      es: ['¿Qué están verificando?', '¿Cuánto tiempo toma?', '¿Están asegurados mis fondos?'],
+    },
   },
   secure: {
-    en: ['What is a passkey?', 'What if I lose my phone?', 'Can I use a password instead?'],
-    es: ['¿Qué es una clave de acceso?', '¿Y si pierdo mi teléfono?', '¿Puedo usar contraseña?'],
+    _default: {
+      en: ['What is a passkey?', 'Do I need a password?', 'Is this secure?'],
+      es: ['¿Qué es una passkey?', '¿Necesito contraseña?', '¿Es seguro?'],
+    },
   },
   funding: {
-    en: ['Why do I need to add money?', 'Is linking my bank safe?', 'Can I fund it later?'],
-    es: ['¿Por qué agregar dinero?', '¿Es seguro vincular mi banco?', '¿Puedo hacerlo después?'],
+    _default: {
+      en: ['What is the minimum deposit?', 'How do I link my bank?', 'Is Plaid secure?'],
+      es: ['¿Cuál es el depósito mínimo?', '¿Cómo vinculo mi banco?', '¿Es seguro Plaid?'],
+    },
   },
   done: {
-    en: ['When will my card arrive?', 'What is a magic link?', 'How do I sign in again?'],
-    es: ['¿Cuándo llega mi tarjeta?', '¿Qué es un enlace mágico?', '¿Cómo inicio sesión?'],
-  },
-  dashboard: {
-    en: ['How do I set up direct deposit?', 'Where is my card number?', 'When will my card arrive?'],
-    es: ['¿Cómo configuro el depósito directo?', '¿Dónde está el número de mi tarjeta?', '¿Cuándo llega mi tarjeta?'],
+    _default: {
+      en: ['What is UFCU?', 'Are my funds insured?', "What's Plus Checking?"],
+      es: ['¿Qué es UFCU?', '¿Están asegurados mis fondos?', '¿Qué es Plus Checking?'],
+    },
   },
 }
 
-export function suggestionsFor(step, lang = 'en') {
-  return (BY_STEP[step] || BY_STEP.goals)[lang]
+// Get suggested questions based on current screen and focused field.
+export function getSuggestions(screen, focusedField, lang = 'en') {
+  const screenMap = CONTEXT_SUGGESTIONS[screen] || CONTEXT_SUGGESTIONS.goals
+  const fieldMap = (focusedField && screenMap[focusedField]) || screenMap._default
+  return fieldMap?.[lang] || CONTEXT_SUGGESTIONS.goals._default[lang]
+}
+
+// Backwards-compatible flat export for any remaining consumers.
+export const SUGGESTED = {
+  en: CONTEXT_SUGGESTIONS.goals._default.en,
+  es: CONTEXT_SUGGESTIONS.goals._default.es,
 }

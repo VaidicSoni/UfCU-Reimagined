@@ -64,6 +64,10 @@ export function OnboardingProvider({ children }) {
   const [funded, setFunded] = useState(false)
   const [linkedBank, setLinkedBank] = useState(null)
 
+  // Which form field the user is currently focused on — drives context-aware
+  // Lumi suggestions so she asks about SSN when you're in the SSN field, etc.
+  const [focusedField, setFocusedField] = useState(null)
+
   // Accessibility preferences — the only thing we persist.
   const [lang, setLang] = useState(prefs.lang === 'es' ? 'es' : 'en')
   const [fontScale, setFontScale] = useState(prefs.fontScale || 1)
@@ -121,6 +125,7 @@ export function OnboardingProvider({ children }) {
     passkey, setPasskey,
     funded, setFunded,
     linkedBank, setLinkedBank,
+    focusedField, setFocusedField,
     lang, setLang,
     fontScale, setFontScale,
     readAloud, setReadAloud,

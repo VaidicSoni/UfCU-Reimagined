@@ -1,0 +1,40 @@
+URL: https://ufcu.org/resources/member-services/banking/account-alerts
+Source: UFCU Website
+--------------------------------------------------
+
+Account Alerts
+UFCU Keeps You Informed
+Stay on top of spending and keep your account secure with email and text alerts.
+Account Alerts
+You can sign up to receive account alerts via email or text message from UFCU to stay up-to-date with your accounts and credit cards.
+Account
+Alert
+Instant
+Daily
+Account Activity Summary — alert each morning with a summary of deposits, withdrawals, and ending balance for the previous day.
+Yes
+Account Balance Change — instant alert should the balance in your account go above or below an amount you set.
+Yes
+Deposit — instant alert each time a deposit posts to the selected account.
+Yes
+Withdrawal Notification — instant alert each time a withdrawal posts to the specific account.
+Yes
+Credit and Debit Cards
+Get instant alerts whenever a purchase is made with your debit or credit cards or when there are changes to your balance or the amount of credit available to you.
+Alert
+Instant
+Debit Card Purchases — alert each time a transaction posts to an account.
+Yes
+Credit Card Purchases — alert each time a transaction posts to your credit card.
+Yes
+Additionally, VISA cardholders are eligible for
+VISA Purchase Alerts
+.
+To access a list of your current Account Alert subscriptions, destinations, or subscribe to additional Account Alerts,
+log in to Online Banking
+or Mobile Banking and
+complete these steps
+.
+Resources & tools
+Six Ways to Keep Your Finances Secure
+UFCU Account Security

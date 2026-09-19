@@ -1,0 +1,43 @@
+URL: https://ufcu.org/resources/faqs/mfa
+Source: UFCU Website
+--------------------------------------------------
+
+Multi-Factor Authentication
+Multi-Factor Authentication (MFA)
+What is MFA?
+MFA stands for Multi-Factor Authentication, which is a procedure that helps ensure only you can access your UFCU accounts through Digital Banking.
+Why do I need MFA?
+MFA greatly decreases the chances that criminals can steal your Digital Banking password. Usually, passwords are stolen when an unsuspecting user tries to access a site that is impersonating UFCU. MFA helps prevent this situation.
+How does it work?
+When you visit a UFCU branch, you know our faces and we know yours. MFA does the same thing over the internet, helping us to identify each other more accurately. When you enroll in Digital Banking, you will be prompted to enter a one-time passcode that helps us verify your identity.
+How is MFA more secure?
+If a fraudster does somehow get your username and password, he will still not be able to access your account because he or she will not have access to your one-time passcode. Thus, he will be unable to complete the login process.
+How many chances will I have to enter my passcode?
+You will have three chances to provide the correct passcode. If you fail to enter the correct code after three attempts, your account will be restricted from access. If this happens, contact
+Member Services
+for assistance.
+Do I always need an MFA passcode every time I log in?
+For your convenience, you can skip the one-time passcode by registering your current device-browser combination as a “trusted browser.” To register your browser: start the login process; provide your MFA passcode and click
+Submit
+; then select
+Yes
+to trust the browser before continuing. For the next 30 days, you will not be prompted for the MFA passcode when you log in on that device-browser combination.
+If you prefer that your browser continue to require the password, select
+No
+when asked to trust the browser. If you want to remove a browser you already trusted, log into Online Banking and navigate to
+Profile Settings > My
+Profile
+. Open the
+Trusted Browsers
+tab, which lists all the browsers you have registered. Click
+Remove
+for any browser you don’t use anymore.
+Can I access my account from multiple computers?
+Yes, you can access your UFCU account from any number of computers. You will be asked to enter a one-time passcode on each device. This helps protect you by keeping unauthorized people from accessing your information. There is no limit on how many different devices you can use to log in to your UFCU account.
+I share my computer with someone who has their own UFCU account. Can we both log in from the same device?
+Yes, you can both use the same device to log in to your individual bank accounts. There is no limit on how many people can log into UFCU accounts from the same device.
+What happens if someone steals my password? How will MFA keep them from accessing my account?
+When someone tries to log in using a stolen Username and password, they will be asked to enter a one-time passcode. Only you have access to receive this code, so no one else can use the code to log in.
+How does MFA protect me from a Trojan or Key Logger?
+Some criminals have been putting programs on random computers to harvest account numbers and password information used to log in to websites. They collect this information, secretly transmit it to their own computers, and attempt to log in to your site. These are called Trojans (short for Trojan Horse) or Key Loggers.
+One-time passcodes prevent these fraudsters from completing the log-in process, even if they are able to access your Username and password.

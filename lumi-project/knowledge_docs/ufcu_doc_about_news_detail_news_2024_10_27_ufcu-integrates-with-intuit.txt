@@ -1,0 +1,188 @@
+URL: https://ufcu.org/about/news/detail/news/2024/10/27/ufcu-integrates-with-intuit
+Source: UFCU Website
+--------------------------------------------------
+
+News
+UFCU Integrates with QuickBooks and Quicken
+Published April 29, 2024
+|
+Announcements
+Now you can effortlessly connect your UFCU accounts to Intuit
+®
+products, like QuickBooks
+®
+, TurboTax
+®
+, and CreditKarma™, as well as Quicken Simplifi and Quicken Classic. Complete the following steps to get started.
+There's no action required within your UFCU account. Simply follow the steps outlined
+below
+to seamlessly reconnect your accounts and enjoy the benefits of this integration. If you have further questions, you can consult
+QuickBooks' Support Resources
+or learn more from
+Quicken Support
+.
+Instructions for QuickBooks Online Users
+To update your connection
+Go to
+Transactions
+, then select
+Bank transactions
+.
+In the
+Link account ▼
+dropdown, select
+Manage connections
+. Then toggle on the switch for any additional account you want to connect.
+To add a new connection
+Go to
+Transactions
+, then select
+Bank transactions
+.
+Select
+Link Account
+.
+Enter UFCU (TX) in the
+Search
+field, then select it.
+Enter your UFCU login information in the
+Login
+and
+Password
+fields, then select
+Continue
+.
+Select the account that you want to connect and the date from which to begin pulling transactions from the dropdown menu. Then, select
+Next
+.
+Select your account type on the Account type ▼ dropdown, then select
+Next
+.
+Note:
+Choose the account type that matches your
+chart of accounts
+in QuickBooks. If you don’t see the correct account type, select
++Add new
+.
+Quicken Instructions for Microsoft
+®
+Windows
+®
+Users
+Back up your Quicken Classic Windows Data File. Go to
+File » Backup and Restore » Backup Quicken File
+.
+Download the latest Quicken Update. From Quicken, go to
+Help » Check for Updates
+.
+Deactivate your online banking connection for accounts connected to UFCU.
+Choose
+Tools » Account List
+. Then select
+Accounts » Edit
+.
+Click
+Edit
+on the account to deactivate.
+In Account Details, click
+Online Services
+.
+Click
+Deactivate
+. Follow prompts to confirm deactivation.
+Click the
+General
+tab.
+Delete UFCU and your account number information. Click
+OK
+to close the window.
+Repeat these steps for any additional accounts that apply.
+Reconnect the online banking connection for your accounts.
+Choose
+Tools » Account List
+.
+Click
+Edit
+on the account you want to activate.
+In Account Details, click
+Online Services
+and then choose
+Set Up Now
+.
+Enter UFCU as your financial institution and click Next.
+Express Web Connect uses the same credentials as your UFCU login information.
+Ensure you associate the accounts with the appropriate accounts already listed in Quicken.
+Select
+Link to an existing account
+and select the matching accounts in the drop-down menu.
+Important: Do NOT choose “Create a new account” unless you intend to add a new account to Quicken
+.
+If you are presented with accounts, you do not want to track in this data file, choose
+Ignore – Don’t Download into Quicken
+or click
+Cancel
+.
+After all accounts have been matched, click
+Next
+and then
+Done
+.
+Quicken Instructions for Apple
+®
+Users
+Back up your Quicken Classic Mac Data File.
+Choose
+File » Save a Backup
+.
+Download the latest Quicken Update.
+Choose Quicken » Check for Updates
+.
+Activate the online banking connection for accounts connected to the financial institution that is requesting this change.
+Click your account in the Accounts list on the left side.
+Choose
+Accounts » Settings
+.
+Select
+Downloads
+, and then
+Connect Account
+.
+Enter UFCU in the search field, select the correct option and click
+Continue
+.
+Select
+Quicken Connect
+and enter your UFCU login information.
+Express Web Connect uses the same credentials you use for your institution’s online banking login.
+In the “Accounts Found” screen, ensure you associate each new account to the appropriate account already listed in Quicken. Under
+Action
+, choose
+Link
+to pick your existing account.
+Important: Do NOT select “ADD” in the Action column unless you intend to add a new account to Quicken
+Click
+Finish
+.
+Thank you for your feedback and patience as we continue to bring you more of the features you need.  For additional support, please contact Member Services at (512) 467-8080.
+Media Inquiries
+Reporters wishing to speak to our media team should email
+media@ufcu.org
+News Categories
+Announcements
+Community Impact
+Letters from Leadership
+News Releases
+View All
+Latest Financial Report
+Statement of Financial Condition: July 2026 (PDF)
+Annual Reports
+2025 Annual Report (PDF)
+(opens in a new window)
+2024 Annual Report (PDF)
+(opens in a new window)
+2023 Annual Report (PDF)
+(opens in a new window)
+2022 Annual Report (PDF)
+(opens in a new window)
+2021 Annual Report (PDF)
+(opens in a new window)

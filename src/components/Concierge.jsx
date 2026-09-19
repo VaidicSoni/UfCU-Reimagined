@@ -1,85 +1,111 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
-import { speak, stopSpeaking, ttsSupported, primeVoices } from '../lib/speech.js'
-import { askGuide, suggestionsFor } from '../lib/concierge.js'
+import { speak, stopSpeaking, ttsSupported } from '../lib/speech.js'
+import { askGuide, askRag, getSuggestions } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
 import { Icon } from './Icons.jsx'
+import { TypewriterText } from './TypewriterText.jsx'
+import { ShimmerBubble } from './ShimmerBubble.jsx'
 
 // Body of the expanded chat panel. Lumi wears her face here — this is the only
 // place she's actually "in use" — and her mouth moves against the speech.
+//
+// Two answer paths:
+//   • Suggested chip → instant hardcoded answer via askGuide(), typewriter effect
+//   • Custom typed → shimmer while fetching from local RAG server, then typewriter
 export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
-  const { lang, step, progress, readAloud, setReadAloud } = useOnboarding()
+  const { lang, step, progress, focusedField, readAloud, setReadAloud } = useOnboarding()
+  // thread entries: { role, text, typing?, loading? }
   const [thread, setThread] = useState([])
   const [draft, setDraft] = useState('')
-  const [speakingId, setSpeakingId] = useState(null)
+  const [speaking, setSpeaking] = useState(false)
   const scrollRef = useRef(null)
 
-  useEffect(() => primeVoices(), [])
-
-  const say = (text, id) => {
-    speak(text, lang, {
-      onStart: () => setSpeakingId(id),
-      onEnd: () => setSpeakingId((cur) => (cur === id ? null : cur)),
-    })
-  }
-
-  const stop = () => {
-    stopSpeaking()
-    setSpeakingId(null)
-  }
-
-  const ask = (question) => {
+  const ask = useCallback(async (question) => {
     const q = question.trim()
     if (!q) return
-    const answer = askGuide(q, lang)
-    const id = `a-${Date.now()}`
-    setThread((prev) => [...prev, { role: 'user', text: q }, { role: 'guide', text: answer, id }])
+    
+    // RAG answer path (with shimmer) for EVERYTHING
+    setThread((prev) => [
+      ...prev,
+      { role: 'user', text: q },
+      { role: 'guide', text: '', loading: true },
+    ])
     setDraft('')
-    if (readAloud) say(answer, id)
-  }
+
+    try {
+      const answer = await askRag(q, step, focusedField || '', lang)
+      // Replace the loading placeholder with the real answer
+      setThread((prev) => {
+        const updated = [...prev]
+        for (let i = updated.length - 1; i >= 0; i--) {
+          if (updated[i].loading) {
+            updated[i] = { role: 'guide', text: answer, typing: true }
+            break
+          }
+        }
+        return updated
+      })
+    } catch {
+      // In case of any unhandled error in askRag
+      setThread((prev) => {
+        const updated = [...prev]
+        for (let i = updated.length - 1; i >= 0; i--) {
+          if (updated[i].loading) {
+            updated[i] = {
+              role: 'guide',
+              text: lang === 'es' ? 'Hubo un error. Intente de nuevo.' : 'Something went wrong. Please try again.',
+              typing: true,
+            }
+            break
+          }
+        }
+        return updated
+      })
+    }
+  }, [lang, step, focusedField])
+  
+  const suggestions = getSuggestions(step, focusedField, lang)
 
   // A chip tapped on the dock arrives here as a seed and asks itself.
   useEffect(() => {
-    if (seed?.text && open) ask(seed.text)
+    if (seed?.text) ask(seed.text, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seed?.at])
 
   // A new step means a new scripted line — clear the side conversation.
   useEffect(() => {
     setThread([])
-    stop()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    stopSpeaking()
+    setSpeaking(false)
   }, [message])
 
-  // Reading the step's own line aloud is the main win for anyone who'd rather
-  // listen than read, so it fires on open and on every step change.
-  useEffect(() => {
-    if (open && readAloud) say(message, 'intro')
-    if (!open) stop()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, message, readAloud])
-
+  // Auto-scroll to bottom on new messages
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
   }, [thread])
 
-  const isSpeaking = speakingId !== null
+  // Mark a message as done typing (typewriter finished)
+  const markTypingDone = useCallback((index) => {
+    setThread((prev) => {
+      const updated = [...prev]
+      if (updated[index]) {
+        updated[index] = { ...updated[index], typing: false }
+      }
+      return updated
+    })
+  }, [])
 
-  const SpeakButton = ({ id, text, label = false }) => {
-    const active = speakingId === id
-    return (
-      <button
-        onClick={() => (active ? stop() : say(text, id))}
-        aria-label={active ? t(lang, 'stopMessage') : t(lang, 'playMessage')}
-        className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/25"
-      >
-        {active
-          ? <Icon.stop className="h-4 w-4" aria-hidden="true" />
-          : <Icon.sound className="h-4 w-4" aria-hidden="true" />}
-        {label && (active ? t(lang, 'stop') : t(lang, 'listen'))}
-      </button>
-    )
+  const toggleSpeech = () => {
+    if (speaking) {
+      stopSpeaking()
+      setSpeaking(false)
+      return
+    }
+    const latest = thread.filter((m) => m.role === 'guide' && m.text).slice(-1)[0]
+    speak(latest ? latest.text : message, lang)
+    setSpeaking(true)
   }
 
   return (
@@ -88,17 +114,13 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
         <Mascot
           brightness={0.32 + 0.68 * (progress.current / progress.total)}
           state={mood}
-          size={64}
-          face={open}
-          speaking={isSpeaking}
+          size={46}
           intro={false}
           className="shrink-0"
         />
         <div className="flex-1">
           <p className="text-base font-extrabold text-white">Lumi</p>
-          <p className="text-xs text-navy-subtle">
-            {isSpeaking ? t(lang, 'readAloudOn') : t(lang, 'guide')}
-          </p>
+          <p className="text-xs text-navy-subtle">{t(lang, 'guide')}</p>
         </div>
         <button
           onClick={onClose}
@@ -109,75 +131,68 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
         </button>
       </header>
 
-      {/* Read-aloud lives at the top of the panel, not buried in a menu —
-          it's the control most likely to be wanted by the people who need it. */}
-      {ttsSupported() && (
-        <div className="border-b border-white/10 px-5 py-3">
-          <button
-            onClick={() => {
-              if (readAloud) stop()
-              setReadAloud(!readAloud)
-            }}
-            aria-pressed={readAloud}
-            className={`flex w-full items-center gap-3 rounded-full px-4 py-2.5 text-sm font-bold transition ${
-              readAloud ? 'bg-orange text-white' : 'bg-white/10 text-white hover:bg-white/20'
-            }`}
-          >
-            <Icon.sound className="h-5 w-5 shrink-0" aria-hidden="true" />
-            <span className="flex-1 text-left">{t(lang, 'readAloud')}</span>
-            <span
-              aria-hidden="true"
-              className={`flex h-6 w-11 items-center rounded-full p-0.5 transition ${
-                readAloud ? 'bg-white/35' : 'bg-white/20'
-              }`}
-            >
-              <span
-                className={`h-5 w-5 rounded-full bg-white transition-transform ${
-                  readAloud ? 'translate-x-5' : 'translate-x-0'
-                }`}
-              />
-            </span>
-          </button>
-        </div>
-      )}
-
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+        {/* Lumi's scripted guide message for this step — always with typewriter */}
         <div className="rounded-2xl rounded-tl-sm bg-white/10 p-4 text-white">
-          <p className="text-base leading-relaxed">{message}</p>
+          <p className="text-base leading-relaxed">
+            <TypewriterText text={message} key={message} />
+          </p>
           {ttsSupported() && (
-            <div className="mt-3">
-              <SpeakButton id="intro" text={message} label />
-            </div>
+            <button
+              onClick={toggleSpeech}
+              className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold text-white transition hover:bg-white/25"
+            >
+              {speaking
+                ? <Icon.stop className="h-4 w-4" aria-hidden="true" />
+                : <Icon.sound className="h-4 w-4" aria-hidden="true" />}
+              {speaking ? t(lang, 'stop') : t(lang, 'listen')}
+            </button>
           )}
         </div>
 
+        {/* Conversation thread */}
         <div className="space-y-3" aria-live="polite">
-          {thread.map((m, i) => (
-            <div
-              key={i}
-              className={`max-w-[88%] rounded-2xl px-4 py-3 text-base ${
-                m.role === 'user'
-                  ? 'ml-auto rounded-br-sm bg-orange text-white'
-                  : 'rounded-tl-sm bg-white/10 text-white'
-              }`}
-            >
-              <p>{m.text}</p>
-              {m.role === 'guide' && ttsSupported() && (
-                <div className="mt-2">
-                  <SpeakButton id={m.id} text={m.text} />
+          {thread.map((m, i) => {
+            if (m.role === 'user') {
+              return (
+                <div
+                  key={i}
+                  className="ml-auto max-w-[88%] rounded-2xl rounded-br-sm bg-orange px-4 py-3 text-base text-white"
+                >
+                  {m.text}
                 </div>
-              )}
-            </div>
-          ))}
+              )
+            }
+            // Guide message
+            if (m.loading) {
+              return <ShimmerBubble key={i} />
+            }
+            return (
+              <div
+                key={i}
+                className="max-w-[88%] rounded-2xl rounded-tl-sm bg-white/10 px-4 py-3 text-base text-white"
+              >
+                {m.typing ? (
+                  <TypewriterText
+                    text={m.text}
+                    onComplete={() => markTypingDone(i)}
+                  />
+                ) : (
+                  m.text
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
 
       <footer className="border-t border-white/10 px-5 py-4">
+        {/* Context-aware suggested question chips */}
         <div className="mb-3 flex flex-wrap gap-2">
-          {suggestionsFor(step, lang).map((q) => (
+          {suggestions.map((q) => (
             <button
               key={q}
-              onClick={() => ask(q)}
+              onClick={() => ask(q, true)}
               className="rounded-full border border-white/25 px-3 py-1.5 text-sm text-white/90 transition hover:bg-white/15"
             >
               {q}
