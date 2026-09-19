@@ -134,7 +134,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
         {/* Lumi's scripted guide message for this step — always with typewriter */}
         <div className="rounded-2xl rounded-tl-sm bg-white/10 p-4 text-white">
-          <p className="text-base leading-relaxed">
+          <p className="whitespace-pre-wrap text-base leading-relaxed">
             <TypewriterText text={message} key={message} />
           </p>
           {ttsSupported() && (
@@ -170,7 +170,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
             return (
               <div
                 key={i}
-                className="max-w-[88%] rounded-2xl rounded-tl-sm bg-white/10 px-4 py-3 text-base text-white"
+                className="max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-white/10 px-4 py-3 text-base text-white"
               >
                 {m.typing ? (
                   <TypewriterText

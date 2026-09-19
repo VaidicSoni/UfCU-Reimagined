@@ -8,11 +8,17 @@ export function TypewriterText({ text, onComplete, className = '' }) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
   const indexRef = useRef(0)
-  const textRef = useRef(text)
+  const charsRef = useRef([])
+  const onCompleteRef = useRef(onComplete)
+
+  // Keep callback ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   // Reset when text changes
   useEffect(() => {
-    textRef.current = text
+    charsRef.current = Array.from(text)
     indexRef.current = 0
     setDisplayed('')
     setDone(false)
@@ -22,18 +28,18 @@ export function TypewriterText({ text, onComplete, className = '' }) {
     if (done) return
     const interval = setInterval(() => {
       indexRef.current += 1
-      const next = textRef.current.slice(0, indexRef.current)
+      const next = charsRef.current.slice(0, indexRef.current).join('')
       setDisplayed(next)
 
-      if (indexRef.current >= textRef.current.length) {
+      if (indexRef.current >= charsRef.current.length) {
         clearInterval(interval)
         setDone(true)
-        onComplete?.()
+        onCompleteRef.current?.()
       }
     }, CHAR_MS)
 
     return () => clearInterval(interval)
-  }, [text, done, onComplete])
+  }, [done])
 
   return (
     <span className={className}>
