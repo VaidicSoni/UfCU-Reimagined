@@ -70,6 +70,22 @@ app.post('/api/ask', async (req, res) => {
     });
 });
 
+import { users } from './users.js';
+
+app.get('/api/users', (req, res) => {
+    // Return a summary of all users (for listing/switching)
+    const summary = users.map(u => ({ id: u.id, name: u.name, type: u.type }));
+    res.json(summary);
+});
+
+app.get('/api/users/:id', (req, res) => {
+    const user = users.find(u => u.id === req.params.id);
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+});
+
 app.listen(port, () => {
     console.log(`Lumi RAG server listening at http://localhost:${port}`);
     console.log(`Server is ready! Knowledge base has ${store.store.length} embedded chunks.`);
