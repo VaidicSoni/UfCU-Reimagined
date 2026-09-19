@@ -1,0 +1,14 @@
+URL: internal://ufcu-reimagined/onboarding-guide
+Source: Internal Application Spec
+--------------------------------------------------
+UFCU Reimagined - App Onboarding Flow & Screen Guide
+
+The onboarding flow consists of the following screens:
+1. About (/about): Collects Name, Email, Phone, and University/Employer affiliation. UFCU offers membership to UT, TXST, ACC, and other partners. Anyone can join via the free American Consumer Council option.
+2. Address (/address): Collects residential street address, city, state, and zip code. This is required by federal law to verify identity and establish residency.
+3. Identity (/identity): Collects Date of Birth (DOB) and Social Security Number (SSN) or ITIN. This is strictly required by the USA PATRIOT Act for KYC (Know Your Customer) and AML (Anti-Money Laundering) compliance. UFCU uses bank-level encryption to secure this data.
+4. Funding (/funding): Members must fund their new account. The app integrates with Plaid for instant, secure bank-to-bank transfers. Plaid connects to thousands of financial institutions. No credentials are ever stored by UFCU.
+5. Secure (/secure): Members set up a secure password for their new digital banking profile. Passwords must meet strict length and complexity requirements to prevent unauthorized access.
+6. Goals (/goals): A personalized step where members select financial goals (e.g., Save for a car, Build credit) so UFCU can tailor account recommendations.
+
+Support Hours: Mon - Fri: 8 AM - 5:30 PM, Sat: 10 AM - 2 PM. Phone: (512) 467-8080 or (800) 252-8311.
