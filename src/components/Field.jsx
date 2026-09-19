@@ -6,7 +6,8 @@ import { Icon } from './Icons.jsx'
 // When fieldId is provided, focus/blur events update the global focusedField
 // in OnboardingContext so Lumi's suggestions change based on the active field.
 export function Field({
-  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode, fieldId, ...rest
+  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode, fieldId,
+  placeholder, trailing, ...rest
 }) {
   const id = useId()
   const [focused, setFocused] = useState(false)
@@ -24,9 +25,9 @@ export function Field({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       <div
-        className={`relative rounded-2xl border-2 bg-white transition ${
+        className={`relative min-w-0 rounded-2xl border-2 bg-white transition ${
           focused ? 'border-navy' : valid ? 'border-emerald-500/60' : 'border-navy-subtle'
         }`}
       >
@@ -44,22 +45,27 @@ export function Field({
           id={id}
           type={type}
           value={value}
+          // Held back until the label floats, otherwise the placeholder sits
+          // underneath the centred label and the two overlap.
+          placeholder={floated ? placeholder : undefined}
           inputMode={inputMode}
           autoComplete={autoComplete}
           onChange={(e) => onChange(e.target.value)}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className="w-full bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none"
+          className={`w-full min-w-0 bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none placeholder:text-navy-lighter ${
+            trailing ? 'pr-[4.75rem]' : 'pr-12'
+          }`}
           {...rest}
         />
-        {valid && (
-          <span
-            aria-hidden="true"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-lg text-emerald-600"
-          >
-            ✓
-          </span>
-        )}
+        <div
+          className={`absolute top-1/2 flex -translate-y-1/2 items-center gap-1 ${
+            trailing ? 'right-2' : 'right-4'
+          }`}
+        >
+          {valid && <span aria-hidden="true" className="text-lg text-emerald-600">✓</span>}
+          {trailing}
+        </div>
       </div>
       {hint && (
         <p className="mt-2 flex gap-2 px-1 text-sm leading-snug text-navy-lighter">

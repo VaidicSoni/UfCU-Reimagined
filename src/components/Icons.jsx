@@ -109,6 +109,13 @@ export const Icon = {
       <path d="M12 17.5V21M9 21h6" {...base} />
     </svg>
   ),
+  calendar: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" {...base} />
+      <path d="M3.5 9.5h17" {...base} />
+      <path d="M8 3.5v3M16 3.5v3" {...base} />
+    </svg>
+  ),
   shield: (p) => (
     <svg viewBox="0 0 24 24" {...p}>
       <path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 8.5-4.1-.8-7-4.3-7-8.5V6z" {...base} />

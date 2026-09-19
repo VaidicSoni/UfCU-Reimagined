@@ -26,6 +26,7 @@ const INITIAL_FORM = {
   firstName: '',
   lastName: '',
   email: '',
+  dateOfBirth: '',
   phone: '',
   address: '',
   city: '',

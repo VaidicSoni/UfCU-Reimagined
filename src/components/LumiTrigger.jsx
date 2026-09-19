@@ -30,7 +30,7 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
                 onMouseEnter={() => setHoveredChip(true)}
                 onMouseLeave={() => setHoveredChip(false)}
                 style={{ animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms` }}
-                className="dock-chip max-w-[14rem] rounded-2xl border border-white/25 bg-navy-darkest/85 px-4 py-2 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
+                className="dock-chip max-w-[17rem] rounded-full border-l-4 border-l-orange bg-navy-darkest/85 py-2 pl-4 pr-5 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
               >
                 {q}
               </button>
@@ -48,6 +48,9 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
               brightness={0.32 + 0.68 * (progress.current / progress.total)}
               state={mood}
               size={96}
+              face={false}
+              alive
+              excited={hoveredChip}
             />
           </span>
           <span className="pointer-events-none absolute -right-3 -top-2 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card xl:hidden">
