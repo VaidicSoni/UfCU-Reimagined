@@ -1,0 +1,19 @@
+--- src/components/Mascot.jsx
++++ src/components/Mascot.jsx
+@@ -91,11 +91,13 @@
+     }
+     schedule()
+     return () => {
+-  const targetY = useRef(0)
+-  const curX = useRef(0)
+-  const curY = useRef(0)
+-  const mascotRef = useRef(null)
+-
++      clearTimeout(timeoutId)
++      clearTimeout(revertId)
++    }
++  }, [face, loop])
++  
+   // Mouse tracking listener
+   useEffect(() => {
+     if (prefersReducedMotion()) return

@@ -91,10 +91,10 @@ export function Mascot({
     }
     schedule()
     return () => {
-  const targetY = useRef(0)
-  const curX = useRef(0)
-  const curY = useRef(0)
-  const mascotRef = useRef(null)
+      clearTimeout(timeoutId)
+      clearTimeout(revertId)
+    }
+  }, [face, loop])
 
   // Mouse tracking listener
   useEffect(() => {
