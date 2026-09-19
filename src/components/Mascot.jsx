@@ -20,7 +20,10 @@ const LETTER_U = [46, 36, 46, 56, 14, 14, 74, 56, 74, 36]
 const SMILE    = [48, 57, 48, 57, 12,  8, 72, 57, 72, 57]
 // Same endpoints and rx as the smile, only deeper — so the mouth opens like a
 // jaw instead of squeezing inwards, which is what looked wrong before.
-const TALK     = [48, 54, 48, 54, 12, 16, 72, 54, 72, 54]
+const TALK     = [48, 55, 48, 55, 12, 13, 72, 55, 72, 55]
+// Reaction mouths. FLAT reads as bored, WIDE as delighted.
+const FLAT     = [48, 59, 48, 59, 12,  1, 72, 59, 72, 59]
+const WIDE     = [46, 52, 46, 52, 14, 17, 74, 52, 74, 52]
 
 // Glass shoulders taper into a neck before the screw base — a circle on a stand
 // doesn't read as a bulb. One closed path, so the outline has no seams.
@@ -35,6 +38,8 @@ const MORPH_MS = 780   // letterform <-> face
 const TALK_HZ = 2.2    // mouth cycles per second while speaking
 const LOOP_FACE_MS = 3600  // how long she holds the face when cycling
 const LOOP_LETTER_MS = 1900 // and the letterform
+const TRACK_RADIUS = 260   // px within which she notices the cursor
+const REACTION_MS = 5200   // how often an idle reaction fires
 
 const filamentPath = (v) =>
   `M ${v[0]} ${v[1]} L ${v[2]} ${v[3]} A ${v[4]} ${v[5]} 0 0 0 ${v[6]} ${v[7]} L ${v[8]} ${v[9]}`
@@ -53,17 +58,36 @@ export function Mascot({
   state = 'idle',
   face = false,
   speaking = false,
+  speechTick = 0,
   intro = true,
   loop = false,
+  // Set by whatever she's reacting to — hovering a suggested question, say.
+  excited = false,
+  // Follow the pointer and pull faces when idle. Only worth it where she sits
+  // persistently on screen, so the corner dock opts in and nothing else does.
+  alive = false,
   className = '',
 }) {
   const filamentRef = useRef(null)
   const glowRef = useRef(null)
   const eyesRef = useRef(null)
+  const eyeLRef = useRef(null)
+  const eyeRRef = useRef(null)
+  const tiltRef = useRef(null)
+  const tongueRef = useRef(null)
   const blinkRef = useRef(false)
+  // 'wink' | 'tongue' | 'bored' | null — a passing reaction, not a mode.
+  const reactionRef = useRef(null)
+  const excitedRef = useRef(excited)
+  const nearRef = useRef(0)
   
   const [randomFace, setRandomFace] = useState(false)
-  const effectiveFace = face || randomFace
+  // Cursor within reach. Hysteresis on the two thresholds so a pointer hovering
+  // right at the boundary doesn't flicker her in and out.
+  const [nearby, setNearby] = useState(false)
+  // She needs a face to react with, so anything that provokes a reaction also
+  // brings one out.
+  const effectiveFace = face || randomFace || excited || nearby
 
   // Live values the animation loop reads, so changing props never restarts it.
   const morph = useRef(intro ? 0 : effectiveFace ? 1 : 0)
@@ -71,6 +95,7 @@ export function Mascot({
   const talkEnv = useRef(0)
   const faceRef = useRef(effectiveFace)
   const speakingRef = useRef(speaking)
+  const pulseRef = useRef(0)
   const targetX = useRef(0)
   const targetY = useRef(0)
   const curX = useRef(0)
@@ -100,26 +125,60 @@ export function Mascot({
   useEffect(() => {
     if (prefersReducedMotion()) return
     const onMove = (e) => {
-      if (!mascotRef.current || !faceRef.current) return
+      if (!mascotRef.current) return
       const rect = mascotRef.current.getBoundingClientRect()
       const cx = rect.left + rect.width / 2
       const cy = rect.top + rect.height / 2
       const dx = e.clientX - cx
       const dy = e.clientY - cy
-      const dist = Math.sqrt(dx * dx + dy * dy)
-      
-      // Look up to 4px sideways and 5px up/down if within 400px
-      if (dist < 400) {
-        targetX.current = (dx / 400) * 4
-        targetY.current = (dy / 400) * 5
+      const dist = Math.hypot(dx, dy)
+
+      if (dist < TRACK_RADIUS) {
+        // 0 at the edge of her attention, 1 right on top of her.
+        const near = 1 - dist / TRACK_RADIUS
+        nearRef.current = near
+        targetX.current = Math.max(-1, Math.min(1, dx / TRACK_RADIUS))
+        targetY.current = Math.max(-1, Math.min(1, dy / TRACK_RADIUS))
+        if (near > 0.45) setNearby(true)
+        else if (near < 0.25) setNearby(false)
       } else {
+        nearRef.current = 0
         targetX.current = 0
         targetY.current = 0
+        setNearby(false)
       }
     }
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
   }, [])
+
+  useEffect(() => {
+    excitedRef.current = excited
+  }, [excited])
+
+  // Idle reactions. Only where she lives on screen persistently, and never
+  // while she's mid-sentence or being pointed at — a wink mid-answer reads as
+  // a glitch rather than personality.
+  useEffect(() => {
+    if (!alive || prefersReducedMotion()) return
+    let timer
+    const pick = () => ['wink', 'tongue', 'bored'][Math.floor(Math.random() * 3)]
+    const schedule = () => {
+      timer = setTimeout(() => {
+        if (!speakingRef.current && nearRef.current < 0.2) {
+          reactionRef.current = pick()
+          setRandomFace(true)
+          setTimeout(() => {
+            reactionRef.current = null
+            setRandomFace(false)
+          }, 1600)
+        }
+        schedule()
+      }, REACTION_MS + Math.random() * 4000)
+    }
+    schedule()
+    return () => clearTimeout(timer)
+  }, [alive])
 
   // Retarget the morph when the face/letter state flips.
   useEffect(() => {
@@ -136,11 +195,25 @@ export function Mascot({
     speakingRef.current = speaking
   }, [speaking])
 
+  // Each word boundary kicks the mouth open; it decays in the loop below, so
+  // movement follows the speech instead of a metronome.
+  useEffect(() => {
+    if (speechTick > 0) pulseRef.current = 1
+  }, [speechTick])
+
   useEffect(() => {
     const paint = (draw, m, talk) => {
       const base = mix(LETTER_U, SMILE, m)
+      // Reactions bend the resting mouth before any speech is layered on.
+      const reaction = reactionRef.current
+      let shaped = base
+      if (m > 0.9 && !speakingRef.current) {
+        if (reaction === 'bored') shaped = mix(base, FLAT, 0.85)
+        else if (reaction === 'tongue') shaped = mix(base, WIDE, 0.45)
+        else if (excitedRef.current) shaped = mix(base, WIDE, 0.7)
+      }
       // Mouth only opens once there's a mouth to open.
-      const d = filamentPath(talk > 0 ? mix(base, TALK, talk * m) : base)
+      const d = filamentPath(talk > 0 ? mix(shaped, TALK, talk * m) : shaped)
       const offset = 100 - draw * 100
       // The letterform carries more weight than the mouth does.
       const width = 9 - 2 * m
@@ -153,9 +226,28 @@ export function Mascot({
       const eyeOpen = clamp01((m - 0.4) / 0.5)
       if (eyesRef.current) {
         eyesRef.current.setAttribute('opacity', eyeOpen)
-        const s = blinkRef.current ? 0.12 : eyeOpen
-        eyesRef.current.style.transform = `translate(${curX.current}px, ${curY.current}px) scaleY(${s})`
+        // Pupils drift a few units toward the pointer.
+        eyesRef.current.style.transform = `translate(${curX.current * 3.2}px, ${curY.current * 2.6}px)`
         eyesRef.current.style.transformOrigin = '60px 41px'
+      }
+      // Eyes are scaled individually so one can close on its own.
+      const lid = blinkRef.current ? 0.12 : reaction === 'bored' ? 0.45 : eyeOpen
+      if (eyeLRef.current) {
+        eyeLRef.current.style.transformOrigin = '50px 41px'
+        eyeLRef.current.style.transform = `scaleY(${lid})`
+      }
+      if (eyeRRef.current) {
+        eyeRRef.current.style.transformOrigin = '70px 41px'
+        eyeRRef.current.style.transform = `scaleY(${reaction === 'wink' ? 0.1 : lid})`
+      }
+      if (tongueRef.current) {
+        tongueRef.current.setAttribute('opacity', reaction === 'tongue' ? eyeOpen : 0)
+      }
+      // Head tilt: leans toward the pointer and lifts when it's above her.
+      if (tiltRef.current) {
+        const lean = curX.current * 5
+        const lift = -Math.max(0, -curY.current) * 3.5
+        tiltRef.current.setAttribute('transform', `translate(0 ${lift}) rotate(${lean} 60 76)`)
       }
     }
 
@@ -193,12 +285,15 @@ export function Mascot({
       // Ease the talking envelope in and out so speech start/stop isn't abrupt.
       const target = speakingRef.current ? 1 : 0
       talkEnv.current += (target - talkEnv.current) * 0.14
-      // Two detuned sines — a single one reads as a metronome, not speech.
+      // Two detuned sines as a base — a single one reads as a metronome — with
+      // the word pulse layered on top where the browser reports boundaries.
       const tsec = now / 1000
       const w1 = Math.sin(tsec * TALK_HZ * 2 * Math.PI)
       const w2 = Math.sin(tsec * TALK_HZ * 1.73 * 2 * Math.PI + 1.1)
       const wave = clamp01(0.5 + 0.34 * w1 + 0.16 * w2)
-      const talk = talkEnv.current * (0.2 + 0.8 * wave)
+      pulseRef.current *= 0.88
+      const shaped = clamp01(wave * 0.55 + pulseRef.current * 0.75)
+      const talk = talkEnv.current * (0.18 + 0.82 * shaped)
 
       paint(draw, morph.current, talk < 0.01 ? 0 : talk)
       raf = requestAnimationFrame(tick)
@@ -275,6 +370,9 @@ export function Mascot({
 
         <circle className="lumi-halo" cx="60" cy="48" r="52" fill="url(#lumi-glow)" />
 
+        {/* One group so the bulb, face and base lean together */}
+        <g ref={tiltRef}>
+
         {/* A pale rim is drawn first, a couple of pixels wider than each shape.
             The navy outline alone has nowhere to go against a navy page; this
             gives the whole silhouette an edge without changing its colour. */}
@@ -316,9 +414,22 @@ export function Mascot({
           style={{ filter: 'blur(3px)' }}
         />
 
+        {/* Tongue sits under the mouth and is revealed by the reaction. */}
+        <path
+          ref={tongueRef}
+          d="M54 62 Q60 74 66 62 Z"
+          fill="#F49A6A"
+          stroke={NAVY}
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+          opacity="0"
+        />
+
         <g ref={eyesRef} className="lumi-eyes" opacity={intro ? 0 : effectiveFace ? 1 : 0}>
-          <ellipse cx="50" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
-          <ellipse cx="70" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
+          <ellipse ref={eyeLRef} cx="50" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
+          <ellipse ref={eyeRRef} cx="70" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
+        </g>
+
         </g>
 
         <g className="lumi-sparks">

@@ -102,6 +102,13 @@ export const Icon = {
       <path d="M9.5 5.5L16 12l-6.5 6.5" {...base} />
     </svg>
   ),
+  mic: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <rect x="9" y="2.5" width="6" height="11" rx="3" {...base} />
+      <path d="M5.5 11a6.5 6.5 0 0 0 13 0" {...base} />
+      <path d="M12 17.5V21M9 21h6" {...base} />
+    </svg>
+  ),
   shield: (p) => (
     <svg viewBox="0 0 24 24" {...p}>
       <path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 8.5-4.1-.8-7-4.3-7-8.5V6z" {...base} />

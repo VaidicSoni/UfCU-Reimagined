@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { getSuggestions } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
@@ -6,6 +7,7 @@ import { Mascot } from './Mascot.jsx'
 // open chat lives in the page layout, not here.
 // Chips are now context-aware: they change based on the current screen + focused field.
 export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
+  const [hoveredChip, setHoveredChip] = useState(false)
   const { lang, step, progress, fontScale, focusedField } = useOnboarding()
   const suggestions = getSuggestions(step, focusedField, lang)
 
@@ -25,6 +27,8 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
               <button
                 key={q}
                 onClick={() => onAsk(q)}
+                onMouseEnter={() => setHoveredChip(true)}
+                onMouseLeave={() => setHoveredChip(false)}
                 style={{ animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms` }}
                 className="dock-chip max-w-[14rem] rounded-2xl border border-white/25 bg-navy-darkest/85 px-4 py-2 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
               >

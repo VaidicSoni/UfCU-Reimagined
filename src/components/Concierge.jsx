@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
-import { speak, stopSpeaking, ttsSupported } from '../lib/speech.js'
+import { speak, stopSpeaking, ttsSupported, sttSupported, listen } from '../lib/speech.js'
 import { askGuide, askRag, getSuggestions } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
 import { Icon } from './Icons.jsx'
@@ -19,8 +19,51 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
   // thread entries: { role, text, typing?, loading? }
   const [thread, setThread] = useState([])
   const [draft, setDraft] = useState('')
-  const [speaking, setSpeaking] = useState(false)
+  // Which message is being read aloud: 'intro' for the scripted line, or the
+  // thread index. Tracking it per message is what lets every response have its
+  // own Listen button.
+  const [speakingId, setSpeakingId] = useState(null)
+  const [speechTick, setSpeechTick] = useState(0)
+  const [listening, setListening] = useState(false)
+  const stopListenRef = useRef(null)
   const scrollRef = useRef(null)
+
+  const stopSpeech = useCallback(() => {
+    stopSpeaking()
+    setSpeakingId(null)
+  }, [])
+
+  const say = useCallback((text, id) => {
+    if (!text) return
+    speak(text, lang, {
+      onStart: () => setSpeakingId(id),
+      onEnd: () => setSpeakingId((cur) => (cur === id ? null : cur)),
+      onBoundary: () => setSpeechTick((n) => n + 1),
+    })
+  }, [lang])
+
+  const toggleMic = useCallback(() => {
+    if (listening) {
+      stopListenRef.current?.()
+      return
+    }
+    stopSpeech()
+    const stop = listen(lang, {
+      onResult: (transcript) => setDraft(transcript),
+      onEnd: () => {
+        setListening(false)
+        stopListenRef.current = null
+      },
+      onError: () => {
+        setListening(false)
+        stopListenRef.current = null
+      },
+    })
+    if (stop) {
+      stopListenRef.current = stop
+      setListening(true)
+    }
+  }, [listening, lang, stopSpeech])
 
   const ask = useCallback(async (question) => {
     const q = question.trim()
@@ -84,7 +127,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
   useEffect(() => {
     setThread([])
     stopSpeaking()
-    setSpeaking(false)
+    setSpeakingId(null)
   }, [message])
 
   // Auto-scroll to bottom on new messages
@@ -103,15 +146,21 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
     })
   }, [])
 
-  const toggleSpeech = () => {
-    if (speaking) {
-      stopSpeaking()
-      setSpeaking(false)
-      return
-    }
-    const latest = thread.filter((m) => m.role === 'guide' && m.text).slice(-1)[0]
-    speak(latest ? latest.text : message, lang)
-    setSpeaking(true)
+  // One control, reused on the scripted line and on every answer.
+  const SpeakButton = ({ id, text }) => {
+    const active = speakingId === id
+    return (
+      <button
+        onClick={() => (active ? stopSpeech() : say(text, id))}
+        aria-label={active ? t(lang, 'stopMessage') : t(lang, 'playMessage')}
+        className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold text-white transition hover:bg-white/25"
+      >
+        {active
+          ? <Icon.stop className="h-4 w-4" aria-hidden="true" />
+          : <Icon.sound className="h-4 w-4" aria-hidden="true" />}
+        {active ? t(lang, 'stop') : t(lang, 'listen')}
+      </button>
+    )
   }
 
   return (
@@ -120,7 +169,10 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
         <Mascot
           brightness={0.32 + 0.68 * (progress.current / progress.total)}
           state={mood}
-          size={46}
+          size={52}
+          face={open}
+          speaking={speakingId !== null}
+          speechTick={speechTick}
           intro={false}
           className="shrink-0"
         />
@@ -143,17 +195,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
           <p className="whitespace-pre-wrap text-base leading-relaxed">
             {message}
           </p>
-          {ttsSupported() && (
-            <button
-              onClick={toggleSpeech}
-              className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold text-white transition hover:bg-white/25"
-            >
-              {speaking
-                ? <Icon.stop className="h-4 w-4" aria-hidden="true" />
-                : <Icon.sound className="h-4 w-4" aria-hidden="true" />}
-              {speaking ? t(lang, 'stop') : t(lang, 'listen')}
-            </button>
-          )}
+          {ttsSupported() && <SpeakButton id="intro" text={message} />}
         </div>
 
         {/* Conversation thread */}
@@ -186,6 +228,16 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
                 ) : (
                   m.text
                 )}
+                {/* Available while it's still typing: the full text is already
+                    known, and someone who wants to listen shouldn't have to
+                    wait out an animation first. Block wrapper because the
+                    bubble text is a bare string and an inline-flex button
+                    would otherwise sit on its last line. */}
+                {ttsSupported() && m.text && (
+                  <div>
+                    <SpeakButton id={i} text={m.text} />
+                  </div>
+                )}
               </div>
             )
           })}
@@ -215,13 +267,36 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder={t(lang, 'askPlaceholder')}
+            placeholder={listening ? t(lang, 'micListening') : t(lang, 'askPlaceholder')}
             aria-label={t(lang, 'askPlaceholder')}
             className="min-w-0 flex-1 rounded-full bg-white/95 px-4 py-2.5 text-base text-navy outline-none placeholder:text-navy-lighter"
           />
+          {/* Dictation. Unsupported browsers get the control disabled with the
+              reason, rather than a button that silently does nothing. */}
+          <button
+            type="button"
+            onClick={toggleMic}
+            disabled={!sttSupported()}
+            aria-pressed={listening}
+            aria-label={
+              !sttSupported()
+                ? t(lang, 'micUnsupported')
+                : listening
+                  ? t(lang, 'micStop')
+                  : t(lang, 'micStart')
+            }
+            title={!sttSupported() ? t(lang, 'micUnsupported') : undefined}
+            className={`shrink-0 rounded-full p-2.5 transition disabled:cursor-not-allowed disabled:opacity-40 ${
+              listening
+                ? 'bg-orange text-white'
+                : 'bg-white/15 text-white hover:bg-white/25'
+            }`}
+          >
+            <Icon.mic className="h-5 w-5" aria-hidden="true" />
+          </button>
           <button
             type="submit"
-            className="rounded-full bg-white px-5 py-2.5 text-sm font-bold text-navy transition hover:bg-navy-subtle"
+            className="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-navy transition hover:bg-navy-subtle"
           >
             {t(lang, 'send')}
           </button>

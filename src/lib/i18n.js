@@ -15,6 +15,11 @@ export const COPY = {
     guide: 'Your UFCU guide',
     back: 'Back',
 
+    micStart: 'Speak your question',
+    micStop: 'Stop listening',
+    micUnsupported: 'Voice input needs Chrome or Safari',
+    micListening: 'Listening…',
+
     // Identity edge cases
     scanDoc: (d) => `Scan my ${d}`,
     taxIdType: 'Which number do you have?',
@@ -322,6 +327,11 @@ export const COPY = {
     send: 'Enviar',
     guide: 'Su guía de UFCU',
     back: 'Atrás',
+
+    micStart: 'Diga su pregunta',
+    micStop: 'Dejar de escuchar',
+    micUnsupported: 'La entrada por voz requiere Chrome o Safari',
+    micListening: 'Escuchando…',
 
     scanDoc: (d) => `Escanear mi ${d}`,
     taxIdType: '¿Qué número tiene?',

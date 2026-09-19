@@ -32,7 +32,8 @@ body {
 :focus-visible {
   outline: 3px solid #F2780C;
   outline-offset: 2px;
-  border-radius: 4px;
+  /* No border-radius here: outlines follow the element's own corners, and
+     forcing 4px drew a rectangle around pill-shaped inputs and buttons. */
 }
 
 .frost {
