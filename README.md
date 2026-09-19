@@ -247,9 +247,14 @@ server/
 ├── llm.js                      optional local Llama 3.2 via node-llama-cpp
 └── users.js                    three seeded members with generated history
 
-lumi-project/
+rag/
 ├── ufcu_scraper.py             the scraper that produced the knowledge base
+├── lumi_rag.js                 standalone retrieval prototype
 └── knowledge_docs/             133 pages of ufcu.org
+
+docs/                           research, brand guidelines, judging rubric
+public/                         served assets — logo, card art, bank logos
+scripts/                        one-off local checks
 ```
 
 React 18 + Vite 6 + Tailwind 3 on the front. Express + `node-llama-cpp` on the
@@ -280,8 +285,9 @@ UFCU really does offer them; the artwork is licensed.
 
 ## Research
 
-The team's research sits alongside this README — competitor analysis, the screen
-flow blueprint, brand guidelines and the pitch outline. Facts in the product
-(436,007 member-owners, $4.239B in assets, chartered 1936, the membership
-routes, the document requirements) come from `lumi-project/knowledge_docs/`,
-scraped from ufcu.org, rather than from memory.
+The team's research lives in [`docs/`](docs/) — competitor analysis, the screen
+flow blueprint, brand guidelines and the pitch outline, indexed in
+[`docs/README.md`](docs/README.md). Facts in the product (436,007 member-owners,
+$4.239B in assets, chartered 1936, the membership routes, the document
+requirements) come from `rag/knowledge_docs/`, scraped from ufcu.org, rather
+than from memory.

@@ -23,7 +23,7 @@ app.use(express.json());
 
 console.log("Starting Lumi RAG Server...");
 
-const docsDir = path.resolve(__dirname, '..', 'lumi-project', 'knowledge_docs');
+const docsDir = path.resolve(__dirname, '..', 'rag', 'knowledge_docs');
 console.log(`Loading documents from: ${docsDir}`);
 
 const docs = loadDocs(docsDir);
