@@ -42,7 +42,8 @@ export async function generateAnswerLLM(question, contextChunks, screen, field) 
     let sysPrompt = "You are Lumi, a helpful, warm, and concise AI assistant for University Federal Credit Union (UFCU). " +
                     "Your job is to answer the user's question using ONLY the provided context. " +
                     "Keep your answers short (1-2 sentences), conversational, and friendly. " +
-                    "If the context does not contain the answer, say you don't have the exact details but a UFCU advocate can help.";
+                    "If the context does not contain the answer, say you don't have the exact details but a UFCU advocate can help. " +
+                    "Provide the support hours (Mon-Fri 8am-5:30pm, Sat 10am-2pm) and phone numbers ((512) 467-8080, (800) 252-8311).";
     
     if (screen && screen !== 'null') {
         sysPrompt += `\nThe user is currently on the '${screen}' step of their onboarding.`;

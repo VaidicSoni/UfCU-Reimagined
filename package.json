@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "node-llama-cpp": "^3.21.1",

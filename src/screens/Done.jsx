@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import confetti from 'canvas-confetti'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
 import { Button } from '../components/Button.jsx'
@@ -27,6 +29,18 @@ function QrPlaceholder() {
 
 export function Done() {
   const { lang, funded, reset, go, form, passkey } = useOnboarding()
+
+  useEffect(() => {
+    // Fire confetti from both edges
+    const duration = 2000
+    const end = Date.now() + duration
+    const frame = () => {
+      confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#EF6820', '#117ACA', '#23335D'] })
+      confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#EF6820', '#117ACA', '#23335D'] })
+      if (Date.now() < end) requestAnimationFrame(frame)
+    }
+    frame()
+  }, [])
 
   return (
     <div className="space-y-7">

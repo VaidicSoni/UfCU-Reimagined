@@ -101,8 +101,8 @@ const KNOWLEDGE = [
 ]
 
 const FALLBACK = {
-  en: "That's a great question. A UFCU member advocate can walk you through it in detail — for now, let's keep you moving.",
-  es: "Buena pregunta. Un asesor de UFCU puede explicarle en detalle. Por ahora, sigamos adelante.",
+  en: "That's a great question. A UFCU member advocate can walk you through it in detail. Phone Support Hours: Mon-Fri 8 AM - 5:30 PM, Sat 10 AM - 2 PM. Call (512) 467-8080 or (800) 252-8311.",
+  es: "Buena pregunta. Un asesor de UFCU puede explicarle en detalle. Horario telefónico: Lun-Vie 8 AM - 5:30 PM, Sáb 10 AM - 2 PM. Llame al (512) 467-8080 o (800) 252-8311.",
 }
 
 // ── Instant keyword-match lookup (for hardcoded chip answers) ──────────

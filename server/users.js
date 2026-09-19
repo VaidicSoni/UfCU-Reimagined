@@ -90,7 +90,8 @@ export const users = [
     profile: {
       email: "alex.rivera@example.com",
       phone: "(512) 555-0198",
-      address: "2001 Speedway, Austin, TX 78712"
+      address: "2001 Speedway, Austin, TX 78712",
+      university: "ut"
     },
     accounts: [
       {

@@ -52,6 +52,20 @@ export function About() {
           autoComplete="tel"
           fieldId="phone"
         />
+        <div className="relative">
+          <label className="mb-1 block text-sm font-semibold text-navy-lighter">
+            {lang === 'es' ? 'Universidad (Opcional)' : 'University (Optional)'}
+          </label>
+          <select
+            value={form.university}
+            onChange={(e) => update({ university: e.target.value })}
+            className="w-full appearance-none rounded-2xl border-2 border-navy-subtle bg-white p-4 font-semibold text-navy outline-none focus:border-orange"
+          >
+            <option value="none">{lang === 'es' ? 'Ninguno / No soy estudiante' : 'None / Not a student'}</option>
+            <option value="ut">University of Texas at Austin</option>
+            <option value="txst">Texas State University</option>
+          </select>
+        </div>
       </div>
 
       <div className="flex gap-3">

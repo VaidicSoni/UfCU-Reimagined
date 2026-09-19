@@ -32,6 +32,7 @@ const INITIAL_FORM = {
   state: '',
   zip: '',
   ssn: '',
+  university: 'none',
 }
 
 const PREFS_KEY = 'ufcu.demo.prefs'

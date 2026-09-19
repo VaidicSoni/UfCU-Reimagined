@@ -172,7 +172,7 @@ export function generateAnswer(question, contextChunks, screen, field) {
     const opener = OPENERS[key1] || OPENERS[key2] || "Great question! "
 
     if (!contextChunks || contextChunks.length === 0) {
-        return `${opener}While I don't have specific details about that in my knowledge base, a UFCU member advocate would be happy to help you out. For now, let's keep moving — you're doing great!`
+        return `${opener}While I don't have specific details about that in my knowledge base, a UFCU member advocate would be happy to help you out. Phone Support Hours: Mon-Fri 8 AM - 5:30 PM, Sat 10 AM - 2 PM. Call (512) 467-8080 or (800) 252-8311.`
     }
 
     // Clean up context: take the most relevant chunk (first one, highest scored)
