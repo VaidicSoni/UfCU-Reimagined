@@ -11,7 +11,7 @@ import { SpendingDonut } from '../components/SpendingDonut.jsx'
 import { PetalChart } from '../components/PetalChart.jsx'
 import { SwipeCategory } from '../components/SwipeCategory.jsx'
 import { StudentNextSteps } from '../components/StudentNextSteps.jsx'
-import { formatMoney } from '../lib/mockApi.js'
+import { bundleFor, GOALS, formatMoney } from '../lib/mockApi.js'
 
 // The first sixty seconds as a member — and, on the 90-day view, what the
 // account looks like once it's actually in use.
