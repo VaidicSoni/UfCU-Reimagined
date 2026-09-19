@@ -5,7 +5,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-let vocabulary = [];
+let vocabularyArray = [];
+let vocabularyMap = new Map();
 
 export function loadDocs(dir) {
     let docs = [];
@@ -58,8 +59,10 @@ export function buildVocabulary(chunks) {
             vocabSet.add(word);
         }
     }
-    vocabulary = Array.from(vocabSet);
-    return vocabulary;
+    vocabularyArray = Array.from(vocabSet);
+    vocabularyMap = new Map();
+    vocabularyArray.forEach((word, idx) => vocabularyMap.set(word, idx));
+    return vocabularyArray;
 }
 
 // Common stop words that add noise to TF-IDF similarity. Removing these forces
@@ -88,7 +91,7 @@ const SYNONYMS = {
 }
 
 export function embed(text) {
-    const vector = new Array(vocabulary.length).fill(0);
+    const vector = new Array(vocabularyArray.length).fill(0);
     const words = text.toLowerCase().match(/\w+/g) || [];
     
     // Expand synonyms
@@ -103,8 +106,8 @@ export function embed(text) {
 
     for (const word of expandedWords) {
         if (STOP_WORDS.has(word)) continue; // skip stop words
-        const idx = vocabulary.indexOf(word);
-        if (idx !== -1) {
+        const idx = vocabularyMap.get(word);
+        if (idx !== undefined) {
             vector[idx]++;
         }
     }
