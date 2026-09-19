@@ -229,6 +229,8 @@ export const AFFILIATIONS = [
 
 export const UNIVERSITIES = [
   { id: 'none', en: 'None / Not a student', es: 'Ninguno / No soy estudiante', theme: 'default' },
-  { id: 'ut', en: 'University of Texas at Austin', es: 'Universidad de Texas en Austin', theme: 'ut', color: '#BF5700', cardBg: 'bg-[#BF5700]' },
-  { id: 'txst', en: 'Texas State University', es: 'Texas State University', theme: 'txst', color: '#501214', cardBg: 'bg-[#501214]' }
+  { id: 'ut', en: 'University of Texas at Austin (UT Austin)', es: 'Universidad de Texas en Austin', theme: 'ut', color: '#BF5700', cardBg: 'bg-[#BF5700]' },
+  { id: 'txst', en: 'Texas State University (TXST)', es: 'Texas State University', theme: 'txst', color: '#501214', cardBg: 'bg-[#501214]' },
+  { id: 'acc', en: 'Austin Community College (ACC)', es: 'Austin Community College (ACC)', theme: 'acc', color: '#4B306A', cardBg: 'bg-[#4B306A]' }
 ]
+// Quick append
