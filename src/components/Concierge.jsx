@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
 import { speak, stopSpeaking, ttsSupported, primeVoices } from '../lib/speech.js'
-import { askGuide, SUGGESTED } from '../lib/concierge.js'
+import { askGuide, suggestionsFor } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
 import { Icon } from './Icons.jsx'
 
 // Body of the expanded chat panel. Lumi wears her face here — this is the only
 // place she's actually "in use" — and her mouth moves against the speech.
 export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
-  const { lang, progress, readAloud, setReadAloud } = useOnboarding()
+  const { lang, step, progress, readAloud, setReadAloud } = useOnboarding()
   const [thread, setThread] = useState([])
   const [draft, setDraft] = useState('')
   const [speakingId, setSpeakingId] = useState(null)
@@ -174,7 +174,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
 
       <footer className="border-t border-white/10 px-5 py-4">
         <div className="mb-3 flex flex-wrap gap-2">
-          {SUGGESTED[lang].map((q) => (
+          {suggestionsFor(step, lang).map((q) => (
             <button
               key={q}
               onClick={() => ask(q)}

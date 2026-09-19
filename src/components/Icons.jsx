@@ -85,6 +85,18 @@ export const Icon = {
       <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" {...base} />
     </svg>
   ),
+  eye: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" {...base} />
+      <circle cx="12" cy="12" r="3.2" {...base} />
+    </svg>
+  ),
+  copy: (p) => (
+    <svg viewBox="0 0 24 24" {...p}>
+      <rect x="9" y="9" width="11.5" height="11.5" rx="2.5" {...base} />
+      <path d="M15 6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15" {...base} />
+    </svg>
+  ),
   shield: (p) => (
     <svg viewBox="0 0 24 24" {...p}>
       <path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 8.5-4.1-.8-7-4.3-7-8.5V6z" {...base} />

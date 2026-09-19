@@ -12,9 +12,9 @@ export const GOALS = [
     id: 'everyday', icon: 'everyday', product: 'Everyday Banking', qualifies: true,
     en: 'Everyday checking & savings', es: 'Cuenta corriente y ahorros',
     bundle: [
-      { en: 'Free Checking', es: 'Cuenta corriente gratuita',
+      { en: 'Free Checking', es: 'Cuenta corriente gratuita', kind: 'deposit',
         valueEn: 'No monthly fee, no minimum balance', valueEs: 'Sin cuota mensual ni saldo mínimo' },
-      { en: 'High-Yield Savings', es: 'Ahorros de alto rendimiento',
+      { en: 'High-Yield Savings', es: 'Ahorros de alto rendimiento', kind: 'deposit',
         valueEn: 'Earns from your first dollar', valueEs: 'Rinde desde el primer dólar' },
     ],
   },
@@ -22,7 +22,7 @@ export const GOALS = [
     id: 'auto', icon: 'consumer', product: 'Consumer Lending', qualifies: true,
     en: 'Planning to buy a car', es: 'Planeo comprar un auto',
     bundle: [
-      { en: 'Auto Loan pre-qualification', es: 'Precalificación de préstamo de auto',
+      { en: 'Auto Loan pre-qualification', es: 'Precalificación de préstamo de auto', kind: 'offer',
         valueEn: 'Rates from 5.24% APR, held for 30 days', valueEs: 'Tasas desde 5.24% APR, por 30 días' },
     ],
     offer: { en: 'Pre-qualified auto rate from 5.24% APR', es: 'Tasa de auto precalificada desde 5.24% APR' },
@@ -31,7 +31,7 @@ export const GOALS = [
     id: 'credit', icon: 'credit', product: 'Consumer Lending', qualifies: true,
     en: 'Building my credit', es: 'Construir mi crédito',
     bundle: [
-      { en: 'Starter Credit Card', es: 'Tarjeta de crédito inicial',
+      { en: 'Starter Credit Card', es: 'Tarjeta de crédito inicial', kind: 'card',
         valueEn: 'No annual fee; reports to all three bureaus', valueEs: 'Sin cuota anual; reporta a las tres agencias' },
     ],
     offer: { en: 'Starter Credit Card with no annual fee', es: 'Tarjeta inicial sin cuota anual' },
@@ -40,7 +40,7 @@ export const GOALS = [
     id: 'home', icon: 'mortgage', product: 'Mortgage Lending', qualifies: true,
     en: 'Buying a home someday', es: 'Comprar una casa algún día',
     bundle: [
-      { en: 'Mortgage rate watch', es: 'Monitor de tasas hipotecarias',
+      { en: 'Mortgage rate watch', es: 'Monitor de tasas hipotecarias', kind: 'offer',
         valueEn: 'First-time buyer guidance, no obligation', valueEs: 'Guía para primer comprador, sin compromiso' },
     ],
     offer: { en: 'First-time buyer guidance and rate watch', es: 'Guía para primer comprador' },
@@ -49,7 +49,7 @@ export const GOALS = [
     id: 'business', icon: 'business', product: 'Business Banking', qualifies: true,
     en: 'Banking for my business', es: 'Banca para mi negocio',
     bundle: [
-      { en: 'Business Checking', es: 'Cuenta corriente empresarial',
+      { en: 'Business Checking', es: 'Cuenta corriente empresarial', kind: 'deposit',
         valueEn: 'Built for sole traders and small teams', valueEs: 'Para autónomos y equipos pequeños' },
     ],
   },
@@ -57,7 +57,7 @@ export const GOALS = [
     id: 'invest', icon: 'invest', product: 'Investments', qualifies: false,
     en: 'Growing my savings', es: 'Hacer crecer mis ahorros',
     bundle: [
-      { en: '12-month Certificate', es: 'Certificado a 12 meses',
+      { en: '12-month Certificate', es: 'Certificado a 12 meses', kind: 'deposit',
         valueEn: 'Fixed return, federally insured', valueEs: 'Retorno fijo, asegurado federalmente' },
     ],
   },

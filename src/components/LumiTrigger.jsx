@@ -1,37 +1,36 @@
 import { useOnboarding } from '../context/OnboardingContext.jsx'
-import { SUGGESTED } from '../lib/concierge.js'
+import { suggestionsFor } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
-
-// Where the chips sit relative to Lumi — an arc sweeping up and out from the
-// corner. Offsets are in px from the dock's bottom-left origin.
-const CHIP_SPOTS = [
-  { bottom: 116, left: 96 },
-  { bottom: 178, left: 60 },
-  { bottom: 238, left: 8 },
-]
 
 // The collapsed corner dock. Lumi bounces and shakes on her own via CSS; the
 // open chat lives in the page layout, not here.
 export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
-  const { lang, progress } = useOnboarding()
+  const { lang, step, progress, fontScale } = useOnboarding()
+
+  // A flex column rather than absolute offsets: questions vary in length, and
+  // fixed positions made long ones wrap into each other.
+  const showChips = fontScale === 1
 
   return (
     <div className={`dock-anchor fixed bottom-6 left-6 z-40 ${open ? 'dock-anchor--hidden' : ''}`}>
-      <div className="relative">
-        {SUGGESTED[lang].slice(0, 3).map((q, i) => (
-          <button
-            key={q}
-            onClick={() => onAsk(q)}
-            style={{
-              bottom: CHIP_SPOTS[i].bottom,
-              left: CHIP_SPOTS[i].left,
-              animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms`,
-            }}
-            className="dock-chip absolute hidden whitespace-nowrap rounded-full border border-white/25 bg-navy-darkest/80 px-4 py-2 text-sm font-semibold text-white shadow-card backdrop-blur hover:bg-navy-darker lg:block"
-          >
-            {q}
-          </button>
-        ))}
+      <div className="flex flex-col items-start gap-2">
+        {/* Hidden below xl, where the card leaves no clear gutter, and at the
+            larger text settings, where the card grows to fill it. Lumi herself
+            is always tappable, and the same questions sit inside the chat. */}
+        {showChips && (
+          <div className="mb-2 hidden flex-col items-start gap-2 xl:flex">
+            {suggestionsFor(step, lang).slice(0, 3).map((q, i) => (
+              <button
+                key={q}
+                onClick={() => onAsk(q)}
+                style={{ animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms` }}
+                className="dock-chip max-w-[14rem] rounded-2xl border border-white/25 bg-navy-darkest/85 px-4 py-2 text-left text-sm font-semibold leading-snug text-white shadow-card backdrop-blur transition hover:bg-navy-darker"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
 
         <button
           onClick={onOpen}
@@ -46,7 +45,7 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
               face={false}
             />
           </span>
-          <span className="pointer-events-none absolute -right-3 -top-2 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card lg:hidden">
+          <span className="pointer-events-none absolute -right-3 -top-2 rounded-full bg-orange px-3 py-1 text-xs font-extrabold text-white shadow-card xl:hidden">
             {lang === 'es' ? 'Ayuda' : 'Help'}
           </span>
         </button>

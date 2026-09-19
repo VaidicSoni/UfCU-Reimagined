@@ -12,6 +12,7 @@ export const STEPS = [
   'secure',
   'funding',
   'done',
+  'dashboard',
 ]
 
 // Screens that count toward the visible progress bar (waiting/done are not
