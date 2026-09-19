@@ -5,7 +5,7 @@ import os
 import re
 
 DOMAIN = "https://ufcu.org"
-OUTPUT_DIR = "ufcu_rag_docs"
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "knowledge_docs")
 
 # Seed URLs to spider outward from
 SEED_URLS = [
