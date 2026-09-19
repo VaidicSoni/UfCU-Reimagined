@@ -1,0 +1,13 @@
+import { getLlama, LlamaChatSession } from "node-llama-cpp";
+import path from "path";
+const modelPath = path.join(process.cwd(), "models", "Llama-3.2-1B-Instruct-Q4_K_M.gguf");
+const llama = await getLlama();
+const model = await llama.loadModel({ modelPath });
+const context = await model.createContext();
+console.log("seq1");
+const seq1 = context.getSequence();
+console.log("seq1 created");
+seq1.dispose();
+console.log("seq1 disposed");
+const seq2 = context.getSequence();
+console.log("seq2 created");

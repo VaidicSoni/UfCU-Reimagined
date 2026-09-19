@@ -51,14 +51,25 @@ export async function generateAnswerLLM(question, contextChunks, screen, field) 
         sysPrompt += `\nThey are currently focused on the '${field}' input field. Acknowledge this context naturally.`;
     }
     
-    const session = new LlamaChatSession({
-        contextSequence: context.getSequence(),
-        systemPrompt: sysPrompt
-    });
-    
-    const userPrompt = `Context:\n${contextChunks.join("\n\n")}\n\nQuestion: ${question}`;
-    
-    console.log(`[LLM] Generating answer for: "${question}"...`);
-    const answer = await session.prompt(userPrompt);
-    return answer.trim();
+    let sequence;
+    try {
+        sequence = context.getSequence();
+        const session = new LlamaChatSession({
+            contextSequence: sequence,
+            systemPrompt: sysPrompt
+        });
+        
+        const userPrompt = `Context:\n${contextChunks.join("\n\n")}\n\nQuestion: ${question}`;
+        
+        console.log(`[LLM] Generating answer for: "${question}"...`);
+        const answer = await session.prompt(userPrompt);
+        return answer.trim();
+    } catch (err) {
+        console.error("LLM Generation error:", err);
+        return null;
+    } finally {
+        if (sequence) {
+            sequence.dispose();
+        }
+    }
 }
