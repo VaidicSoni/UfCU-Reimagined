@@ -1,11 +1,75 @@
-Technical Architecture & Mock API GuideFor this hackathon, do not build real backend integrations. The prompt explicitly states: "Don’t over-engineer. A great concept prototype beats a half‑finished system. Mock, simulate, or invent what you need."This document outlines how to structure your frontend to simulate a complete, secure, and modern backend, including your AI and Accessibility features.Recommended Tech StackFrontend Framework: React (Next.js is great for fast routing) or Vite.Styling: Tailwind CSS.State Management: React Context or Local Storage.Deployment: Vercel, Netlify, or GitHub Pages.1. Passwordless Authentication (Passkeys/Magic Links)To solve the password friction problem, especially for older demographics, we will simulate modern WebAuthn.The UI: At the end of the onboarding flow, instead of "Create a Password," the button says "Secure My Account (Passkey)."The Simulation: You can actually use the browser's native navigator.credentials.create() in a mock format to trigger the native device prompt (FaceID on Mac/iOS, Windows Hello on PC).Fallback: For users who don't want Passkeys, offer a simple "Email me a Magic Link to log in later."2. Accessibility: Native Text-to-Speech (TTS)Do not waste time integrating a heavy Python TTS model. Use the browser's built-in Web Speech API.The UI: Place a small "Speaker" icon next to the Digital Concierge's dialogue bubbles.The Code: When the icon is clicked, run this simple JavaScript:function speakText(text) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        // Optional: You can loop through window.speechSynthesis.getVoices() 
-        // to find a friendly, mature voice suitable for the "banker".
-        window.speechSynthesis.speak(utterance);
-    } else {
-        console.log("TTS not supported in this browser.");
-    }
-}
-3. The "Mock RAG" Digital Concierge (AI Chat)Building a true vector database and RAG pipeline is too complex for this time limit. We will simulate it using a basic LLM API call or hardcoded logic.The UI: The left half of the desktop screen features your human banker avatar and a small chat input box: "Ask Sarah a question..."Implementation Option A (No API Key needed - Safest for Demo):Hardcode specific responses to keywords. If the user types anything containing "safe" or "SSN", the UI immediately returns your pre-written trust dialogue.Implementation Option B (Using OpenAI/Gemini API):If you have an API key, send the user's typed question to the API with a strict system prompt:System Prompt: "You are Sarah, a friendly, professional banker at UFCU (University Federal Credit Union). Answer the user's question about opening an account in 2 sentences or less. Do not offer financial advice. Use a warm, Texas-friendly tone."Handling Speech-to-Text (STT):Just like TTS, modern browsers have a native SpeechRecognition interface. You can add a microphone icon to the chat box that listens to the user and converts it to text in the input field, which is then sent to your mock AI.4. Mocking Core Banking (KYC & Plaid)KYC (ID Scan): Trigger a simulated scanning animation. Wrap your "Submit" function in a JavaScript setTimeout to simulate a 5-second background check, during which you display the "Productive Waiting Room" cross-sell.Plaid (Funding): Create a generic modal that lists "Chase," "Wells Fargo," etc. Let the user type anything into a fake login screen, spin a loader for 2 seconds, and show a "Success" checkmark.
+Banking 101 & Winning Onboarding Tactics
+
+Since your team is tackling the UFCU hackathon from a fresh perspective, this guide translates complex banking jargon into simple concepts. It also breaks down how the best tech companies handle onboarding and how you can apply those tactics to win.
+
+Part 1: Banking 101 (What you actually need to know)
+
+The hackathon prompt asks you to help users apply for products (Checking, Savings, Loans, etc.) and establish identity securely. Here is what that means in plain English:
+
+The Products
+
+Everyday Banking (Checking & Savings): A Checking account is for spending money (buying groceries, paying rent). A Savings account is for storing money you don't plan to use immediately.
+
+Hackathon Tip: When a user joins, don't make them choose just one. "Everyday Banking" should automatically bundle both.
+
+Consumer Lending (Auto Loans, Credit Cards): Borrowing money for personal use.
+
+Hackathon Tip: These have higher risk, so banks usually ask for more info. In your prototype, you can offer a "soft pre-approval" for a credit card based just on their income, without making them fill out a massive loan application during the first 3 minutes.
+
+Mortgages: Loans to buy a house.
+
+The Security & Identity Stuff (KYC)
+
+KYC (Know Your Customer): This is a federal law. Banks must verify exactly who you are to prevent money laundering and terrorism. This is why they ask for a Social Security Number (SSN) and a government ID.
+
+The Conflict: KYC causes friction. People hate typing their SSN and taking photos of their ID. The entire challenge of this hackathon is: How do you collect this legally required info without annoying the user so much that they close the app?
+
+Part 2: Top Onboarding Tactics (How Competitors Win)
+
+Let's look at how modern banks (like Chime, Revolut, CashApp, and Apple Card) handle this friction compared to traditional banks like UFCU.
+
+Tactic 1: "Progressive Profiling" (The Breadcrumb Approach)
+
+How traditional banks do it: Throw a massive form with 25 blank boxes at you all at once (Name, Address, SSN, Mother's Maiden Name, Income, etc.).
+
+How top competitors do it (CashApp): They ask for one piece of information at a time. Screen 1: Phone number. Screen 2: Name. Screen 3: Zip code.
+
+Why it works: It utilizes the "Sunk Cost Fallacy." If a user has already clicked through 4 easy screens, they are much more likely to type in their SSN on screen 5 because they feel invested in the process.
+
+Tactic 2: Contextual Transparency (The "Why")
+
+How traditional banks do it: A required box that just says SSN: [         ].
+
+How top competitors do it (Ally Bank / Wealthfront): Right next to the scary input field, they put friendly, reassuring text. "We are required by federal law to ask for your SSN. It will be encrypted, and checking your rates will NOT affect your credit score."
+
+Why it works: It builds the "trust" mentioned in your problem statement by treating the user with respect and answering their internal anxieties before they even have to ask.
+
+Tactic 3: "Instant Issuance" (The Apple Card Method)
+
+How traditional banks do it: "Congratulations, your account is open! We will mail your debit card in 7-10 business days." (The user can't actually do anything for a week).
+
+How top competitors do it (Apple Card): The moment you are approved, a virtual card appears on the screen. You click one button to add it to Apple Pay, and you can buy a coffee 10 seconds later.
+
+Why it works: It satisfies the user's desire for immediate gratification.
+
+Part 3: Tying Tactics to the UFCU Problem Statement
+
+Here is exactly how you can map these modern tactics to the specific requirements in your "Hackathon Challenge.docx" prompt:
+
+Prompt Requirement: "Establishing identity in a simple, member-centric, UFCU way"
+
+Your Solution: Use Tactic 1 (Progressive Profiling). Don't ask for the SSN immediately. Start with a friendly "Welcome! What's your name?" Followed by "Nice to meet you, 
+
+$$Name$$
+
+. Can we grab a quick selfie for your profile security?" (Mock a liveness check/FaceID instead of a traditional password setup).
+
+Prompt Requirement: "Applying for Everyday Banking... or Consumer Lending..."
+
+Your Solution: Start the flow by asking what their goal is (e.g., "I want to build credit"). When they finish the ID check, automatically offer them a "Starter Credit Card" based on that initial goal. You are weaving product application naturally into the welcome flow.
+
+Prompt Requirement: "How trust and identity confidence are established without breaking the member experience"
+
+Your Solution: Use Tactic 2 (Contextual Transparency). Whenever you ask for an ID or an SSN in your prototype, include clear, simple language explaining why it's needed to protect them, not just to protect the bank. Additionally, design a "Productive Wait" screen. When they submit their ID, don't show a blank loading wheel. Show a screen that says, "Verifying your ID... Did you know your new account includes zero overdraft fees?" Keeping them entertained stops them from leaving.
+
+Summary for your prototype: Make it a conversation, not a questionnaire. Give them a virtual card the second they finish, and explain every scary security step clearly!

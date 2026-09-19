@@ -1,11 +1,95 @@
-Technical Architecture & Mock API GuideFor this hackathon, do not build real backend integrations. The prompt explicitly states: "Don’t over-engineer. A great concept prototype beats a half‑finished system. Mock, simulate, or invent what you need."This document outlines how to structure your frontend to simulate a complete, secure, and modern backend, including your AI and Accessibility features.Recommended Tech StackFrontend Framework: React (Next.js is great for fast routing) or Vite.Styling: Tailwind CSS.State Management: React Context or Local Storage.Deployment: Vercel, Netlify, or GitHub Pages.1. Passwordless Authentication (Passkeys/Magic Links)To solve the password friction problem, especially for older demographics, we will simulate modern WebAuthn.The UI: At the end of the onboarding flow, instead of "Create a Password," the button says "Secure My Account (Passkey)."The Simulation: You can actually use the browser's native navigator.credentials.create() in a mock format to trigger the native device prompt (FaceID on Mac/iOS, Windows Hello on PC).Fallback: For users who don't want Passkeys, offer a simple "Email me a Magic Link to log in later."2. Accessibility: Native Text-to-Speech (TTS)Do not waste time integrating a heavy Python TTS model. Use the browser's built-in Web Speech API.The UI: Place a small "Speaker" icon next to the Digital Concierge's dialogue bubbles.The Code: When the icon is clicked, run this simple JavaScript:function speakText(text) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        // Optional: You can loop through window.speechSynthesis.getVoices() 
-        // to find a friendly, mature voice suitable for the "banker".
-        window.speechSynthesis.speak(utterance);
-    } else {
-        console.log("TTS not supported in this browser.");
-    }
-}
-3. The "Mock RAG" Digital Concierge (AI Chat)Building a true vector database and RAG pipeline is too complex for this time limit. We will simulate it using a basic LLM API call or hardcoded logic.The UI: The left half of the desktop screen features your human banker avatar and a small chat input box: "Ask Sarah a question..."Implementation Option A (No API Key needed - Safest for Demo):Hardcode specific responses to keywords. If the user types anything containing "safe" or "SSN", the UI immediately returns your pre-written trust dialogue.Implementation Option B (Using OpenAI/Gemini API):If you have an API key, send the user's typed question to the API with a strict system prompt:System Prompt: "You are Sarah, a friendly, professional banker at UFCU (University Federal Credit Union). Answer the user's question about opening an account in 2 sentences or less. Do not offer financial advice. Use a warm, Texas-friendly tone."Handling Speech-to-Text (STT):Just like TTS, modern browsers have a native SpeechRecognition interface. You can add a microphone icon to the chat box that listens to the user and converts it to text in the input field, which is then sent to your mock AI.4. Mocking Core Banking (KYC & Plaid)KYC (ID Scan): Trigger a simulated scanning animation. Wrap your "Submit" function in a JavaScript setTimeout to simulate a 5-second background check, during which you display the "Productive Waiting Room" cross-sell.Plaid (Funding): Create a generic modal that lists "Chase," "Wells Fargo," etc. Let the user type anything into a fake login screen, spin a loader for 2 seconds, and show a "Success" checkmark.
+Prototyping Vision & Asset Plan: Google Stitch to Web
+
+Since your team is new to Figma, using Google Stitch for rapid prototyping is a smart, efficient move. This document outlines a consistent visual vision for your prototype and provides a checklist of the exact assets you need to compile.
+
+1. Concept Assessment: The "Community Faces" Idea
+
+Your suggestion to use faces and a carousel to show a "community feel" is an Outstanding concept! It perfectly aligns with UFCU's "Member-Obsessed" core value and their deep roots in the Austin/University of Texas community.
+
+Here is some feedback on how to implement it so it enhances, rather than distracts from, the onboarding experience:
+
+UX Impact (Distraction vs. Emotion): Auto-scrolling carousels on a landing page can sometimes distract users from the primary action (clicking the "Join" button).
+
+Next Step: Instead of a fast-moving carousel, can you create a static, subtle background grid of diverse, smiling faces, or perhaps use a single high-quality image that very slowly fades into another?
+
+Brand Alignment (Authenticity): Stock photos of people in business suits feel like a corporate bank. UFCU is a credit union.
+
+Next Step: When gathering these assets, can you look for photos that feel like real Austin locals, students, and families (casual, warm, outdoor lighting)?
+
+2. The Core Visual Vision (The "Vibe")
+
+To win, your prototype must look fundamentally different from UFCU's current, slightly cluttered mobile app.
+
+The Layout: Mobile-first web design. Even if viewing on a desktop, the main content should be constrained to a clean, central "card" (mimicking a phone screen).
+
+The Colors: Use the primary Navy (#23335D) as your overarching background or header to establish trust. Use the secondary Orange (#EF6820) strictly for your primary Call-to-Action (CTA) buttons. Do not overuse orange.
+
+The "Glass" Effect: If you use a background of community faces or Austin scenery, put a "frosted glass" pane over it. Your text and buttons will live on this frosted glass. This looks incredibly modern and ensures your text is always readable.
+
+3. Google Stitch Prototyping Strategy
+
+Since you want a consistent plan, stick to these rules while building in Stitch:
+
+Rule 1: Reusable Components. Build one perfect text input field and one perfect button. Copy and paste these exact elements for every screen. Consistency is the easiest way to make a prototype look professional.
+
+Rule 2: One Question Per Screen (OQPS). Do not build long, scrolling pages.
+
+Screen 1: Welcome & Goal choice.
+
+Screen 2: Name & Email.
+
+Screen 3: Address.
+
+Screen 4: ID Scan.
+
+Rule 3: Massive Typography. Onboarding should feel effortless. Make your header text large and friendly (e.g., "What should we call you?").
+
+4. Asset Compilation Checklist
+
+Since you are managing the assets, here is exactly what you need to find and download into a shared Google Drive or folder for your team:
+
+Images & Backgrounds (High Resolution)
+
+$$$$
+
+ The Austin/UT Vibe: 1-2 beautiful, subtle photos of the UT Austin campus (like the tower) or Lady Bird Lake.
+
+$$$$
+
+ The Community: 3-4 photos of diverse, relatable people (students, a young couple, a retiree). Tip: Sites like Unsplash or Pexels are great for free, non-cheesy stock photos.
+
+$$$$
+
+ The ID Mockup: A generic, placeholder image of a Texas Driver's license (to use during the "Scan ID" simulated screen).
+
+Icons (SVG format is best)
+
+$$$$
+
+ UFCU Logo: A high-quality PNG or SVG with a transparent background. (Grab the white version and the full-color version).
+
+$$$$
+
+ Goal Icons: Simple, clean icons for the first screen:
+
+A house (for mortgages)
+
+A car (for auto loans)
+
+A credit card (for everyday banking)
+
+An ascending chart (for building credit)
+
+$$$$
+
+ Security/Trust Icon: A simple lock or shield icon to place next to the SSN input field.
+
+$$$$
+
+ Checkmark Icon: A green success checkmark for when fields are filled out correctly.
+
+Fonts
+
+$$$$
+
+ Primary Font: Since we don't have UFCU's exact proprietary font, go to Google Fonts and download Inter or Plus Jakarta Sans. Ensure you grab the 'Regular', 'Semi-Bold', and 'Bold' weights.

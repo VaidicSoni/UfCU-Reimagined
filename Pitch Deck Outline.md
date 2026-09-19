@@ -1,11 +1,71 @@
-Technical Architecture & Mock API GuideFor this hackathon, do not build real backend integrations. The prompt explicitly states: "Don’t over-engineer. A great concept prototype beats a half‑finished system. Mock, simulate, or invent what you need."This document outlines how to structure your frontend to simulate a complete, secure, and modern backend, including your AI and Accessibility features.Recommended Tech StackFrontend Framework: React (Next.js is great for fast routing) or Vite.Styling: Tailwind CSS.State Management: React Context or Local Storage.Deployment: Vercel, Netlify, or GitHub Pages.1. Passwordless Authentication (Passkeys/Magic Links)To solve the password friction problem, especially for older demographics, we will simulate modern WebAuthn.The UI: At the end of the onboarding flow, instead of "Create a Password," the button says "Secure My Account (Passkey)."The Simulation: You can actually use the browser's native navigator.credentials.create() in a mock format to trigger the native device prompt (FaceID on Mac/iOS, Windows Hello on PC).Fallback: For users who don't want Passkeys, offer a simple "Email me a Magic Link to log in later."2. Accessibility: Native Text-to-Speech (TTS)Do not waste time integrating a heavy Python TTS model. Use the browser's built-in Web Speech API.The UI: Place a small "Speaker" icon next to the Digital Concierge's dialogue bubbles.The Code: When the icon is clicked, run this simple JavaScript:function speakText(text) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        // Optional: You can loop through window.speechSynthesis.getVoices() 
-        // to find a friendly, mature voice suitable for the "banker".
-        window.speechSynthesis.speak(utterance);
-    } else {
-        console.log("TTS not supported in this browser.");
-    }
-}
-3. The "Mock RAG" Digital Concierge (AI Chat)Building a true vector database and RAG pipeline is too complex for this time limit. We will simulate it using a basic LLM API call or hardcoded logic.The UI: The left half of the desktop screen features your human banker avatar and a small chat input box: "Ask Sarah a question..."Implementation Option A (No API Key needed - Safest for Demo):Hardcode specific responses to keywords. If the user types anything containing "safe" or "SSN", the UI immediately returns your pre-written trust dialogue.Implementation Option B (Using OpenAI/Gemini API):If you have an API key, send the user's typed question to the API with a strict system prompt:System Prompt: "You are Sarah, a friendly, professional banker at UFCU (University Federal Credit Union). Answer the user's question about opening an account in 2 sentences or less. Do not offer financial advice. Use a warm, Texas-friendly tone."Handling Speech-to-Text (STT):Just like TTS, modern browsers have a native SpeechRecognition interface. You can add a microphone icon to the chat box that listens to the user and converts it to text in the input field, which is then sent to your mock AI.4. Mocking Core Banking (KYC & Plaid)KYC (ID Scan): Trigger a simulated scanning animation. Wrap your "Submit" function in a JavaScript setTimeout to simulate a 5-second background check, during which you display the "Productive Waiting Room" cross-sell.Plaid (Funding): Create a generic modal that lists "Chase," "Wells Fargo," etc. Let the user type anything into a fake login screen, spin a loader for 2 seconds, and show a "Success" checkmark.
+Hackathon Pitch Deck Outline: The UFCU Way
+
+Keep the pitch short, narrative-driven, and focused on the demo. The judges want to see the prototype, not listen to a 10-minute lecture.
+
+Slide 1: Title Screen
+
+Headline: Project Name (e.g., "UFCU Onboard: From Click to Community in 3 Minutes")
+
+Sub-headline: Team Name & Hackathon Event.
+
+Visual: The UFCU logo and a clean mockup of your first screen on a laptop/phone frame.
+
+Slide 2: The Problem (Friction & Abandonment)
+
+The Hook: Start with a real story based on the data. "Today, if a UT student wants to join UFCU, they are hit with legacy friction. Recent member reviews show frustration with slow load times, confusing UI, and manual document uploads."
+
+The Core Issue: Traditional digital account opening (DAO) treats users like data entries, not people with financial goals. This leads to +50% abandonment rates before the account is ever funded.
+
+Slide 3: Our Solution (The "Member-Obsessed" Approach)
+
+Bullet Points:
+
+Goals-First Onboarding: We ask why they are here before asking for their SSN.
+
+Zero-Friction KYC: We mock native camera integration for seamless ID uploads.
+
+Productive Waiting: We eliminated the "spinning wheel of death" and replaced it with personalized cross-selling.
+
+Instant Activation: Accounts aren't just opened; they are funded immediately via our simulated Plaid integration.
+
+Slide 4: THE LIVE DEMO (The most important part)
+
+Stop talking to the slides. Switch your screen share to the working web prototype.
+
+Demo Script Tips:
+
+"Let's pretend I'm an incoming freshman at UT Austin looking to build my credit."
+
+Click through the UI smoothly.
+
+"Notice how we don't ask for a password yet. We want them in the ecosystem first."
+
+Demonstrate the ID scan. "Here, we leverage native device APIs to handle compliance without breaking the UX."
+
+Show the waiting room. "While the backend verifies the ID, we use this 5-second window to show them the benefits of a UFCU credit card—tailored to their goal."
+
+Finish the flow.
+
+Slide 5: Under the Hood (How it Works)
+
+Switch back to the slides.
+
+Visual: A simple flowchart showing the data moving from Web -> "Mock KYC API" -> "Mock Core Banking System" -> Mobile App Handoff.
+
+Talking Point: Explain how you solved the prompt's requirement of "establishing trust." (e.g., "We designed this to integrate seamlessly with modern identity decisioning engines like Alloy, ensuring compliance while maintaining a sub-3-minute UX.")
+
+Slide 6: The Business Impact for UFCU
+
+Why UFCU cares:
+
+Lower Acquisition Cost: Less abandonment means higher marketing ROI.
+
+Immediate Product Adoption: By routing them directly to funding, we eliminate "zero-balance" ghost accounts.
+
+The Omnichannel Handoff: Our "Magic Link" concept bridges the gap between web acquisition and mobile app retention.
+
+Slide 7: Q&A
+
+Text: "Thank You. Questions?"
+
+Tip: Leave a slide in your appendix with the UFCU Brand colors/values just in case they ask how you aligned with their brand guidelines.

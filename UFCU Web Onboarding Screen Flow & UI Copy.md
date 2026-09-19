@@ -1,11 +1,123 @@
-Technical Architecture & Mock API GuideFor this hackathon, do not build real backend integrations. The prompt explicitly states: "Don’t over-engineer. A great concept prototype beats a half‑finished system. Mock, simulate, or invent what you need."This document outlines how to structure your frontend to simulate a complete, secure, and modern backend, including your AI and Accessibility features.Recommended Tech StackFrontend Framework: React (Next.js is great for fast routing) or Vite.Styling: Tailwind CSS.State Management: React Context or Local Storage.Deployment: Vercel, Netlify, or GitHub Pages.1. Passwordless Authentication (Passkeys/Magic Links)To solve the password friction problem, especially for older demographics, we will simulate modern WebAuthn.The UI: At the end of the onboarding flow, instead of "Create a Password," the button says "Secure My Account (Passkey)."The Simulation: You can actually use the browser's native navigator.credentials.create() in a mock format to trigger the native device prompt (FaceID on Mac/iOS, Windows Hello on PC).Fallback: For users who don't want Passkeys, offer a simple "Email me a Magic Link to log in later."2. Accessibility: Native Text-to-Speech (TTS)Do not waste time integrating a heavy Python TTS model. Use the browser's built-in Web Speech API.The UI: Place a small "Speaker" icon next to the Digital Concierge's dialogue bubbles.The Code: When the icon is clicked, run this simple JavaScript:function speakText(text) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        // Optional: You can loop through window.speechSynthesis.getVoices() 
-        // to find a friendly, mature voice suitable for the "banker".
-        window.speechSynthesis.speak(utterance);
-    } else {
-        console.log("TTS not supported in this browser.");
-    }
-}
-3. The "Mock RAG" Digital Concierge (AI Chat)Building a true vector database and RAG pipeline is too complex for this time limit. We will simulate it using a basic LLM API call or hardcoded logic.The UI: The left half of the desktop screen features your human banker avatar and a small chat input box: "Ask Sarah a question..."Implementation Option A (No API Key needed - Safest for Demo):Hardcode specific responses to keywords. If the user types anything containing "safe" or "SSN", the UI immediately returns your pre-written trust dialogue.Implementation Option B (Using OpenAI/Gemini API):If you have an API key, send the user's typed question to the API with a strict system prompt:System Prompt: "You are Sarah, a friendly, professional banker at UFCU (University Federal Credit Union). Answer the user's question about opening an account in 2 sentences or less. Do not offer financial advice. Use a warm, Texas-friendly tone."Handling Speech-to-Text (STT):Just like TTS, modern browsers have a native SpeechRecognition interface. You can add a microphone icon to the chat box that listens to the user and converts it to text in the input field, which is then sent to your mock AI.4. Mocking Core Banking (KYC & Plaid)KYC (ID Scan): Trigger a simulated scanning animation. Wrap your "Submit" function in a JavaScript setTimeout to simulate a 5-second background check, during which you display the "Productive Waiting Room" cross-sell.Plaid (Funding): Create a generic modal that lists "Chase," "Wells Fargo," etc. Let the user type anything into a fake login screen, spin a loader for 2 seconds, and show a "Success" checkmark.
+Prototype Blueprint: Screen Flow & UI Copy
+
+This document outlines the exact flow, screen by screen, for a sub-3-minute web-based onboarding experience.
+
+The Core Layout (Desktop vs. Mobile)
+
+Desktop (Split-Screen): The left 50% of the screen features a high-quality image of your "Digital Concierge" (a friendly UFCU banker) and dynamic speech bubbles that change based on the step. The right 50% contains the clean, white input cards (One Question Per Screen).
+
+Mobile (Unified): The left column disappears. The "Digital Concierge" becomes a small, circular avatar at the top right of the white input card, with a subtle [?] icon to tap for help.
+
+Screen 1: The "Goals-First" Landing (Bundling)
+
+Banker Dialogue (Left): "Welcome to UFCU! I'm here to guide you. You can pick more than one goal below, and we'll set everything up at once."
+User Input (Right):
+
+Headline: "Let's build your brighter future. What brings you here today?"
+
+Interactive Toggles (Users can select multiple):
+
+$$💳 Everyday Checking & Savings$$
+
+$$🚗 Planning to buy a car$$
+
+$$📈 Just looking to build my credit$$
+
+Button: 
+
+$$Let's Get Started$$
+
+ -> Transitions to Screen 2.
+
+Screen 2: The Warm Introduction
+
+Banker Dialogue (Left): "Nice to meet you! We'll use your number to send a quick security code later, just to keep things safe."
+User Input (Right):
+
+Headline: "First things first, what should we call you?"
+
+Form Inputs (with floating labels):
+
+First Name
+
+Last Name
+
+Email Address
+
+Mobile Phone Number
+
+Button: 
+
+$$Continue$$
+
+Screen 3: Trust & Identity (The KYC Step)
+
+Banker Dialogue (Left): "I know asking for an SSN is a lot. Federal law requires us to verify your identity to prevent fraud. Your data is strictly encrypted and this will not affect your credit score."
+User Input (Right):
+
+Headline: "Let's make it official and secure your profile."
+
+Form Inputs:
+
+Home Address (Use mock Google Maps Autocomplete)
+
+Social Security Number (Auto-masks like *--1234)
+
+Action Area: 
+
+$$📷 Scan your Driver's License$$
+
+ (Clicking this simulates a camera opening).
+
+Button: 
+
+$$Verify My Identity$$
+
+Screen 4: The "Productive" Waiting Room
+
+Banker Dialogue (Left): (Dynamic based on Screen 1). "While our system verifies your ID, did you know your new Free Checking account comes with zero monthly maintenance charges?"
+User Input (Right):
+
+Headline: "Hang tight, 
+
+$$First Name$$
+
+! We're running our secure checks."
+
+Visual: A smooth progress bar filling up over 5 seconds. (Do not use a boring spinning circle).
+
+Screen 5: Instant Activation (Funding)
+
+Banker Dialogue (Left): "You're approved! An unfunded account is like a wallet with no cash. Let's securely link your current bank to transfer a few dollars and activate your virtual card."
+User Input (Right):
+
+Headline: "Success! Let's get your account funded."
+
+Interactive Elements:
+
+$$🔗 Link external bank securely (Plaid Mockup)$$
+
+Button: 
+
+$$Transfer \$25.00 Now$$
+
+Screen 6: The Omnichannel Handoff (The Magic Link)
+
+Banker Dialogue (Left): "Welcome to the UFCU family. I've sent a magic link to your phone. Tap it to download the app and instantly log in!"
+User Input (Right):
+
+Headline: "You're all set. Your accounts are ready."
+
+Information Displayed:
+
+Bundled Accounts Created: (e.g., Free Checking, High-Yield Savings).
+
+Current Balance: $25.00
+
+The Crucial Call to Action:
+
+Button: 
+
+$$📱 Text me the UFCU App$$
+
+ (Judges will love this bridge from web to mobile).
