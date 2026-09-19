@@ -28,11 +28,25 @@ body {
   }
 }
 
-/* Visible focus for keyboard users — never remove the ring. */
+/* Visible focus for keyboard users — never remove the ring.
+   No border-radius here: forcing 4px overrode each element's own corner radius,
+   so on a rounded-2xl input the orange ring cut square across the navy border's
+   curve and opened a visible gap at every corner. Letting the outline inherit
+   the element's real radius keeps the two concentric. */
 :focus-visible {
   outline: 3px solid #F2780C;
   outline-offset: 2px;
-  border-radius: 4px;
+}
+
+/* A Field is a bordered shell wrapping a borderless input. Ringing the input
+   itself drew a second rectangle floating inside the shell, so the shell wears
+   the focus ring and the input inside it stays bare. */
+.field-shell:focus-within {
+  outline: 3px solid #F2780C;
+  outline-offset: 2px;
+}
+.field-shell :focus-visible {
+  outline: none;
 }
 
 .frost {

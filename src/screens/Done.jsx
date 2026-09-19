@@ -5,6 +5,7 @@ import { Button } from '../components/Button.jsx'
 import { Mascot } from '../components/Mascot.jsx'
 import { Icon } from '../components/Icons.jsx'
 import { BundleCard } from '../components/BundleCard.jsx'
+import { ConsentReceipt, DataRights } from '../components/ComplianceReceipt.jsx'
 
 // Decorative stand-in for the web-to-app handoff code. Deterministic pattern,
 // not a scannable QR — labelled as a placeholder so nobody tries to scan it.
@@ -29,9 +30,6 @@ function QrPlaceholder() {
 export function Done() {
   const { lang, funded, reset, form, passkey } = useOnboarding()
 
-  const accounts = GOALS.filter((g) => goals.includes(g.id)).flatMap((g) => g.accounts || [])
-  const opened = accounts.length ? [...new Set(accounts)] : ['Free Checking', 'High-Yield Savings']
-
   return (
     <div className="space-y-7">
       <div>
@@ -54,6 +52,10 @@ export function Done() {
           </p>
         )}
       </div>
+
+      <ConsentReceipt />
+
+      <DataRights />
 
       <div className="flex flex-col items-center gap-4 rounded-2xl bg-navy p-6 text-center text-white sm:flex-row sm:text-left">
         <div className="shrink-0 rounded-xl bg-white p-2">

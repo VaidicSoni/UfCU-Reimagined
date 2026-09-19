@@ -2,14 +2,6 @@ import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { SUGGESTED } from '../lib/concierge.js'
 import { Mascot } from './Mascot.jsx'
 
-// Where the chips sit relative to Lumi — an arc sweeping up and out from the
-// corner. Offsets are in px from the dock's bottom-left origin.
-const CHIP_SPOTS = [
-  { bottom: 116, left: 96 },
-  { bottom: 178, left: 60 },
-  { bottom: 238, left: 8 },
-]
-
 // The collapsed corner dock. Lumi bounces and shakes on her own via CSS; the
 // open chat lives in the page layout, not here.
 export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
@@ -18,20 +10,22 @@ export function LumiTrigger({ open, onOpen, onAsk, mood = 'idle' }) {
   return (
     <div className={`dock-anchor fixed bottom-6 left-6 z-40 ${open ? 'dock-anchor--hidden' : ''}`}>
       <div className="relative">
-        {SUGGESTED[lang].slice(0, 3).map((q, i) => (
-          <button
-            key={q}
-            onClick={() => onAsk(q)}
-            style={{
-              bottom: CHIP_SPOTS[i].bottom,
-              left: CHIP_SPOTS[i].left,
-              animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms`,
-            }}
-            className="dock-chip absolute hidden whitespace-nowrap rounded-full border border-white/25 bg-navy-darkest/80 px-4 py-2 text-sm font-semibold text-white shadow-card backdrop-blur hover:bg-navy-darker lg:block"
-          >
-            {q}
-          </button>
-        ))}
+        <div className="pointer-events-none absolute bottom-[126px] left-0 hidden w-max flex-col-reverse items-start gap-2 lg:flex">
+          {SUGGESTED[lang].slice(0, 3).map((q, i) => (
+            <button
+              key={q}
+              onClick={() => onAsk(q)}
+              style={{ animationDelay: `${260 + i * 110}ms, ${1400 + i * 400}ms` }}
+              className="dock-chip group pointer-events-auto flex items-center gap-2.5 whitespace-nowrap rounded-full bg-white/[0.08] py-2 pl-3.5 pr-4 text-[13px] font-semibold text-white/90 shadow-lg shadow-navy-darkest/40 ring-1 ring-white/15 backdrop-blur-md transition hover:bg-white/[0.16] hover:text-white hover:ring-white/35"
+            >
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-orange transition group-hover:bg-orange-lighter"
+              />
+              {q}
+            </button>
+          ))}
+        </div>
 
         <button
           onClick={onOpen}

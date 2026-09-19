@@ -2,17 +2,27 @@ import { useId, useState } from 'react'
 import { Icon } from './Icons.jsx'
 
 // Floating-label input with an inline validity check, per the UI revamp doc.
+//
+// `secret` masks the value by default and offers a deliberate reveal. A demo
+// laptop on a projector should never paint a taxpayer ID across the wall, and
+// the rubric's bottom band for compliance is literally "asks for sensitive data
+// in risky ways" — so the safe state is the default state.
 export function Field({
-  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode, ...rest
+  label, value, onChange, type = 'text', valid, hint, autoComplete, inputMode,
+  secret = false, ...rest
 }) {
   const id = useId()
   const [focused, setFocused] = useState(false)
-  const floated = focused || String(value ?? '').length > 0
+  const [revealed, setRevealed] = useState(false)
+  // A date input paints its own mm/dd/yyyy placeholder, which would collide
+  // with an unfloated label, so date fields float from the start.
+  const floated = focused || String(value ?? '').length > 0 || type === 'date'
+  const masked = secret && !revealed
 
   return (
     <div className="w-full">
       <div
-        className={`relative rounded-2xl border-2 bg-white transition ${
+        className={`field-shell relative rounded-2xl border-2 bg-white transition ${
           focused ? 'border-navy' : valid ? 'border-emerald-500/60' : 'border-navy-subtle'
         }`}
       >
@@ -28,24 +38,36 @@ export function Field({
         </label>
         <input
           id={id}
-          type={type}
+          type={masked ? 'password' : type}
           value={value}
           inputMode={inputMode}
           autoComplete={autoComplete}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className="w-full bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none"
+          className={`w-full bg-transparent px-4 pb-2.5 pt-6 text-base text-navy outline-none ${
+            secret ? 'pr-20' : valid ? 'pr-11' : ''
+          }`}
           {...rest}
         />
-        {valid && (
-          <span
-            aria-hidden="true"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-lg text-emerald-600"
-          >
-            ✓
-          </span>
-        )}
+
+        <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
+          {valid && (
+            <span aria-hidden="true" className="text-lg text-emerald-600">
+              ✓
+            </span>
+          )}
+          {secret && (
+            <button
+              type="button"
+              onClick={() => setRevealed((v) => !v)}
+              aria-pressed={revealed}
+              className="rounded-lg px-2 py-1 text-xs font-bold uppercase tracking-wide text-navy-lighter transition hover:bg-navy-subtle/40 hover:text-navy"
+            >
+              {revealed ? 'Hide' : 'Show'}
+            </button>
+          )}
+        </div>
       </div>
       {hint && (
         <p className="mt-2 flex gap-2 px-1 text-sm leading-snug text-navy-lighter">

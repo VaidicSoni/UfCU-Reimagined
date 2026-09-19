@@ -14,6 +14,7 @@ import { Waiting } from './screens/Waiting.jsx'
 import { Secure } from './screens/Secure.jsx'
 import { Funding } from './screens/Funding.jsx'
 import { Done } from './screens/Done.jsx'
+import { Disclosures } from './components/Disclosures.jsx'
 
 const SCREENS = {
   welcome: Landing,
@@ -66,6 +67,7 @@ function Wordmark() {
 export default function App() {
   const { step, lang } = useOnboarding()
   const [chatOpen, setChatOpen] = useState(false)
+  const [docsOpen, setDocsOpen] = useState(false)
   const [seed, setSeed] = useState(null)
   const panelRef = useRef(null)
 
@@ -151,10 +153,47 @@ export default function App() {
         </>
       )}
 
-      <footer className="relative z-10 mx-auto max-w-6xl px-5 pb-10 text-center text-xs text-navy-subtle">
-        Concept prototype for the DevelopU Hackathon. All verification, funding and
-        account data is simulated — no real financial systems are connected.
+      {/* Required credit-union disclosures. "Federally insured by NCUA" and the
+          equal-housing statement are not decoration — a US credit union must
+          display them, and their absence is the first thing a compliance
+          reviewer notices. */}
+      <footer className="relative z-10 mx-auto max-w-6xl px-5 pb-10">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 border-t border-white/10 pt-6 text-center">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-wide text-navy-subtle">
+            <span className="flex items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                className="rounded-full border border-navy-subtle/70 px-2 py-[3px] text-[9px] font-extrabold leading-none tracking-[0.06em]"
+              >
+                NCUA
+              </span>
+              {t(lang, 'ncua')}
+            </span>
+            <span className="flex items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                className="flex h-[19px] w-[19px] items-center justify-center rounded-[4px] border border-navy-subtle/70 text-[12px] leading-none"
+              >
+                ⌂
+              </span>
+              {t(lang, 'equalHousing')}
+            </span>
+          </div>
+
+          <button
+            onClick={() => setDocsOpen(true)}
+            className="text-xs font-semibold text-navy-subtle underline transition hover:text-white"
+          >
+            {t(lang, 'footerDisclosures')}
+          </button>
+
+          <p className="text-xs leading-relaxed text-navy-subtle">
+            {t(lang, 'footerDemo')}
+          </p>
+        </div>
       </footer>
+
+      <Disclosures open={docsOpen} onClose={() => setDocsOpen(false)} />
     </div>
   )
 }

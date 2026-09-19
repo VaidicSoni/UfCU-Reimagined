@@ -87,9 +87,6 @@ export function inferSegment(goalIds) {
   return { en: 'keeping it simple', es: 'manteniéndolo simple' }
 }
 
-// Screen 5 — the checks that animate in the Productive Waiting Room.
-export const KYC_STEPS = ['checkId', 'checkIdentity', 'checkOfac', 'checkAccount']
-
 export const BANKS = [
   { id: 'chase', name: 'Chase', color: '#117ACA' },
   { id: 'bofa', name: 'Bank of America', color: '#E31837' },

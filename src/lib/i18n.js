@@ -5,6 +5,13 @@ export const COPY = {
   en: {
     brand: 'UFCU',
     tagline: 'From click to community',
+
+    // Required credit-union disclosures shown site-wide.
+    ncua: 'Federally insured by NCUA',
+    equalHousing: 'Equal Housing Opportunity',
+    footerDisclosures: 'Disclosures, rates and privacy notice',
+    footerDemo:
+      'Concept prototype for the DevelopU Hackathon. Verification, funding and account data is simulated — no real financial systems are connected and no personal data leaves your browser.',
     stepOf: (a, b) => `Step ${a} of ${b}`,
     langToggle: 'Español',
     textSize: 'Text size',
@@ -145,6 +152,12 @@ export const COPY = {
   es: {
     brand: 'UFCU',
     tagline: 'Del clic a la comunidad',
+
+    ncua: 'Asegurado federalmente por NCUA',
+    equalHousing: 'Igualdad de Oportunidad de Vivienda',
+    footerDisclosures: 'Divulgaciones, tasas y aviso de privacidad',
+    footerDemo:
+      'Prototipo conceptual para el DevelopU Hackathon. La verificación, los fondos y los datos de cuenta son simulados: no hay sistemas financieros reales conectados y ningún dato personal sale de su navegador.',
     stepOf: (a, b) => `Paso ${a} de ${b}`,
     langToggle: 'English',
     textSize: 'Tamaño de texto',

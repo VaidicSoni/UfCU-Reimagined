@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState, useEffect, useCallback } from 'react'
+import { REQUIRED_CONSENTS, consentReference } from '../lib/compliance.js'
 
 const OnboardingContext = createContext(null)
 
@@ -24,6 +25,7 @@ const PROGRESS_STEPS = ['goals', 'about', 'address', 'identity', 'secure', 'fund
 const INITIAL_FORM = {
   firstName: '',
   lastName: '',
+  dob: '',
   email: '',
   phone: '',
   address: '',
@@ -58,7 +60,10 @@ export function OnboardingProvider({ children }) {
   const [goals, setGoals] = useState([])
   const [form, setForm] = useState(INITIAL_FORM)
   const [idScanned, setIdScanned] = useState(false)
-  const [consent, setConsent] = useState(false)
+  // Consent is unbundled: an array of the ids the member actually granted,
+  // so declining the optional one is recorded as a decline rather than lost.
+  const [consents, setConsents] = useState([])
+  const [consentRecord, setConsentRecord] = useState(null)
   const [passkey, setPasskey] = useState(null)
   const [funded, setFunded] = useState(false)
   const [linkedBank, setLinkedBank] = useState(null)
@@ -84,6 +89,20 @@ export function OnboardingProvider({ children }) {
     setGoals((g) => (g.includes(id) ? g.filter((x) => x !== id) : [...g, id]))
   }, [])
 
+  const toggleConsent = useCallback((id) => {
+    setConsents((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
+  }, [])
+
+  // Stamp what was agreed, when, under which reference. A member who later asks
+  // "what did I sign up to?" gets an answer instead of a shrug.
+  const recordConsent = useCallback(() => {
+    setConsentRecord({
+      at: new Date().toISOString(),
+      ref: consentReference(),
+      granted: [...consents],
+    })
+  }, [consents])
+
   const go = useCallback((next) => {
     setStep(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -93,7 +112,8 @@ export function OnboardingProvider({ children }) {
     setGoals([])
     setForm(INITIAL_FORM)
     setIdScanned(false)
-    setConsent(false)
+    setConsents([])
+    setConsentRecord(null)
     setPasskey(null)
     setFunded(false)
     setLinkedBank(null)
@@ -111,12 +131,15 @@ export function OnboardingProvider({ children }) {
     return { current: index + 1, total: PROGRESS_STEPS.length }
   }, [step])
 
+  // Every *required* consent must be granted before verification can run.
+  const consentComplete = REQUIRED_CONSENTS.every((id) => consents.includes(id))
+
   const value = {
     step, go, reset, progress,
     goals, toggleGoal,
     form, update,
     idScanned, setIdScanned,
-    consent, setConsent,
+    consents, toggleConsent, consentComplete, consentRecord, recordConsent,
     passkey, setPasskey,
     funded, setFunded,
     linkedBank, setLinkedBank,

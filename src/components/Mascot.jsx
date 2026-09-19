@@ -244,10 +244,10 @@ export function Mascot({
           <ellipse cx="70" cy="41" rx="3.2" ry="4.2" fill="#23335D" />
         </g>
 
-        {/* Screw base */}
-        <rect x="46" y="95" width="28" height="6" rx="3" fill="#8182B1" />
-        <rect x="48" y="103" width="24" height="6" rx="3" fill="#8182B1" />
-        <rect x="51" y="111" width="18" height="7" rx="3.5" fill="#23335D" />
+        {/* Screw base — two bands, the upper one tucked under the glass. */}
+        <rect x="45.5" y="91" width="29" height="7" rx="3.5" fill="#8182B1" />
+        <rect x="48" y="99.5" width="24" height="7" rx="3.5" fill="#8182B1" />
+        <rect x="53.5" y="108" width="13" height="6.5" rx="3.25" fill="#23335D" />
 
         <g className="lumi-sparks">
           <circle cx="14" cy="34" r="3.5" fill="#F2780C" />

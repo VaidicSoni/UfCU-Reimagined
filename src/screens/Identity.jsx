@@ -8,10 +8,11 @@ import { Icon } from '../components/Icons.jsx'
 import { Consent } from '../components/Consent.jsx'
 
 export function Identity() {
-  const { form, update, go, lang, idScanned, setIdScanned, consent, setConsent } = useOnboarding()
+  const { form, update, go, lang, idScanned, setIdScanned, consentComplete, recordConsent } =
+    useOnboarding()
   const [scanning, setScanning] = useState(false)
   const ssnValid = form.ssn.replace(/\D/g, '').length === 9
-  const ready = ssnValid && idScanned && consent
+  const ready = ssnValid && idScanned && consentComplete
 
   const scan = async () => {
     setScanning(true)
@@ -30,6 +31,7 @@ export function Identity() {
         value={form.ssn}
         onChange={(v) => update({ ssn: formatSSN(v) })}
         valid={ssnValid}
+        secret
         hint={t(lang, 'ssnWhy')}
       />
 
@@ -66,11 +68,18 @@ export function Identity() {
         </button>
       </div>
 
-      <Consent agreed={consent} onChange={setConsent} />
+      <Consent />
 
       <div className="flex gap-3">
         <Button variant="ghost" onClick={() => go('address')}>{t(lang, 'back')}</Button>
-        <Button onClick={() => go('waiting')} disabled={!ready} className="flex-1">
+        <Button
+          onClick={() => {
+            recordConsent()
+            go('waiting')
+          }}
+          disabled={!ready}
+          className="flex-1"
+        >
           {t(lang, 'verifyCta')}
         </Button>
       </div>
