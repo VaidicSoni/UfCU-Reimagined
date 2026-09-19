@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
-import { formatSSN, delay, ID_TYPES, validateTaxId, scanOutcome } from '../lib/mockApi.js'
+import { formatTaxId, delay, ID_TYPES, validateTaxId, scanOutcome } from '../lib/mockApi.js'
 import { Field } from '../components/Field.jsx'
 import { Button } from '../components/Button.jsx'
 import { Icon } from '../components/Icons.jsx'
@@ -10,7 +10,7 @@ import { MockPlaid } from '../components/MockPlaid.jsx'
 
 export function Identity() {
   const {
-    form, update, go, lang,
+    goals, form, update, go, lang,
     idScanned, setIdScanned,
     consent, setConsent,
     taxIdType, setTaxIdType,
@@ -73,7 +73,10 @@ export function Identity() {
       <div>
         <p className="mb-2 text-sm font-bold text-navy">{t(lang, 'taxIdType')}</p>
         <div className="flex gap-2" role="group" aria-label={t(lang, 'taxIdType')}>
-          {[['ssn', 'taxSsn'], ['itin', 'taxItin'], ['none', 'taxNone']].map(([id, label]) => (
+          {(goals.includes('business')
+            ? [['ssn', 'taxSsn'], ['itin', 'taxItin'], ['ein', 'taxEin'], ['none', 'taxNone']]
+            : [['ssn', 'taxSsn'], ['itin', 'taxItin'], ['none', 'taxNone']]
+          ).map(([id, label]) => (
             <button
               key={id}
               onClick={() => {
@@ -141,12 +144,12 @@ export function Identity() {
       ) : (
       <div>
         <Field
-          label={t(lang, taxIdType === 'itin' ? 'itinLabel' : 'ssnLabel')}
+          label={t(lang, taxIdType === 'itin' ? 'itinLabel' : taxIdType === 'ein' ? 'einLabel' : 'ssnLabel')}
           inputMode="numeric"
           value={form.ssn}
-          onChange={(v) => update({ ssn: formatSSN(v) })}
+          onChange={(v) => update({ ssn: formatTaxId(v, taxIdType) })}
           valid={tax.valid}
-          hint={t(lang, taxIdType === 'itin' ? 'itinWhy' : 'ssnWhy')}
+          hint={t(lang, taxIdType === 'itin' ? 'itinWhy' : taxIdType === 'ein' ? 'einWhy' : 'ssnWhy')}
           fieldId="ssn"
         />
         {tax.reason && (

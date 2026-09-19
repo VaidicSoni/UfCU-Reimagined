@@ -253,6 +253,7 @@ export function validateTaxId(value, type) {
   if (type === 'none') return { valid: false, reason: null }
   const digits = (value || '').replace(/\D/g, '')
   if (digits.length !== 9) return { valid: false, reason: null }
+  if (type === 'ein') return { valid: true, reason: null }
   if (type === 'itin' && digits[0] !== '9') return { valid: false, reason: 'taxErrItin' }
   if (type === 'ssn' && digits[0] === '9') return { valid: false, reason: 'taxErrSsn' }
   return { valid: true, reason: null }
@@ -268,4 +269,15 @@ export function scanOutcome(attempt) {
     new URLSearchParams(window.location.search).get('scan') === 'fail'
   if (forced && attempt === 0) return { ok: false, reason: 'scanGlare' }
   return { ok: true }
+}
+
+export function formatTaxId(value, type) {
+  const digits = value.replace(/\D/g, '').slice(0, 9)
+  if (type === 'ein') {
+    if (digits.length <= 2) return digits
+    return `${digits.slice(0, 2)}-${digits.slice(2)}`
+  }
+  if (digits.length <= 3) return digits
+  if (digits.length <= 5) return `${digits.slice(0, 3)}-${digits.slice(3)}`
+  return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`
 }

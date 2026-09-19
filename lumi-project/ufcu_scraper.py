@@ -5,7 +5,7 @@ import os
 import re
 
 DOMAIN = "https://ufcu.org"
-OUTPUT_DIR = "ufcu_rag_docs"
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "knowledge_docs")
 
 # Seed URLs to spider outward from
 SEED_URLS = [
@@ -101,7 +101,7 @@ UFCU Reimagined - App Onboarding Flow & Screen Guide
 The onboarding flow consists of the following screens:
 1. About (/about): Collects Name, Email, Phone, and University/Employer affiliation. UFCU offers membership to UT, TXST, ACC, and other partners. Anyone can join via the free American Consumer Council option.
 2. Address (/address): Collects residential street address, city, state, and zip code. This is required by federal law to verify identity and establish residency.
-3. Identity (/identity): Collects Date of Birth (DOB) and Social Security Number (SSN) or ITIN. This is strictly required by the USA PATRIOT Act for KYC (Know Your Customer) and AML (Anti-Money Laundering) compliance. UFCU uses bank-level encryption to secure this data.
+3. Identity (/identity): Collects Date of Birth (DOB) and Social Security Number (SSN) or ITIN (or an EIN for business accounts). This is strictly required by the USA PATRIOT Act for KYC (Know Your Customer) and AML (Anti-Money Laundering) compliance. UFCU uses bank-level encryption to secure this data.
 4. Funding (/funding): Members must fund their new account. The app integrates with Plaid for instant, secure bank-to-bank transfers. Plaid connects to thousands of financial institutions. No credentials are ever stored by UFCU.
 5. Secure (/secure): Members set up a secure password for their new digital banking profile. Passwords must meet strict length and complexity requirements to prevent unauthorized access.
 6. Goals (/goals): A personalized step where members select financial goals (e.g., Save for a car, Build credit) so UFCU can tailor account recommendations.
