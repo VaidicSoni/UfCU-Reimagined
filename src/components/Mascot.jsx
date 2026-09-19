@@ -16,7 +16,7 @@ import { useEffect, useRef } from 'react'
 //                    [x1, y1,  x2, y2,  rx, ry,  x3, y3,  x4, y4]
 // Centred in the glass cavity (y 16..80 inside the stroke): the filament reads
 // 27.5..68.5, leaving 11.5 clear above and below.
-const LETTER_U = [46, 31, 46, 51, 14, 14, 74, 51, 74, 31]
+const LETTER_U = [46, 36, 46, 56, 14, 14, 74, 56, 74, 36]
 const SMILE    = [48, 57, 48, 57, 12,  8, 72, 57, 72, 57]
 // Same endpoints and rx as the smile, only deeper — so the mouth opens like a
 // jaw instead of squeezing inwards, which is what looked wrong before.
@@ -61,24 +61,76 @@ export function Mascot({
   const glowRef = useRef(null)
   const eyesRef = useRef(null)
   const blinkRef = useRef(false)
+  
+  const [randomFace, setRandomFace] = useState(false)
+  const effectiveFace = face || randomFace
 
   // Live values the animation loop reads, so changing props never restarts it.
-  const morph = useRef(intro ? 0 : face ? 1 : 0)
+  const morph = useRef(intro ? 0 : effectiveFace ? 1 : 0)
   const tween = useRef(null)
   const talkEnv = useRef(0)
-  const faceRef = useRef(face)
+  const faceRef = useRef(effectiveFace)
   const speakingRef = useRef(speaking)
+  const targetX = useRef(0)
+  const targetY = useRef(0)
+  const curX = useRef(0)
+  const curY = useRef(0)
+  const mascotRef = useRef(null)
+
+  // Random idle face animation when hanging out in the corner
+  useEffect(() => {
+    if (prefersReducedMotion() || face || loop) return
+    let timeoutId
+    let revertId
+    const schedule = () => {
+      timeoutId = setTimeout(() => {
+        setRandomFace(true)
+        revertId = setTimeout(() => setRandomFace(false), 2500 + Math.random() * 1500)
+        schedule()
+      }, 10000 + Math.random() * 15000)
+    }
+    schedule()
+    return () => {
+  const targetY = useRef(0)
+  const curX = useRef(0)
+  const curY = useRef(0)
+  const mascotRef = useRef(null)
+
+  // Mouse tracking listener
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const onMove = (e) => {
+      if (!mascotRef.current || !faceRef.current) return
+      const rect = mascotRef.current.getBoundingClientRect()
+      const cx = rect.left + rect.width / 2
+      const cy = rect.top + rect.height / 2
+      const dx = e.clientX - cx
+      const dy = e.clientY - cy
+      const dist = Math.sqrt(dx * dx + dy * dy)
+      
+      // Look up to 4px sideways and 5px up/down if within 400px
+      if (dist < 400) {
+        targetX.current = (dx / 400) * 4
+        targetY.current = (dy / 400) * 5
+      } else {
+        targetX.current = 0
+        targetY.current = 0
+      }
+    }
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [])
 
   // Retarget the morph when the face/letter state flips.
   useEffect(() => {
-    if (faceRef.current === face) return
-    faceRef.current = face
+    if (faceRef.current === effectiveFace) return
+    faceRef.current = effectiveFace
     if (prefersReducedMotion()) {
-      morph.current = face ? 1 : 0
+      morph.current = effectiveFace ? 1 : 0
       return
     }
-    tween.current = { from: morph.current, to: face ? 1 : 0, start: performance.now() }
-  }, [face])
+    tween.current = { from: morph.current, to: effectiveFace ? 1 : 0, start: performance.now() }
+  }, [effectiveFace])
 
   useEffect(() => {
     speakingRef.current = speaking
@@ -101,12 +153,14 @@ export function Mascot({
       const eyeOpen = clamp01((m - 0.4) / 0.5)
       if (eyesRef.current) {
         eyesRef.current.setAttribute('opacity', eyeOpen)
-        eyesRef.current.style.transform = `scaleY(${blinkRef.current ? 0.12 : eyeOpen})`
+        const s = blinkRef.current ? 0.12 : eyeOpen
+        eyesRef.current.style.transform = `translate(${curX.current}px, ${curY.current}px) scaleY(${s})`
+        eyesRef.current.style.transformOrigin = '60px 41px'
       }
     }
 
     if (prefersReducedMotion()) {
-      paint(1, face ? 1 : 0, 0)
+      paint(1, effectiveFace ? 1 : 0, 0)
       return
     }
 
@@ -117,6 +171,10 @@ export function Mascot({
     const tick = (now) => {
       const elapsed = now - start
       const draw = intro ? clamp01(elapsed / DRAW_MS) : 1
+
+      // Ease the pupil target
+      curX.current += (targetX.current - curX.current) * 0.1
+      curY.current += (targetY.current - curY.current) * 0.1
 
       // Draw the letterform first, let it read, then relax into the face — but
       // only where she's actually in use. In the corner she stays the "u".
@@ -193,10 +251,11 @@ export function Mascot({
 
   const glow = 0.18 + brightness * 0.62
   const filamentColor = `rgba(242, 120, 12, ${0.45 + brightness * 0.55})`
-  const initial = filamentPath(intro ? LETTER_U : face ? SMILE : LETTER_U)
+  const initial = filamentPath(intro ? LETTER_U : effectiveFace ? SMILE : LETTER_U)
 
   return (
     <div
+      ref={mascotRef}
       className={`lumi lumi--${state} ${className}`}
       style={{ width: size, height: size * 0.98 }}
       aria-hidden="true"
@@ -238,7 +297,7 @@ export function Mascot({
           pathLength="100"
           fill="none"
           stroke={filamentColor}
-          strokeWidth={intro || !face ? 9 : 7}
+          strokeWidth={intro || !effectiveFace ? 9 : 7}
           strokeLinecap="round"
           strokeDasharray="100"
           strokeDashoffset={intro ? 100 : 0}
@@ -249,7 +308,7 @@ export function Mascot({
           pathLength="100"
           fill="none"
           stroke="#F2780C"
-          strokeWidth={intro || !face ? 9 : 7}
+          strokeWidth={intro || !effectiveFace ? 9 : 7}
           strokeLinecap="round"
           strokeDasharray="100"
           strokeDashoffset={intro ? 100 : 0}
@@ -257,7 +316,7 @@ export function Mascot({
           style={{ filter: 'blur(3px)' }}
         />
 
-        <g ref={eyesRef} className="lumi-eyes" opacity={intro ? 0 : face ? 1 : 0}>
+        <g ref={eyesRef} className="lumi-eyes" opacity={intro ? 0 : effectiveFace ? 1 : 0}>
           <ellipse cx="50" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
           <ellipse cx="70" cy="41" rx="3.2" ry="4.2" fill={NAVY} />
         </g>
