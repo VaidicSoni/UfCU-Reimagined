@@ -30,9 +30,10 @@ export function MockPlaid({ bank, lang, onSuccess, onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy/80 p-4 backdrop-blur-sm animate-in fade-in">
       <div className="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-card">
         {/* Plaid Header */}
-        <div className="bg-navy p-4 flex items-center justify-between text-white">
+        <div className="p-4 flex items-center justify-between text-white" style={{ backgroundColor: bank.color }}>
           <div className="flex items-center gap-2 font-bold">
-            <span className="opacity-70">Secured by</span> Plaid
+            <span className="opacity-70">Secured by</span>
+            <img src="/logos/plaidLogo.png" alt="Plaid" className="h-5 brightness-0 invert" />
           </div>
           <button onClick={onClose} className="opacity-70 hover:opacity-100">✕</button>
         </div>
@@ -42,7 +43,7 @@ export function MockPlaid({ bank, lang, onSuccess, onClose }) {
             <div className="space-y-6 text-center">
               <div className="flex justify-center">
                 {bank.logo ? (
-                  <img src={bank.logo} alt={bank.name} className="h-16 w-16 rounded-xl object-contain shadow-sm border border-black/5 p-2" />
+                  <img src={bank.logo} alt={bank.name} className="h-16 w-16 rounded-xl object-cover shadow-sm border border-black/5" />
                 ) : (
                   <div className="flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white" style={{ background: bank.color }}>
                     {bank.name.charAt(0)}

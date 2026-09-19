@@ -51,7 +51,7 @@ export function Funding() {
             >
               {bank.logo ? (
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-black/5 shadow-sm">
-                  <img src={bank.logo} alt="" className="h-full w-full object-contain p-1" />
+                  <img src={bank.logo} alt="" className="h-full w-full object-cover" />
                 </div>
               ) : (
                 <span
