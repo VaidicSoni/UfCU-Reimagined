@@ -22,9 +22,12 @@ export function Identity() {
   const [scanError, setScanError] = useState(null)
   const [docType, setDocType] = useState('license')
   const [bankModal, setBankModal] = useState(false)
+  // Chosen route when there's no taxpayer number yet.
+  const [noTaxRoute, setNoTaxRoute] = useState(null)
 
   const tax = validateTaxId(form.ssn, taxIdType)
-  const ready = tax.valid && idScanned && consent
+  const noTax = taxIdType === 'none'
+  const ready = (noTax ? noTaxRoute === 'itin' : tax.valid) && idScanned && consent
   const doc = ID_TYPES.find((d) => d.id === docType)
 
   const scan = async () => {
@@ -70,10 +73,13 @@ export function Identity() {
       <div>
         <p className="mb-2 text-sm font-bold text-navy">{t(lang, 'taxIdType')}</p>
         <div className="flex gap-2" role="group" aria-label={t(lang, 'taxIdType')}>
-          {[['ssn', 'taxSsn'], ['itin', 'taxItin']].map(([id, label]) => (
+          {[['ssn', 'taxSsn'], ['itin', 'taxItin'], ['none', 'taxNone']].map(([id, label]) => (
             <button
               key={id}
-              onClick={() => setTaxIdType(id)}
+              onClick={() => {
+                setTaxIdType(id)
+                setNoTaxRoute(null)
+              }}
               aria-pressed={taxIdType === id}
               className={`flex-1 rounded-full px-4 py-2.5 text-sm font-bold transition ${
                 taxIdType === id
@@ -87,6 +93,52 @@ export function Identity() {
         </div>
       </div>
 
+      {/* UFCU's own page says to call or visit a branch if you lack the
+          documents. That's the honest answer, so it's one of the two routes —
+          alongside actually helping with the ITIN application. */}
+      {noTax ? (
+        <section className="u-chip border-2 border-navy-subtle bg-navy-subtle/25 p-5">
+          <p className="text-base font-extrabold text-navy">{t(lang, 'noTaxTitle')}</p>
+          <p className="mt-1 text-sm leading-relaxed text-navy-lighter">{t(lang, 'noTaxBody')}</p>
+
+          <div className="mt-4 space-y-2">
+            {[
+              ['itin', 'noTaxItin', 'noTaxItinBody'],
+              ['branch', 'noTaxBranch', 'noTaxBranchBody'],
+            ].map(([id, title, body]) => (
+              <button
+                key={id}
+                onClick={() => setNoTaxRoute(id)}
+                aria-pressed={noTaxRoute === id}
+                className={`u-chip flex w-full items-start gap-3 border-2 p-4 text-left transition ${
+                  noTaxRoute === id
+                    ? 'border-orange bg-orange-subtle'
+                    : 'border-navy-subtle bg-white hover:border-navy-lighter'
+                }`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold ${
+                    noTaxRoute === id ? 'border-orange bg-orange text-white' : 'border-navy-subtle text-transparent'
+                  }`}
+                >
+                  ✓
+                </span>
+                <span>
+                  <span className="block text-sm font-bold text-navy">{t(lang, title)}</span>
+                  <span className="block text-sm text-navy-lighter">{t(lang, body)}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {noTaxRoute === 'itin' && (
+            <p role="status" className="mt-3 text-sm font-semibold text-emerald-700">
+              {t(lang, 'noTaxChosen')}
+            </p>
+          )}
+        </section>
+      ) : (
       <div>
         <Field
           label={t(lang, taxIdType === 'itin' ? 'itinLabel' : 'ssnLabel')}
@@ -103,6 +155,7 @@ export function Identity() {
           </p>
         )}
       </div>
+      )}
 
       {/* Document capture */}
       <div className="rounded-2xl border-2 border-dashed border-navy-subtle bg-navy-subtle/20 p-5">

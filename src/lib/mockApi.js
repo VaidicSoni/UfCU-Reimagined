@@ -249,6 +249,8 @@ export const ID_TYPES = [
 // SSNs are never issued starting with 9; ITINs always are. That single rule
 // catches the most common mistake — entering one in the other's field.
 export function validateTaxId(value, type) {
+  // Neither number to hand is a legitimate state, not a failed entry.
+  if (type === 'none') return { valid: false, reason: null }
   const digits = (value || '').replace(/\D/g, '')
   if (digits.length !== 9) return { valid: false, reason: null }
   if (type === 'itin' && digits[0] !== '9') return { valid: false, reason: 'taxErrItin' }
@@ -256,9 +258,14 @@ export function validateTaxId(value, type) {
   return { valid: true, reason: null }
 }
 
-// The scan fails the first time on purpose. A demo where verification always
-// succeeds never shows the recovery path, and a failed scan is the single
-// biggest drop-off point in digital account opening.
+// Succeeds first time so the demo runs straight through. The failure path is
+// still worth showing — a failed scan is the biggest single drop-off point in
+// account opening — so ?scan=fail forces the first attempt to fail and the
+// retry to succeed. Same demo-shortcut pattern as ?step= and ?goals=.
 export function scanOutcome(attempt) {
-  return attempt === 0 ? { ok: false, reason: 'scanGlare' } : { ok: true }
+  const forced =
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('scan') === 'fail'
+  if (forced && attempt === 0) return { ok: false, reason: 'scanGlare' }
+  return { ok: true }
 }

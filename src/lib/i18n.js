@@ -15,6 +15,15 @@ export const COPY = {
     guide: 'Your UFCU guide',
     back: 'Back',
 
+    taxNone: 'Neither',
+    noTaxTitle: 'You can still get started',
+    noTaxBody: 'A taxpayer number is required to finish opening an account, but not to begin. Pick whichever suits you.',
+    noTaxItin: 'Help me apply for an ITIN',
+    noTaxItinBody: 'We\u2019ll walk you through IRS Form W-7 and hold your application until the number arrives.',
+    noTaxBranch: 'Talk to someone at a branch',
+    noTaxBranchBody: 'Call (512) 467-8080 or (800) 252-8311, or book a time at any UFCU branch.',
+    noTaxChosen: 'ITIN application started \u2014 we\u2019ll hold the rest of your application.',
+
     micStart: 'Speak your question',
     micStop: 'Stop listening',
     micUnsupported: 'Voice input needs Chrome or Safari',
@@ -335,6 +344,15 @@ export const COPY = {
     send: 'Enviar',
     guide: 'Su guía de UFCU',
     back: 'Atrás',
+
+    taxNone: 'Ninguno',
+    noTaxTitle: 'Igual puede empezar',
+    noTaxBody: 'Se necesita un número fiscal para terminar de abrir la cuenta, pero no para empezar. Elija lo que prefiera.',
+    noTaxItin: 'Ayúdenme a solicitar un ITIN',
+    noTaxItinBody: 'Le guiamos con el Formulario W-7 del IRS y guardamos su solicitud hasta que llegue el número.',
+    noTaxBranch: 'Hablar con alguien en una sucursal',
+    noTaxBranchBody: 'Llame al (512) 467-8080 o (800) 252-8311, o reserve una cita en cualquier sucursal.',
+    noTaxChosen: 'Solicitud de ITIN iniciada: guardaremos el resto de su solicitud.',
 
     micStart: 'Diga su pregunta',
     micStop: 'Dejar de escuchar',
