@@ -38,13 +38,19 @@ export function Funding() {
               disabled={!!linking}
               className="flex items-center gap-3 rounded-2xl border-2 border-navy-subtle bg-white p-4 text-left transition hover:border-navy-lighter disabled:opacity-50"
             >
-              <span
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-extrabold text-white"
-                style={{ background: bank.color }}
-                aria-hidden="true"
-              >
-                {bank.name.charAt(0)}
-              </span>
+              {bank.logo ? (
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-black/5 shadow-sm">
+                  <img src={bank.logo} alt="" className="h-full w-full object-contain p-1" />
+                </div>
+              ) : (
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-extrabold text-white"
+                  style={{ background: bank.color }}
+                  aria-hidden="true"
+                >
+                  {bank.name.charAt(0)}
+                </span>
+              )}
               <span className="flex-1 text-base font-semibold text-navy">{bank.name}</span>
               {linking === bank.id && <span className="text-sm text-navy-lighter">…</span>}
             </button>
