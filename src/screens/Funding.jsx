@@ -3,19 +3,22 @@ import { useOnboarding } from '../context/OnboardingContext.jsx'
 import { t } from '../lib/i18n.js'
 import { BANKS, delay } from '../lib/mockApi.js'
 import { Button } from '../components/Button.jsx'
+import { MockPlaid } from '../components/MockPlaid.jsx'
 
 // Plaid stand-in. Credentials are never collected: picking a bank is enough to
 // tell the story, and it keeps real logins off a demo laptop entirely.
 export function Funding() {
   const { go, lang, linkedBank, setLinkedBank, setFunded } = useOnboarding()
-  const [linking, setLinking] = useState(null)
+  const [plaidBank, setPlaidBank] = useState(null)
   const [transferring, setTransferring] = useState(false)
 
-  const link = async (bank) => {
-    setLinking(bank.id)
-    await delay(1600)
-    setLinking(null)
-    setLinkedBank(bank)
+  const handleBankClick = (bank) => {
+    setPlaidBank(bank)
+  }
+
+  const handlePlaidSuccess = () => {
+    setLinkedBank(plaidBank)
+    setPlaidBank(null)
   }
 
   const transfer = async () => {
@@ -29,24 +32,37 @@ export function Funding() {
     <div className="space-y-7">
       <h1 className="text-3xl font-extrabold leading-tight text-navy">{t(lang, 's7Title')}</h1>
 
+      {plaidBank && (
+        <MockPlaid 
+          bank={plaidBank} 
+          lang={lang} 
+          onSuccess={handlePlaidSuccess} 
+          onClose={() => setPlaidBank(null)} 
+        />
+      )}
+
       {!linkedBank ? (
         <div className="grid gap-3 sm:grid-cols-2">
           {BANKS.map((bank) => (
             <button
               key={bank.id}
-              onClick={() => link(bank)}
-              disabled={!!linking}
+              onClick={() => handleBankClick(bank)}
               className="flex items-center gap-3 rounded-2xl border-2 border-navy-subtle bg-white p-4 text-left transition hover:border-navy-lighter disabled:opacity-50"
             >
-              <span
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-extrabold text-white"
-                style={{ background: bank.color }}
-                aria-hidden="true"
-              >
-                {bank.name.charAt(0)}
-              </span>
+              {bank.logo ? (
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-black/5 shadow-sm">
+                  <img src={bank.logo} alt="" className="h-full w-full object-contain p-1" />
+                </div>
+              ) : (
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-extrabold text-white"
+                  style={{ background: bank.color }}
+                  aria-hidden="true"
+                >
+                  {bank.name.charAt(0)}
+                </span>
+              )}
               <span className="flex-1 text-base font-semibold text-navy">{bank.name}</span>
-              {linking === bank.id && <span className="text-sm text-navy-lighter">…</span>}
             </button>
           ))}
         </div>

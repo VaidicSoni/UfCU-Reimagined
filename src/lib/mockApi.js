@@ -91,12 +91,12 @@ export function inferSegment(goalIds) {
 export const KYC_STEPS = ['checkId', 'checkIdentity', 'checkOfac', 'checkAccount']
 
 export const BANKS = [
-  { id: 'chase', name: 'Chase', color: '#117ACA' },
-  { id: 'bofa', name: 'Bank of America', color: '#E31837' },
-  { id: 'wells', name: 'Wells Fargo', color: '#D71E28' },
-  { id: 'usaa', name: 'USAA', color: '#00447C' },
-  { id: 'frost', name: 'Frost Bank', color: '#00416B' },
-  { id: 'other', name: 'Another bank', color: '#23335D' },
+  { id: 'chase', name: 'Chase', color: '#117ACA', logo: '/logos/chaseLogo.jpg' },
+  { id: 'bofa', name: 'Bank of America', color: '#E31837', logo: '/logos/boaLogo.png' },
+  { id: 'wells', name: 'Wells Fargo', color: '#D71E28', logo: '/logos/wellFargoLogo.webp' },
+  { id: 'usaa', name: 'USAA', color: '#00447C', logo: '/logos/USAALogo.png' },
+  { id: 'frost', name: 'Frost Bank', color: '#00416B', logo: '/logos/frostLogo.png' },
+  { id: 'sofi', name: 'SoFi', color: '#23335D', logo: '/logos/sofiLogo.png' },
 ]
 
 // Mock address autocomplete — Austin-flavored, no network call.
