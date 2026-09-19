@@ -87,10 +87,6 @@ export function Dashboard({ chatOpen }) {
   // Switching the view resets any transfers made in the other one.
   useEffect(() => setBalances(seed), [seed])
 
-  const [from, setFrom] = useState(0)
-  const [to, setTo] = useState(1)
-  const [amount, setAmount] = useState('')
-  const [notice, setNotice] = useState(null)
 
   const accounts = deposits.map((item, i) => ({
     key: item.en,
