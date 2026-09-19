@@ -183,12 +183,12 @@ export const formatMoney = (n, lang = 'en') =>
 
 // Simulated 90-day activity for the spending and goal panels.
 export const SPEND_CATEGORIES = [
-  { id: 'bills', en: 'Bills & utilities', es: 'Servicios', amount: 412.47, color: '#23335D' },
-  { id: 'grocery', en: 'Groceries', es: 'Supermercado', amount: 318.9, color: '#EF6820' },
-  { id: 'transport', en: 'Transport', es: 'Transporte', amount: 164.2, color: '#8182B1' },
-  { id: 'dining', en: 'Dining', es: 'Restaurantes', amount: 121.75, color: '#F2780C' },
-  { id: 'health', en: 'Health', es: 'Salud', amount: 84.0, color: '#F49A6A' },
-  { id: 'other', en: 'Everything else', es: 'Otros', amount: 58.3, color: '#CDCDE0' },
+  { id: 'bills', icon: '⚡', en: 'Bills & utilities', es: 'Servicios', amount: 412.47, color: '#23335D' },
+  { id: 'grocery', icon: '🛒', en: 'Groceries', es: 'Supermercado', amount: 318.9, color: '#EF6820' },
+  { id: 'transport', icon: '🚗', en: 'Transport', es: 'Transporte', amount: 164.2, color: '#8182B1' },
+  { id: 'dining', icon: '🍽️', en: 'Dining', es: 'Restaurantes', amount: 121.75, color: '#F2780C' },
+  { id: 'health', icon: '🏥', en: 'Health', es: 'Salud', amount: 84.0, color: '#F49A6A' },
+  { id: 'other', icon: '✨', en: 'Everything else', es: 'Otros', amount: 58.3, color: '#CDCDE0' },
 ]
 
 // Income vs spend, most recent month last.

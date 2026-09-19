@@ -32,7 +32,7 @@ export async function initLLM() {
     }
 }
 
-export async function generateAnswerLLM(question, contextChunks, screen, field) {
+export async function generateAnswerLLM(question, contextChunks, screen, field, history = []) {
     if (!model || !context) {
         console.warn("LLM not initialized. Falling back to simple template.");
         return null; // Will fallback to the mock generator
@@ -60,9 +60,18 @@ export async function generateAnswerLLM(question, contextChunks, screen, field) 
             systemPrompt: sysPrompt
         });
         
-        const userPrompt = `Context:\n${contextChunks.join("\n\n")}\n\nQuestion: ${question}`;
+        let transcript = "";
+        // Truncate history to last 6 messages to avoid blowing up the context window limit
+        const recentHistory = (history || []).slice(-6);
+        if (recentHistory.length > 0) {
+            transcript = "Previous conversation:\n" + 
+                recentHistory.map(m => `${m.role === 'model' ? 'Lumi' : 'User'}: ${m.content}`).join("\n") + 
+                "\n\n";
+        }
         
-        console.log(`[LLM] Generating answer for: "${question}"...`);
+        const userPrompt = `${transcript}Context:\n${contextChunks.join("\n\n")}\n\nCurrent Question: ${question}`;
+        
+        console.log(`[LLM] Generating answer for: "${question}" with ${recentHistory.length} history items...`);
         const answer = await session.prompt(userPrompt);
         return answer.trim();
     } catch (err) {

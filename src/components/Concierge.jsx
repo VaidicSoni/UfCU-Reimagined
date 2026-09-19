@@ -26,6 +26,12 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
     const q = question.trim()
     if (!q) return
     
+    // Snapshot history before adding the new question
+    const historySnapshot = thread.filter(m => !m.loading && m.text).map(m => ({
+      role: m.role === 'guide' ? 'model' : 'user',
+      content: m.text
+    }))
+    
     // RAG answer path (with shimmer) for EVERYTHING
     setThread((prev) => [
       ...prev,
@@ -35,7 +41,7 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
     setDraft('')
 
     try {
-      const answer = await askRag(q, step, focusedField || '', lang)
+      const answer = await askRag(q, step, focusedField || '', lang, historySnapshot)
       // Replace the loading placeholder with the real answer
       setThread((prev) => {
         const updated = [...prev]
@@ -132,10 +138,10 @@ export function Concierge({ message, seed, onClose, open, mood = 'idle' }) {
       </header>
 
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
-        {/* Lumi's scripted guide message for this step — always with typewriter */}
+        {/* Lumi's scripted guide message for this step — instantly rendered */}
         <div className="rounded-2xl rounded-tl-sm bg-white/10 p-4 text-white">
           <p className="whitespace-pre-wrap text-base leading-relaxed">
-            <TypewriterText text={message} key={message} />
+            {message}
           </p>
           {ttsSupported() && (
             <button

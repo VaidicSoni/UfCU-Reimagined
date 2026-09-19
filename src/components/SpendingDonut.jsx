@@ -73,9 +73,11 @@ export function SpendingDonut({ hidden }) {
             >
               <span
                 aria-hidden="true"
-                className="h-3 w-3 shrink-0 rounded-full"
-                style={{ background: seg.color }}
-              />
+                className="flex h-8 w-8 items-center justify-center shrink-0 rounded-full text-sm"
+                style={{ backgroundColor: `${seg.color}20`, color: seg.color }}
+              >
+                {seg.icon}
+              </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-semibold text-navy">
                   {lang === 'es' ? seg.es : seg.en}

@@ -113,13 +113,13 @@ export function askGuide(question, lang = 'en') {
 }
 
 // ── Async RAG lookup (for custom typed questions) ──────────────────────
-export async function askRag(question, screen = '', field = '', lang = 'en') {
+export async function askRag(question, screen = '', field = '', lang = 'en', history = []) {
   // Hit the RAG API which uses the real local LLM (Llama 3.2 via Metal)
   try {
     const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question, screen, focusedField: field }),
+      body: JSON.stringify({ question, screen, focusedField: field, history }),
     })
     if (!res.ok) throw new Error(`Server error: ${res.status}`)
     const data = await res.json()

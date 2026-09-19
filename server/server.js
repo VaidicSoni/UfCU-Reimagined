@@ -43,7 +43,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/ask', async (req, res) => {
-    const { question, screen, focusedField } = req.body;
+    const { question, screen, focusedField, history } = req.body;
     
     if (!question) {
         return res.status(400).json({ error: "Question is required." });
@@ -57,7 +57,7 @@ app.post('/api/ask', async (req, res) => {
     const contextTexts = filteredResults.map(r => r.text);
 
     // Try to generate an answer with the real LLM first
-    let answer = await generateAnswerLLM(question, contextTexts, screen, focusedField);
+    let answer = await generateAnswerLLM(question, contextTexts, screen, focusedField, history);
     
     if (!answer) {
         // Fallback to the deterministic template if LLM isn't ready

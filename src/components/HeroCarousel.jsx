@@ -23,9 +23,9 @@ const SLIDES = [
 // `image` is optional: drop real card art at these paths and it replaces the
 // drawn face, the same way the slide photos work.
 const CARDS = [
-  { id: 'ut', bg: '#BF5700', accent: '#FFFFFF', chip: '#F6C177', label: 'UT AUSTIN', image: '/slides/card-ut.png' },
-  { id: 'txst', bg: '#501214', accent: '#B2A169', chip: '#D8C48A', label: 'TXST', image: '/slides/card-txst.png' },
-  { id: 'acc', bg: '#14566B', accent: '#7FC6A4', chip: '#A7D8C2', label: 'ACC', image: '/slides/card-acc.png' },
+  { id: 'ut', bg: '#BF5700', accent: '#FFFFFF', chip: '#F6C177', label: 'UT AUSTIN', image: '/cards/uta.png' },
+  { id: 'txst', bg: '#501214', accent: '#B2A169', chip: '#D8C48A', label: 'TXST', image: '/cards/txst.png' },
+  { id: 'acc', bg: '#14566B', accent: '#7FC6A4', chip: '#A7D8C2', label: 'ACC', image: '/cards/default.png' },
 ]
 
 function CardFan() {
